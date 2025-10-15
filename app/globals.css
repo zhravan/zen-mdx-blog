@@ -19,11 +19,6 @@
   --color-link: hsl(220 10% 70%);
   --color-link-hover: hsl(220 10% 85%);
   
-  --font-size-xs: 0.6875rem;
-  --font-size-sm: 0.8125rem;
-  --font-size-base: 0.9375rem;
-  --font-size-lg: 1rem;
-  
   --font-family-sans: 'Space Grotesk', system-ui, sans-serif;
 }
 
@@ -61,33 +56,38 @@ a:hover {
 }
 
 .prose h1 {
-  font-size: var(--font-size-base);
+  font-size: 0.9375rem;
+  line-height: 1.6;
   font-weight: 400;
   margin-bottom: 0.75rem;
   margin-top: 1.5rem;
 }
 
 .prose h2 {
-  font-size: var(--font-size-sm);
+  font-size: 0.8125rem;
+  line-height: 1.5;
   font-weight: 400;
   margin-bottom: 0.5rem;
   margin-top: 1.25rem;
 }
 
 .prose h3 {
-  font-size: var(--font-size-xs);
+  font-size: 0.6875rem;
+  line-height: 1.4;
   font-weight: 400;
   margin-bottom: 0.5rem;
   margin-top: 1rem;
 }
 
 .prose p {
+  font-size: 0.6875rem;
+  line-height: 1.4;
   margin-bottom: 0.75rem;
-  line-height: 1.6;
-  font-size: var(--font-size-xs);
 }
 
 .prose ul, .prose ol {
+  font-size: 0.6875rem;
+  line-height: 1.4;
   margin-bottom: 1rem;
   margin-left: 1.5rem;
 }

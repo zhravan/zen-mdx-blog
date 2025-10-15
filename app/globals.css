@@ -156,6 +156,15 @@ a:hover {
   color: var(--color-link-hover);
 }
 
+.prose-sm {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+}
+
+.max-w-none {
+  max-width: none;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

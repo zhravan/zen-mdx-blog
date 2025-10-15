@@ -63,7 +63,7 @@ export default async function BlogPost({
         </Link>
       </div>
 
-      <article className="prose animate-fade-in">
+      <article className="animate-fade-in">
         <h1 className="text-base mb-2">{post.title}</h1>
         <p
           className="text-xs mb-6 opacity-70"
@@ -71,7 +71,9 @@ export default async function BlogPost({
         >
           {post.date}
         </p>
-        <Content />
+        <div className="prose prose-sm max-w-none">
+          <Content />
+        </div>
       </article>
     </div>
   );

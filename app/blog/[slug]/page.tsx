@@ -64,14 +64,29 @@ export default async function BlogPost({
       </div>
 
       <article className="animate-fade-in">
-        <h1 className="text-base mb-2">{post.title}</h1>
+        <h1
+          style={{
+            fontSize: '0.9375rem',
+            lineHeight: '1.6',
+            fontWeight: 400,
+            marginBottom: '0.5rem',
+            color: 'var(--color-foreground)'
+          }}
+        >
+          {post.title}
+        </h1>
         <p
-          className="text-xs mb-6 opacity-70"
-          style={{ color: 'var(--color-muted-foreground)' }}
+          style={{
+            fontSize: '0.6875rem',
+            lineHeight: '1.4',
+            marginBottom: '1.5rem',
+            color: 'var(--color-muted-foreground)',
+            opacity: 0.7
+          }}
         >
           {post.date}
         </p>
-        <div className="prose prose-sm max-w-none">
+        <div>
           <Content />
         </div>
       </article>

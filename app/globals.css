@@ -56,59 +56,59 @@ a:hover {
 }
 
 .prose h1 {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  font-weight: 400;
-  margin-bottom: 1rem;
-  margin-top: 0;
+  font-size: 0.9375rem !important;
+  line-height: 1.6 !important;
+  font-weight: 400 !important;
+  margin-bottom: 1rem !important;
+  margin-top: 0 !important;
 }
 
 .prose h2 {
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  font-weight: 400;
-  margin-bottom: 0.75rem;
-  margin-top: 2rem;
+  font-size: 0.8125rem !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+  margin-bottom: 0.75rem !important;
+  margin-top: 2rem !important;
 }
 
 .prose h3 {
-  font-size: 0.6875rem;
-  line-height: 1.4;
-  font-weight: 400;
-  margin-bottom: 0.75rem;
-  margin-top: 1.5rem;
+  font-size: 0.6875rem !important;
+  line-height: 1.4 !important;
+  font-weight: 400 !important;
+  margin-bottom: 0.75rem !important;
+  margin-top: 1.5rem !important;
 }
 
 .prose p {
-  font-size: 0.6875rem;
-  line-height: 1.7;
-  margin-bottom: 1rem;
-  color: var(--color-muted-foreground);
+  font-size: 0.6875rem !important;
+  line-height: 1.7 !important;
+  margin-bottom: 1rem !important;
+  color: var(--color-muted-foreground) !important;
 }
 
 .prose ul {
-  list-style-type: disc;
-  font-size: 0.6875rem;
-  line-height: 1.7;
-  margin-bottom: 1rem;
-  margin-left: 1.5rem;
-  margin-top: 0.5rem;
-  color: var(--color-muted-foreground);
+  list-style-type: disc !important;
+  font-size: 0.6875rem !important;
+  line-height: 1.7 !important;
+  margin-bottom: 1rem !important;
+  margin-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  color: var(--color-muted-foreground) !important;
 }
 
 .prose ol {
-  list-style-type: decimal;
-  font-size: 0.6875rem;
-  line-height: 1.7;
-  margin-bottom: 1rem;
-  margin-left: 1.5rem;
-  margin-top: 0.5rem;
-  color: var(--color-muted-foreground);
+  list-style-type: decimal !important;
+  font-size: 0.6875rem !important;
+  line-height: 1.7 !important;
+  margin-bottom: 1rem !important;
+  margin-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  color: var(--color-muted-foreground) !important;
 }
 
 .prose li {
-  margin-bottom: 0.25rem;
-  color: var(--color-muted-foreground);
+  margin-bottom: 0.25rem !important;
+  color: var(--color-muted-foreground) !important;
 }
 
 .prose code {
@@ -127,31 +127,31 @@ a:hover {
 }
 
 .prose blockquote {
-  border-left: 4px solid var(--color-border);
-  padding-left: 1rem;
-  font-style: italic;
-  margin: 1.5rem 0;
-  color: var(--color-muted-foreground);
-  font-size: 0.6875rem;
-  line-height: 1.7;
+  border-left: 4px solid var(--color-border) !important;
+  padding-left: 1rem !important;
+  font-style: italic !important;
+  margin: 1.5rem 0 !important;
+  color: var(--color-muted-foreground) !important;
+  font-size: 0.6875rem !important;
+  line-height: 1.7 !important;
 }
 
 .prose blockquote p {
-  margin: 0;
+  margin: 0 !important;
 }
 
 .prose pre code {
-  background-color: transparent;
-  padding: 0;
+  background-color: transparent !important;
+  padding: 0 !important;
 }
 
 .prose strong {
-  font-weight: 600;
-  color: var(--color-foreground);
+  font-weight: 600 !important;
+  color: var(--color-foreground) !important;
 }
 
 .prose em {
-  font-style: italic;
+  font-style: italic !important;
 }
 
 .prose a {

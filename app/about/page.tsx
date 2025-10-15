@@ -16,7 +16,7 @@ export default function About() {
       >
         <h2 className="text-xs">Background</h2>
         <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
-          I'm a developer focused on creating tools and experiences that make
+          I am a developer focused on creating tools and experiences that make
           technology more accessible. My background spans full-stack
           development, developer relations, and technical writing.
         </p>
@@ -39,15 +39,15 @@ export default function About() {
 
         <h2 className="text-xs">Beyond Code</h2>
         <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
-          When I'm not at my keyboard, you'll find me exploring new music,
+          When I am not at my keyboard, you will find me exploring new music,
           reading about design and human-computer interaction, or spending time
-          outdoors. I'm a firm believer that diverse interests make for better
+          outdoors. I am a firm believer that diverse interests make for better
           developers.
         </p>
 
         <h2 className="text-xs">Get in Touch</h2>
         <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
-          I'm always interested in connecting with other developers, designers,
+          I am always interested in connecting with other developers, designers,
           and creators. Whether you want to discuss a project, collaborate on
           something new, or just chat about technology, feel free to reach out.
         </p>

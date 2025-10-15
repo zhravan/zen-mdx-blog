@@ -2,7 +2,7 @@ import { ExternalLink } from 'lucide-react';
 
 export const metadata = {
   title: 'Work',
-  description: 'A selection of projects I've built and contributed to.'
+  description: 'A selection of projects I have built and contributed to.'
 };
 
 const projects = [
@@ -35,7 +35,7 @@ export default function Work() {
       <section className="animate-fade-in">
         <h1 className="text-sm mb-4">Work</h1>
         <p className="text-xs mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
-          A selection of projects I've built and contributed to.
+          A selection of projects I have built and contributed to.
         </p>
       </section>
 

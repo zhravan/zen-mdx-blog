@@ -15,19 +15,22 @@ export function NavLink({ href, children }: NavLinkProps) {
   return (
     <Link
       href={href}
-      className="text-xs no-underline border-none pb-0 transition-colors duration-150"
+      className="text-xs transition-all duration-150"
       style={{
         color: isActive
           ? 'var(--color-foreground)'
-          : 'var(--color-muted-foreground)'
+          : 'var(--color-muted-foreground)',
+        textDecoration: 'none',
+        borderBottom: isActive ? '1px solid var(--color-foreground)' : 'none',
+        paddingBottom: isActive ? '1px' : '0'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.color = 'var(--color-foreground)';
       }}
       onMouseLeave={(e) => {
-        if (!isActive) {
-          e.currentTarget.style.color = 'var(--color-muted-foreground)';
-        }
+        e.currentTarget.style.color = isActive
+          ? 'var(--color-foreground)'
+          : 'var(--color-muted-foreground)';
       }}
     >
       {children}

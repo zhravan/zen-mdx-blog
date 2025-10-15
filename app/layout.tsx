@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
-import Link from 'next/link';
+import { NavLink } from '@/components/NavLink';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
@@ -38,14 +38,9 @@ export default function RootLayout({
             <div className="max-w-2xl mx-auto px-8 py-8">
               <div className="flex gap-6">
                 {navItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    href={item.path}
-                    className="text-xs no-underline border-none pb-0 transition-colors duration-150"
-                    style={{ color: 'var(--color-muted-foreground)' }}
-                  >
+                  <NavLink key={item.path} href={item.path}>
                     {item.name}
-                  </Link>
+                  </NavLink>
                 ))}
               </div>
             </div>

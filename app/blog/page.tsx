@@ -23,11 +23,17 @@ export default function Blog() {
           {posts.map((post, index) => (
             <article
               key={post.slug}
-              className="space-y-1 animate-fade-up group"
+              className="space-y-1 animate-fade-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <Link href={`/blog/${post.slug}`}>
-                <h2 className="text-xs mb-1 group-hover:opacity-80 transition-colors">
+              <Link
+                href={`/blog/${post.slug}`}
+                className="block transition-opacity hover:opacity-80"
+              >
+                <h2
+                  className="text-xs mb-1"
+                  style={{ color: 'var(--color-foreground)' }}
+                >
                   {post.title}
                 </h2>
                 <p

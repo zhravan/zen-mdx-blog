@@ -48,14 +48,17 @@ export default function Work() {
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="flex items-baseline justify-between gap-4">
-                <h2 className="text-xs transition-colors group-hover:opacity-80">
+                <h2
+                  className="text-xs transition-opacity group-hover:opacity-80"
+                  style={{ color: 'var(--color-foreground)' }}
+                >
                   {project.title}
                 </h2>
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-shrink-0 no-underline border-none pb-0 transition-colors"
+                  className="flex-shrink-0 no-underline border-none pb-0 transition-colors hover:opacity-80"
                   style={{ color: 'var(--color-muted-foreground)' }}
                   aria-label={`View ${project.title} on GitHub`}
                 >

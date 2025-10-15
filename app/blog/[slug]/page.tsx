@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { BackLink } from '@/components/BackLink';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -53,14 +52,7 @@ export default async function BlogPost({
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2 mb-8">
-        <Link
-          href="/blog"
-          className="flex items-center gap-1 text-xs no-underline border-none pb-0 transition-colors"
-          style={{ color: 'var(--color-muted-foreground)' }}
-        >
-          <ArrowLeft className="w-3 h-3" />
-          Back to Blog
-        </Link>
+        <BackLink href="/blog">Back to Blog</BackLink>
       </div>
 
       <article className="animate-fade-in">

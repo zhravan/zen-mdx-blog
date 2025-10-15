@@ -55,16 +55,25 @@ export default async function BlogPost({
       <div className="flex items-center gap-2 mb-8">
         <Link
           href="/blog"
-          className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 text-xs no-underline border-none pb-0"
+          className="transition-colors flex items-center gap-1 text-xs no-underline border-none pb-0"
+          style={{ color: 'var(--color-muted-foreground)' }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = 'var(--color-foreground)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'var(--color-muted-foreground)';
+          }}
         >
           <ArrowLeft className="w-3 h-3" />
           Back to Blog
         </Link>
       </div>
 
-      <article className="prose animate-fade-in">
+      <article className="prose" style={{ animation: 'fade-in 0.4s ease-out' }}>
         <h1 className="text-base mb-2">{post.title}</h1>
-        <p className="text-muted-foreground/70 text-xs mb-6">{post.date}</p>
+        <p className="text-xs mb-6" style={{ color: 'var(--color-muted-foreground)', opacity: 0.7 }}>
+          {post.date}
+        </p>
         <Content />
       </article>
     </div>

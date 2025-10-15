@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body className="antialiased tracking-tight">
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen">
           <nav>
             <div className="max-w-2xl mx-auto px-8 py-8">
               <div className="flex gap-6">
@@ -41,7 +41,17 @@ export default function RootLayout({
                   <Link
                     key={item.path}
                     href={item.path}
-                    className="text-xs no-underline transition-colors duration-150 text-muted-foreground hover:text-foreground border-none pb-0"
+                    className="text-xs no-underline transition-colors duration-150 border-none pb-0"
+                    style={{
+                      color: 'var(--color-muted-foreground)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--color-foreground)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color =
+                        'var(--color-muted-foreground)';
+                    }}
                   >
                     {item.name}
                   </Link>
@@ -62,7 +72,10 @@ function Footer() {
   return (
     <footer className="mt-24">
       <div className="max-w-2xl mx-auto px-8 py-8">
-        <p className="text-xs text-muted-foreground">
+        <p
+          className="text-xs"
+          style={{ color: 'var(--color-muted-foreground)' }}
+        >
           © {new Date().getFullYear()}
         </p>
       </div>

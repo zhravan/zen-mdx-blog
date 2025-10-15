@@ -1,6 +1,5 @@
 import React, { ComponentPropsWithoutRef } from 'react';
 import Link from 'next/link';
-import { highlight } from 'sugar-high';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -11,46 +10,37 @@ type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
 
 const components = {
   h1: (props: HeadingProps) => (
-    <h1 className="font-medium pt-12 mb-0" {...props} />
+    <h1 className="text-base font-normal mb-3 mt-6" {...props} />
   ),
   h2: (props: HeadingProps) => (
-    <h2
-      className="text-gray-800 dark:text-zinc-200 font-medium mt-8 mb-3"
-      {...props}
-    />
+    <h2 className="text-sm font-normal mb-2 mt-5" {...props} />
   ),
   h3: (props: HeadingProps) => (
-    <h3
-      className="text-gray-800 dark:text-zinc-200 font-medium mt-8 mb-3"
-      {...props}
-    />
+    <h3 className="text-xs font-normal mb-2 mt-4" {...props} />
   ),
-  h4: (props: HeadingProps) => <h4 className="font-medium" {...props} />,
+  h4: (props: HeadingProps) => (
+    <h4 className="text-xs font-normal mb-2 mt-4" {...props} />
+  ),
   p: (props: ParagraphProps) => (
-    <p className="text-gray-800 dark:text-zinc-300 leading-snug" {...props} />
+    <p className="mb-3 leading-relaxed text-xs text-muted-foreground" {...props} />
   ),
   ol: (props: ListProps) => (
-    <ol
-      className="text-gray-800 dark:text-zinc-300 list-decimal pl-5 space-y-2"
-      {...props}
-    />
+    <ol className="mb-4 ml-6 text-xs list-decimal" {...props} />
   ),
   ul: (props: ListProps) => (
-    <ul
-      className="text-gray-800 dark:text-zinc-300 list-disc pl-5 space-y-1"
-      {...props}
-    />
+    <ul className="mb-4 ml-6 text-xs list-disc" {...props} />
   ),
-  li: (props: ListItemProps) => <li className="pl-1" {...props} />,
+  li: (props: ListItemProps) => (
+    <li className="mb-2 text-muted-foreground" {...props} />
+  ),
   em: (props: ComponentPropsWithoutRef<'em'>) => (
-    <em className="font-medium" {...props} />
+    <em className="italic" {...props} />
   ),
   strong: (props: ComponentPropsWithoutRef<'strong'>) => (
-    <strong className="font-medium" {...props} />
+    <strong className="font-semibold" {...props} />
   ),
   a: ({ href, children, ...props }: AnchorProps) => {
-    const className =
-      'text-blue-500 hover:text-blue-700 dark:text-gray-400 hover:dark:text-gray-300 dark:underline dark:underline-offset-2 dark:decoration-gray-800';
+    const className = 'text-link hover:text-link-hover';
     if (href?.startsWith('/')) {
       return (
         <Link href={href} className={className} {...props}>
@@ -77,36 +67,12 @@ const components = {
       </a>
     );
   },
-  code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
-    const codeHTML = highlight(children as string);
-    return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
-  },
-  Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
-    <table>
-      <thead>
-        <tr>
-          {data.headers.map((header, index) => (
-            <th key={index}>{header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.rows.map((row, index) => (
-          <tr key={index}>
-            {row.map((cell, cellIndex) => (
-              <td key={cellIndex}>{cell}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  ),
   blockquote: (props: BlockquoteProps) => (
     <blockquote
-      className="ml-[0.075em] border-l-3 border-gray-300 pl-4 text-gray-700 dark:border-zinc-600 dark:text-zinc-300"
+      className="border-l-4 border-border pl-4 italic my-4 text-muted-foreground"
       {...props}
     />
-  ),
+  )
 };
 
 declare global {

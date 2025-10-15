@@ -83,17 +83,30 @@ a:hover {
   font-size: 0.6875rem;
   line-height: 1.4;
   margin-bottom: 0.75rem;
+  color: var(--color-muted-foreground);
 }
 
-.prose ul, .prose ol {
+.prose ul {
+  list-style-type: disc;
   font-size: 0.6875rem;
   line-height: 1.4;
   margin-bottom: 1rem;
   margin-left: 1.5rem;
+  color: var(--color-muted-foreground);
+}
+
+.prose ol {
+  list-style-type: decimal;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  margin-left: 1.5rem;
+  color: var(--color-muted-foreground);
 }
 
 .prose li {
   margin-bottom: 0.5rem;
+  color: var(--color-muted-foreground);
 }
 
 .prose code {
@@ -116,6 +129,9 @@ a:hover {
   padding-left: 1rem;
   font-style: italic;
   margin: 1rem 0;
+  color: var(--color-muted-foreground);
+  font-size: 0.6875rem;
+  line-height: 1.4;
 }
 
 .prose pre code {
@@ -125,6 +141,11 @@ a:hover {
 
 .prose strong {
   font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.prose em {
+  font-style: italic;
 }
 
 .prose a {

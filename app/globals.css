@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+@source "../app/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../components/**/*.{js,ts,jsx,tsx}";
+@source "../lib/**/*.{js,ts,jsx,tsx}";
+
 @theme {
   --font-family-sans: 'Inter', system-ui, sans-serif;
   

@@ -3,20 +3,21 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start",
-    "delete": "rm -rf app/n"
+    "start": "next start"
   },
   "dependencies": {
     "@next/mdx": "15.3.3",
     "@tailwindcss/postcss": "^4.1.8",
     "@types/mdx": "^2.0.13",
     "@vercel/analytics": "^1.5.0",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.16.0",
+    "lucide-react": "^0.462.0",
     "next": "15.3.3",
-    "postgres": "^3.4.7",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "sugar-high": "^0.9.3"
+    "sugar-high": "^0.9.3",
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.29",

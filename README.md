@@ -1,35 +1,109 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fleerob%2Fnext-mdx-blog)
+# Minimalist MDX Blog
 
-# next-mdx-blog
+A clean, minimalist blog built with Next.js 15, React 19, and MDX. Inspired by modern design principles with a focus on readability and simplicity.
 
-This is a blog template built with:
+## Features
 
-- **Framework**: [Next.js](https://nextjs.org)
-- **Deployment**: [Vercel](https://vercel.com)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com)
-- **Analytics**: [Vercel Analytics](https://vercel.com/analytics)
-- **Database** (Optional): [Postgres](https://vercel.com/postgres)
+- ✨ Minimalist dark theme design
+- 📝 Write in MDX (Markdown + React components)
+- 🎨 Tailwind CSS for styling
+- ⚡ Next.js 15 with Turbopack
+- 🔍 Sitemap support
+- 📱 Fully responsive
+- 🎭 Smooth animations
 
-## Running Locally
+## Stack
 
-This application requires Node.js v18.17+.
+- **Framework:** Next.js 15 with App Router
+- **UI:** React 19, Tailwind CSS
+- **Content:** MDX
+- **Deployment:** Vercel
+- **Analytics:** Vercel Analytics
+
+## Getting Started
+
+### Install Dependencies
 
 ```bash
-git clone https://github.com/leerob/next-mdx-blog.git
-cd next-mdx-blog
 pnpm install
+```
+
+### Run Development Server
+
+```bash
 pnpm dev
 ```
 
-## Database (Optional)
+Open [http://localhost:3000](http://localhost:3000) to view your site.
 
-Create a `.env.local` file with your `POSTGRES_URL` environment variable to store redirects.
+### Build for Production
 
-```sql
-CREATE TABLE redirects (
-  id SERIAL PRIMARY KEY,
-  source VARCHAR(255) NOT NULL,
-  destination VARCHAR(255) NOT NULL,
-  permanent BOOLEAN NOT NULL
-);
+```bash
+pnpm build
+pnpm start
 ```
+
+## Project Structure
+
+```
+├── app/
+│   ├── layout.tsx          # Root layout with navigation
+│   ├── page.tsx            # Home page
+│   ├── globals.css         # Global styles and design system
+│   ├── about/
+│   │   └── page.tsx        # About page
+│   ├── blog/
+│   │   ├── page.tsx        # Blog listing
+│   │   ├── [slug]/
+│   │   │   └── page.tsx    # Dynamic blog post page
+│   │   ├── welcome/
+│   │   │   └── page.mdx    # Sample blog post
+│   │   └── developer-experience/
+│   │       └── page.mdx    # Sample blog post
+│   ├── work/
+│   │   └── page.tsx        # Projects showcase
+│   └── sitemap.ts          # Sitemap generation
+├── lib/
+│   └── blog.ts             # Blog post metadata and utilities
+├── mdx-components.tsx      # Custom MDX components
+├── tailwind.config.ts      # Tailwind configuration
+└── next.config.ts          # Next.js configuration
+```
+
+## Adding Blog Posts
+
+1. Create a new folder in `app/blog/[slug]/`
+2. Add a `page.mdx` file with your content
+3. Update `lib/blog.ts` to include the post metadata:
+
+```typescript
+{
+  slug: 'your-post-slug',
+  title: 'Your Post Title',
+  date: 'Month DD, YYYY',
+  description: 'Brief description of your post'
+}
+```
+
+## Customization
+
+### Update Personal Information
+
+- Edit `app/layout.tsx` to update the site title and metadata
+- Modify `app/page.tsx` for the home page content
+- Update `app/about/page.tsx` with your information
+- Customize `app/work/page.tsx` with your projects
+
+### Design System
+
+The design system is defined in `app/globals.css` using CSS variables:
+
+- Dark theme colors (HSL values)
+- Typography styles
+- Component-specific styles
+
+You can adjust the color scheme by modifying the CSS variables in the `:root` selector.
+
+## License
+
+MIT

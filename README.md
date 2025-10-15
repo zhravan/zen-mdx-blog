@@ -28,7 +28,7 @@ lib/             # Utilities
 #### Adding Posts
 
 1. Create `content/blog/your-post.mdx`
-2. Add metadata to `lib/blog.ts`
+2. Redeploy, voila done
 
 #### Credits
 

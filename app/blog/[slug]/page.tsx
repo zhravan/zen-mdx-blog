@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
-import { BackLink } from '@/components/BackLink';
+import { BackLink } from '@/components/navigation';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -43,7 +43,7 @@ export default async function BlogPost({
 
   let Content;
   try {
-    Content = (await import(`@/app/blog/${slug}/page.mdx`)).default;
+    Content = (await import(`@/content/blog/${slug}.mdx`)).default;
   } catch (error) {
     console.error(`Failed to load blog post: ${slug}`, error);
     notFound();

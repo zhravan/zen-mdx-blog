@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
-import { NavLink } from '@/components/NavLink';
+import { NavLink } from '@/components/navigation';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 

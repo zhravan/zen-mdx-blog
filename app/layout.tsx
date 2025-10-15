@@ -1,10 +1,10 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Space_Grotesk } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import Link from 'next/link';
 
-const inter = Inter({ subsets: ['latin'] });
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://next-mdx-blog.vercel.app'),
@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={spaceGrotesk.className}>
       <body className="antialiased">
         <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
           <nav>

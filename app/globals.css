@@ -1,18 +1,109 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --font-family-sans: 'Inter', sans-serif;
+@layer base {
+  :root {
+    --background: 220 15% 8%;
+    --foreground: 220 10% 85%;
+    --card: 220 15% 10%;
+    --card-foreground: 220 10% 85%;
+    --primary: 220 10% 85%;
+    --primary-foreground: 220 15% 10%;
+    --secondary: 220 15% 12%;
+    --secondary-foreground: 220 10% 85%;
+    --muted: 220 15% 12%;
+    --muted-foreground: 220 8% 45%;
+    --accent: 220 15% 15%;
+    --accent-foreground: 220 10% 85%;
+    --border: 220 12% 15%;
+    --input: 220 12% 15%;
+    --ring: 220 10% 85%;
+    --link: 220 10% 70%;
+    --link-hover: 220 10% 85%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-normal;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  a {
+    @apply text-link hover:text-link-hover transition-colors;
+    text-decoration: none;
+    border-bottom: 1px solid hsl(var(--border));
+    padding-bottom: 1px;
+  }
 }
 
-:root {
-  --sh-class: #7aa2f7;
-  --sh-sign: #89ddff;
-  --sh-string: #9ece6a;
-  --sh-keyword: #bb9af7;
-  --sh-comment: #565f89;
-  --sh-jsxliterals: #7aa2f7;
-  --sh-property: #73daca;
-  --sh-entity: #e0af68;
+@layer components {
+  .prose {
+    @apply text-foreground max-w-2xl;
+  }
+
+  .prose h1 {
+    @apply text-base font-normal mb-3 mt-6;
+  }
+
+  .prose h2 {
+    @apply text-sm font-normal mb-2 mt-5;
+  }
+
+  .prose h3 {
+    @apply text-xs font-normal mb-2 mt-4;
+  }
+
+  .prose p {
+    @apply mb-3 leading-relaxed text-xs;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mb-4 ml-6 text-xs;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
+  .prose code {
+    @apply bg-muted px-1.5 py-0.5 rounded text-xs;
+  }
+
+  .prose pre {
+    @apply bg-muted p-4 rounded-lg overflow-x-auto mb-4;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-border pl-4 italic my-4;
+  }
+
+  .prose pre code {
+    @apply bg-transparent px-0 py-0;
+  }
+
+  .prose strong {
+    @apply font-semibold;
+  }
+
+  .prose a {
+    @apply text-link hover:text-link-hover;
+  }
 }
 
 html {
@@ -22,92 +113,4 @@ html {
 
 body {
   text-rendering: optimizeLegibility;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  text-wrap: balance;
-}
-
-pre {
-  background-color: #16161e;
-  border-radius: 0.5rem;
-  overflow-x: auto;
-  padding: 1rem;
-  margin: 1.5rem 0;
-  line-height: 1;
-}
-
-pre::-webkit-scrollbar {
-  display: none;
-}
-
-pre {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-code {
-  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-  font-size: 14px;
-  padding: 0.2em 0.4em;
-  border-radius: 0.3em;
-  background-color: var(--color-gray-100);
-}
-
-pre code {
-  background-color: transparent;
-  padding: 0;
-  border: none;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-pre code > span .sh__token--identifier {
-  color: white !important;
-}
-
-code:not(pre code) span {
-  font-weight: 500;
-  color: black !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  code {
-    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-    font-size: 14px;
-    padding: 0.2em 0.4em;
-    border-radius: 0.3em;
-    background-color: var(--color-zinc-800);
-  }
-
-  code:not(pre code) span {
-    color: var(--color-zinc-100) !important;
-  }
-}
-
-pre code span {
-  font-weight: 500;
-}
-
-hr {
-  color: var(--color-gray-200);
-}
-
-/* Remove Safari input shadow on mobile */
-input[type='text'],
-input[type='email'] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-table {
-  display: block;
-  max-width: fit-content;
-  overflow-x: auto;
-  white-space: nowrap;
-  text-align: left;
 }

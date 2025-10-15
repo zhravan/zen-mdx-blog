@@ -55,32 +55,11 @@ export default async function BlogPost({
         <BackLink href="/blog">Back to Blog</BackLink>
       </div>
 
-      <article className="animate-fade-in">
-        <h1
-          style={{
-            fontSize: '0.9375rem',
-            lineHeight: '1.6',
-            fontWeight: 400,
-            marginBottom: '0.5rem',
-            color: 'var(--color-foreground)'
-          }}
-        >
-          {post.title}
-        </h1>
-        <p
-          style={{
-            fontSize: '0.6875rem',
-            lineHeight: '1.4',
-            marginBottom: '1.5rem',
-            color: 'var(--color-muted-foreground)',
-            opacity: 0.7
-          }}
-        >
+      <article className="animate-fade-in prose prose-sm max-w-none">
+        <p className="text-xs text-muted-foreground opacity-70 mb-4">
           {post.date}
         </p>
-        <div>
-          <Content />
-        </div>
+        <Content />
       </article>
     </div>
   );

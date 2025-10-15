@@ -11,12 +11,9 @@ export default function Blog() {
 
   return (
     <div className="space-y-6">
-      <section style={{ animation: 'fade-in 0.4s ease-out' }}>
-        <h1 className="text-sm mb-4 font-normal">Writing</h1>
-        <p
-          className="text-xs mb-6"
-          style={{ color: 'var(--color-muted-foreground)' }}
-        >
+      <section className="animate-fade-in">
+        <h1 className="text-sm mb-4">Writing</h1>
+        <p className="text-xs mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
           Thoughts on technology, development, and building products.
         </p>
       </section>
@@ -26,15 +23,11 @@ export default function Blog() {
           {posts.map((post, index) => (
             <article
               key={post.slug}
-              className="space-y-1"
-              style={{
-                animation: 'fade-up 0.5s ease-out',
-                animationDelay: `${index * 100}ms`,
-                animationFillMode: 'both'
-              }}
+              className="space-y-1 animate-fade-up group"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
-              <Link href={`/blog/${post.slug}`} className="block group">
-                <h2 className="text-xs mb-1 font-normal transition-colors group-hover:opacity-80">
+              <Link href={`/blog/${post.slug}`}>
+                <h2 className="text-xs mb-1 group-hover:opacity-80 transition-colors">
                   {post.title}
                 </h2>
                 <p

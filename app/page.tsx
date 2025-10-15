@@ -3,9 +3,9 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div className="space-y-6">
-      <section style={{ animation: 'fade-in 0.4s ease-out' }}>
-        <h1 className="text-sm mb-4 font-normal">Your Name</h1>
-        <div className="text-xs leading-relaxed space-y-3">
+      <section className="animate-fade-in">
+        <h1 className="text-sm mb-4">Your Name</h1>
+        <div className="prose text-xs leading-relaxed space-y-3">
           <p style={{ color: 'var(--color-muted-foreground)' }}>
             I'm a developer and writer. I work on building tools that make
             technology more accessible and enjoyable to use. I've been coding
@@ -19,39 +19,32 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        style={{
-          animation: 'fade-up 0.5s ease-out',
-          animationDelay: '100ms',
-          animationFillMode: 'both'
-        }}
-      >
-        <h2 className="text-xs mb-2 font-normal">Featured Essays</h2>
-        <ul className="space-y-1 list-none">
+      <section className="animate-fade-up" style={{ animationDelay: '100ms' }}>
+        <h2 className="text-xs mb-2">Featured Essays</h2>
+        <ul className="space-y-1">
           <li>
-            <Link href="/blog/developer-experience" className="text-xs">
+            <Link
+              href="/blog/developer-experience"
+              className="text-xs"
+              style={{ color: 'var(--color-link)' }}
+            >
               Developer Experience Matters
             </Link>
           </li>
           <li>
-            <Link href="/blog/welcome" className="text-xs">
+            <Link
+              href="/blog/welcome"
+              className="text-xs"
+              style={{ color: 'var(--color-link)' }}
+            >
               Welcome to My Blog
             </Link>
           </li>
         </ul>
       </section>
 
-      <section
-        style={{
-          animation: 'fade-up 0.5s ease-out',
-          animationDelay: '200ms',
-          animationFillMode: 'both'
-        }}
-      >
-        <p
-          className="text-xs"
-          style={{ color: 'var(--color-muted-foreground)' }}
-        >
+      <section className="animate-fade-up" style={{ animationDelay: '200ms' }}>
+        <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
           You can <Link href="/blog">read my writing</Link>, check out my{' '}
           <Link href="/work">projects</Link>, or{' '}
           <Link href="/about">learn more about me</Link>. I'm always interested

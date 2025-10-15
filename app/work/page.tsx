@@ -32,12 +32,9 @@ const projects = [
 export default function Work() {
   return (
     <div className="space-y-6">
-      <section style={{ animation: 'fade-in 0.4s ease-out' }}>
-        <h1 className="text-sm mb-4 font-normal">Work</h1>
-        <p
-          className="text-xs mb-6"
-          style={{ color: 'var(--color-muted-foreground)' }}
-        >
+      <section className="animate-fade-in">
+        <h1 className="text-sm mb-4">Work</h1>
+        <p className="text-xs mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
           A selection of projects I've built and contributed to.
         </p>
       </section>
@@ -47,20 +44,18 @@ export default function Work() {
           {projects.map((project, index) => (
             <article
               key={project.title}
-              className="space-y-1"
-              style={{
-                animation: 'fade-up 0.5s ease-out',
-                animationDelay: `${index * 100}ms`,
-                animationFillMode: 'both'
-              }}
+              className="space-y-1 animate-fade-up group"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="flex items-baseline justify-between gap-4">
-                <h2 className="text-xs font-normal">{project.title}</h2>
+                <h2 className="text-xs transition-colors group-hover:opacity-80">
+                  {project.title}
+                </h2>
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-shrink-0 no-underline border-none pb-0 hover:opacity-80 transition-opacity"
+                  className="flex-shrink-0 no-underline border-none pb-0 transition-colors"
                   style={{ color: 'var(--color-muted-foreground)' }}
                   aria-label={`View ${project.title} on GitHub`}
                 >
@@ -85,10 +80,7 @@ export default function Work() {
       </section>
 
       <section>
-        <p
-          className="text-xs"
-          style={{ color: 'var(--color-muted-foreground)' }}
-        >
+        <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
           You can find more of my work on{' '}
           <a href="https://github.com" target="_blank" rel="noopener noreferrer">
             GitHub

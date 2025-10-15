@@ -55,7 +55,7 @@ export default async function BlogPost({
       <div className="flex items-center gap-2 mb-8">
         <Link
           href="/blog"
-          className="flex items-center gap-1 text-xs no-underline border-none pb-0 hover:opacity-80 transition-opacity"
+          className="flex items-center gap-1 text-xs no-underline border-none pb-0 transition-colors"
           style={{ color: 'var(--color-muted-foreground)' }}
         >
           <ArrowLeft className="w-3 h-3" />
@@ -63,11 +63,8 @@ export default async function BlogPost({
         </Link>
       </div>
 
-      <article
-        className="prose"
-        style={{ animation: 'fade-in 0.4s ease-out' }}
-      >
-        <h1 className="text-base mb-2 font-normal">{post.title}</h1>
+      <article className="prose animate-fade-in">
+        <h1 className="text-base mb-2">{post.title}</h1>
         <p
           className="text-xs mb-6 opacity-70"
           style={{ color: 'var(--color-muted-foreground)' }}

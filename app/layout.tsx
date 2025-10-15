@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { NavLink } from '@/components/navigation';
+import { ScrollToTop } from '@/components/ScrollToTop';
+import { CommandPalette } from '@/components/CommandPalette';
+import { getAllPosts } from '@/lib/blog';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
@@ -30,6 +33,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const posts = getAllPosts();
+
   return (
     <html lang="en" className={spaceGrotesk.className}>
       <body className="antialiased">
@@ -54,6 +59,8 @@ export default function RootLayout({
             </div>
           </footer>
           <Analytics />
+          <ScrollToTop />
+          <CommandPalette posts={posts} />
         </div>
       </body>
     </html>

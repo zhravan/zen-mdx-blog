@@ -19,35 +19,31 @@ export default function Blog() {
       </section>
 
       <section>
-        <div className="space-y-6">
+        <div className="space-y-3">
           {posts.map((post, index) => (
             <article
               key={post.slug}
-              className="space-y-1 animate-fade-up"
+              className="animate-fade-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <Link
                 href={`/blog/${post.slug}`}
-                className="block transition-opacity hover:opacity-80"
+                className="flex items-baseline gap-3 transition-opacity hover:opacity-80"
+                title={post.description}
               >
                 <h2
-                  className="text-xs mb-1"
+                  className="text-xs flex-1"
                   style={{ color: 'var(--color-foreground)' }}
                 >
                   {post.title}
                 </h2>
-                <p
-                  className="text-xs mb-1 opacity-70"
+                <time
+                  className="text-xs opacity-70 whitespace-nowrap"
                   style={{ color: 'var(--color-muted-foreground)' }}
+                  dateTime={post.date}
                 >
                   {post.date}
-                </p>
-                <p
-                  className="text-xs leading-relaxed"
-                  style={{ color: 'var(--color-muted-foreground)' }}
-                >
-                  {post.description}
-                </p>
+                </time>
               </Link>
             </article>
           ))}

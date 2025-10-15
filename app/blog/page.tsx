@@ -12,8 +12,11 @@ export default function Blog() {
   return (
     <div className="space-y-6">
       <section style={{ animation: 'fade-in 0.4s ease-out' }}>
-        <h1 className="text-sm mb-4">Writing</h1>
-        <p className="text-xs mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
+        <h1 className="text-sm mb-4 font-normal">Writing</h1>
+        <p
+          className="text-xs mb-6"
+          style={{ color: 'var(--color-muted-foreground)' }}
+        >
           Thoughts on technology, development, and building products.
         </p>
       </section>
@@ -23,21 +26,27 @@ export default function Blog() {
           {posts.map((post, index) => (
             <article
               key={post.slug}
-              className="space-y-1 group"
+              className="space-y-1"
               style={{
                 animation: 'fade-up 0.5s ease-out',
                 animationDelay: `${index * 100}ms`,
                 animationFillMode: 'both'
               }}
             >
-              <Link href={`/blog/${post.slug}`} className="block">
-                <h2 className="text-xs mb-1 transition-colors">
+              <Link href={`/blog/${post.slug}`} className="block group">
+                <h2 className="text-xs mb-1 font-normal transition-colors group-hover:opacity-80">
                   {post.title}
                 </h2>
-                <p className="text-xs mb-1" style={{ color: 'var(--color-muted-foreground)', opacity: 0.7 }}>
+                <p
+                  className="text-xs mb-1 opacity-70"
+                  style={{ color: 'var(--color-muted-foreground)' }}
+                >
                   {post.date}
                 </p>
-                <p className="text-xs leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>
+                <p
+                  className="text-xs leading-relaxed"
+                  style={{ color: 'var(--color-muted-foreground)' }}
+                >
                   {post.description}
                 </p>
               </Link>
@@ -48,4 +57,3 @@ export default function Blog() {
     </div>
   );
 }
-

@@ -55,23 +55,23 @@ export default async function BlogPost({
       <div className="flex items-center gap-2 mb-8">
         <Link
           href="/blog"
-          className="transition-colors flex items-center gap-1 text-xs no-underline border-none pb-0"
+          className="flex items-center gap-1 text-xs no-underline border-none pb-0 hover:opacity-80 transition-opacity"
           style={{ color: 'var(--color-muted-foreground)' }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = 'var(--color-foreground)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = 'var(--color-muted-foreground)';
-          }}
         >
           <ArrowLeft className="w-3 h-3" />
           Back to Blog
         </Link>
       </div>
 
-      <article className="prose" style={{ animation: 'fade-in 0.4s ease-out' }}>
-        <h1 className="text-base mb-2">{post.title}</h1>
-        <p className="text-xs mb-6" style={{ color: 'var(--color-muted-foreground)', opacity: 0.7 }}>
+      <article
+        className="prose"
+        style={{ animation: 'fade-in 0.4s ease-out' }}
+      >
+        <h1 className="text-base mb-2 font-normal">{post.title}</h1>
+        <p
+          className="text-xs mb-6 opacity-70"
+          style={{ color: 'var(--color-muted-foreground)' }}
+        >
           {post.date}
         </p>
         <Content />
@@ -79,4 +79,3 @@ export default async function BlogPost({
     </div>
   );
 }
-

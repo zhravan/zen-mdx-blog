@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="space-y-6">
       <section style={{ animation: 'fade-in 0.4s ease-out' }}>
-        <h1 className="text-sm mb-4">Your Name</h1>
+        <h1 className="text-sm mb-4 font-normal">Your Name</h1>
         <div className="text-xs leading-relaxed space-y-3">
           <p style={{ color: 'var(--color-muted-foreground)' }}>
             I'm a developer and writer. I work on building tools that make
@@ -26,7 +26,7 @@ export default function Home() {
           animationFillMode: 'both'
         }}
       >
-        <h2 className="text-xs mb-2">Featured Essays</h2>
+        <h2 className="text-xs mb-2 font-normal">Featured Essays</h2>
         <ul className="space-y-1 list-none">
           <li>
             <Link href="/blog/developer-experience" className="text-xs">
@@ -48,7 +48,10 @@ export default function Home() {
           animationFillMode: 'both'
         }}
       >
-        <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+        <p
+          className="text-xs"
+          style={{ color: 'var(--color-muted-foreground)' }}
+        >
           You can <Link href="/blog">read my writing</Link>, check out my{' '}
           <Link href="/work">projects</Link>, or{' '}
           <Link href="/about">learn more about me</Link>. I'm always interested
@@ -58,4 +61,3 @@ export default function Home() {
     </div>
   );
 }
-

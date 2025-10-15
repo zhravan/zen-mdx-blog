@@ -32,31 +32,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className}>
-      <body className="antialiased tracking-tight">
+      <body>
         <div className="min-h-screen">
-          <nav>
-            <div className="max-w-2xl mx-auto px-8 py-8">
-              <div className="flex gap-6">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    href={item.path}
-                    className="text-xs no-underline transition-colors duration-150 border-none pb-0"
-                    style={{
-                      color: 'var(--color-muted-foreground)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = 'var(--color-foreground)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color =
-                        'var(--color-muted-foreground)';
-                    }}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
+          <nav className="max-w-2xl mx-auto px-8 py-8">
+            <div className="flex gap-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className="text-xs no-underline border-none pb-0 hover:opacity-80 transition-opacity"
+                  style={{ color: 'var(--color-muted-foreground)' }}
+                >
+                  {item.name}
+                </Link>
+              ))}
             </div>
           </nav>
           <main className="max-w-2xl mx-auto px-8 py-16">{children}</main>
@@ -72,10 +61,7 @@ function Footer() {
   return (
     <footer className="mt-24">
       <div className="max-w-2xl mx-auto px-8 py-8">
-        <p
-          className="text-xs"
-          style={{ color: 'var(--color-muted-foreground)' }}
-        >
+        <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
           © {new Date().getFullYear()}
         </p>
       </div>

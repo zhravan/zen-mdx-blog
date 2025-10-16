@@ -4,6 +4,7 @@ import { Space_Grotesk } from 'next/font/google';
 import { NavLink } from '@/components/navigation';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { CommandPalette } from '@/components/CommandPalette';
+import { ScrollProgress } from '@/components/ScrollProgress';
 import { getAllPosts } from '@/lib/blog';
 import { SITE_URL } from '@/lib/site';
 
@@ -39,6 +40,7 @@ export default function RootLayout({
     <html lang="en" className={spaceGrotesk.className}>
       <body className="antialiased">
         <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
+          <ScrollProgress />
           <nav>
             <div className="max-w-2xl mx-auto px-8 py-8">
               <div className="flex gap-6">

@@ -1,3 +1,5 @@
+<samp>
+
 ### Monolog - Just another minimalist mdx blog
 
 #### Setup
@@ -47,3 +49,5 @@ Feeds are rebuilt every hour and use the site URL configured in `lib/site.ts`.
 #### License
 
 MIT
+
+</samp>

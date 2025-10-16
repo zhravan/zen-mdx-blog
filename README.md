@@ -19,18 +19,18 @@ Next.js 15, React 19, MDX, Tailwind CSS
 
 | Feature                    | Status |
 | -------------------------- | :----: |
-| MDX Support                |   [x]  |
-| Syntax Highlighting        |   [x]  |
-| Code Copy Button           |   [x]  |
-| RSS/Atom/JSON Feeds        |   [x]  |
-| Sitemap Generation         |   [x]  |
-| Command Palette            |   [x]  |
-| Scroll Progress Bar        |   [x]  |
-| Scroll to Top Button       |   [x]  |
-| Responsive Design          |   [x]  |
-| Search Functionality       |   [x]  |
-| Fast Page Loads            |   [x]  |
-| Static Site Generation     |   [x]  |
+| MDX Support                |   ✓    |
+| Syntax Highlighting        |   ✓    |
+| Code Copy Button           |   ✓    |
+| RSS/Atom/JSON Feeds        |   ✓    |
+| Sitemap Generation         |   ✓    |
+| Command Palette            |   ✓    |
+| Scroll Progress Bar        |   ✓    |
+| Scroll to Top Button       |   ✓    |
+| Responsive Design          |   ✓    |
+| Search Functionality       |   ✓    |
+| Fast Page Loads            |   ✓    |
+| Static Site Generation     |   ✓    |
 | Comments System (Giscus)   |        |
 | Zero-Config Deploy         |        |
 | SEO Optimized              |        |

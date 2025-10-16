@@ -1,16 +1,16 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/react';
 import { NavLink } from '@/components/navigation';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { CommandPalette } from '@/components/CommandPalette';
 import { getAllPosts } from '@/lib/blog';
+import { SITE_URL } from '@/lib/site';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://next-mdx-blog.vercel.app'),
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: '/'
   },
@@ -58,7 +58,6 @@ export default function RootLayout({
               </p>
             </div>
           </footer>
-          <Analytics />
           <ScrollToTop />
           <CommandPalette posts={posts} />
         </div>

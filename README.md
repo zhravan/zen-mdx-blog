@@ -15,6 +15,47 @@ Open [http://localhost:3000](http://localhost:3000)
 
 Next.js 15, React 19, MDX, Tailwind CSS
 
+### Features
+
+| Feature                    | Status |
+| -------------------------- | :----: |
+| MDX Support                |   [x]  |
+| Syntax Highlighting        |   [x]  |
+| Code Copy Button           |   [x]  |
+| RSS/Atom/JSON Feeds        |   [x]  |
+| Sitemap Generation         |   [x]  |
+| Command Palette            |   [x]  |
+| Scroll Progress Bar        |   [x]  |
+| Scroll to Top Button       |   [x]  |
+| Responsive Design          |   [x]  |
+| Search Functionality       |   [x]  |
+| Fast Page Loads            |   [x]  |
+| Static Site Generation     |   [x]  |
+| Comments System (Giscus)   |        |
+| Zero-Config Deploy         |        |
+| SEO Optimized              |        |
+| Reading Time Estimate      |        |
+| Print-Friendly Styles      |        |
+| Keyboard Navigation        |        |
+| Open Graph Images          |        |
+| Breadcrumb Navigation      |        |
+| Code Line Numbers          |        |
+| Code Language Badges       |        |
+| Footnotes Support          |        |
+| Image Optimization         |        |
+| LaTeX/Math Equations       |        |
+| Mermaid Diagrams           |        |
+| Email Newsletter           |        |
+| Related Posts              |        |
+| Series/Multi-part Posts    |        |
+| Draft Posts                |        |
+| Post Scheduling            |        |
+| Custom MDX Components      |        |
+| Callouts/Admonitions       |        |
+| Code Diff Highlighting     |        |
+
+> **Philosophy**: Keep it minimal. Every feature should enhance the reading experience without adding bloat.
+
 #### Structure
 
 ```text

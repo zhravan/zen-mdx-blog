@@ -1,6 +1,9 @@
 import { getAllPosts } from '@/lib/blog';
 import { SITE_URL } from '@/lib/site';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 export default async function sitemap() {
   const posts = getAllPosts();
 

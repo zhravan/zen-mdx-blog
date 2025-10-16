@@ -72,6 +72,36 @@ lib/             # Utilities
 1. Create `content/blog/your-post.mdx`
 2. Redeploy, voila done
 
+### Theme Configuration
+
+The blog now supports multiple VS Code-inspired themes. Simply change the `ACTIVE_THEME` in `lib/site.ts`:
+
+```typescript
+export const ACTIVE_THEME: ThemeName = "vitesse-dark"; // Change this!
+```
+
+**Available Themes:**
+- `vitesse-dark` - Clean, modern dark theme (default)
+- `github-dark` - GitHub's dark theme
+- `dracula` - Popular Dracula theme
+- `monokai` - Classic Monokai
+- `nord` - Cool, blue-tinted Nord theme
+- `one-dark-pro` - Atom's One Dark Pro
+- `tokyo-night` - Cozy Tokyo Night
+- `catppuccin-mocha` - Soothing Catppuccin Mocha
+
+**How it works:**
+- All color variables are defined in `lib/themes.ts`
+- The `ThemeProvider` dynamically applies CSS variables
+- Code highlighting automatically matches the theme
+- Add your own theme by following the pattern in `lib/themes.ts`
+
+**Customizing themes:**
+1. Open `lib/themes.ts`
+2. Add a new theme object with your colors
+3. Update `ACTIVE_THEME` in `lib/site.ts`
+4. Restart the dev server
+
 ## Feeds
 
 The blog exposes three feed formats:

@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { getTheme } from '@/lib/themes';
+import { ACTIVE_THEME } from '@/lib/site';
 
 type Props = {
   code: string;
@@ -11,6 +13,10 @@ export function ClientHighlighter({ code, lang }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
 
+  // Get the active theme's syntax highlighting theme
+  const theme = getTheme(ACTIVE_THEME);
+  const syntaxTheme = theme.syntaxTheme;
+
   useEffect(() => {
     let cancelled = false;
 
@@ -20,12 +26,12 @@ export function ClientHighlighter({ code, lang }: Props) {
         // Dynamically import Shiki in the browser via ESM CDN
         const { getHighlighter } = await import('https://esm.sh/shiki@1.22.0');
         const highlighter = await getHighlighter({
-          themes: ['vitesse-dark'],
+          themes: [syntaxTheme],
           langs: [lang]
         });
         const html = highlighter.codeToHtml(code, {
           lang,
-          theme: 'vitesse-dark'
+          theme: syntaxTheme
         });
         if (cancelled) return;
         if (ref.current) {
@@ -43,7 +49,7 @@ export function ClientHighlighter({ code, lang }: Props) {
     return () => {
       cancelled = true;
     };
-  }, [code, lang]);
+  }, [code, lang, syntaxTheme]);
 
   // The highlighter renders its own <pre><code>...</code></pre> markup.
   // We overlay it visually on top of the server-rendered fallback by

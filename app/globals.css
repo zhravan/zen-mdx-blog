@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 
 @theme {
+  /* CSS variables are now dynamically set by ThemeProvider */
+  /* These are fallback values */
   --color-background: hsl(220 15% 8%);
   --color-foreground: hsl(220 10% 85%);
   --color-card: hsl(220 15% 10%);

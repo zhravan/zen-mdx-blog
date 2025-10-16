@@ -1,6 +1,5 @@
 import { getAllPosts } from '@/lib/blog';
-
-const SITE_URL = 'https://next-mdx-blog.vercel.app';
+import { SITE_URL } from '@/lib/site';
 
 export default async function sitemap() {
   const posts = getAllPosts();

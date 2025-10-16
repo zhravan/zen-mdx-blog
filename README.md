@@ -17,11 +17,11 @@ Open [http://localhost:3000](http://localhost:3000)
 - React 19
 - MDX
 - Tailwind CSS
-- Vercel Analytics
+ 
 
 ## Structure
 
-```
+```text
 app/              # Pages and routes
 components/       # UI components
   navigation/     # Navigation components
@@ -34,6 +34,16 @@ lib/             # Utilities
 
 1. Create `content/blog/your-post.mdx`
 2. Add metadata to `lib/blog.ts`
+
+## Feeds
+
+The blog exposes three feed formats:
+
+- RSS: `/feed.xml`
+- Atom: `/atom.xml`
+- JSON Feed: `/feed.json`
+
+Feeds are rebuilt every hour and use the site URL configured in `lib/site.ts`.
 
 ## Credits
 

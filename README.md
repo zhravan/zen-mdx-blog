@@ -1,8 +1,6 @@
-# Minimalist MDX Blog
+### Monolog - Just another minimalist mdx blog
 
-A clean, dark-themed blog built with Next.js 15 and MDX.
-
-## Setup
+#### Setup
 
 ```bash
 pnpm install
@@ -11,15 +9,11 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
-## Stack
+#### Stack
 
-- Next.js 15
-- React 19
-- MDX
-- Tailwind CSS
- 
+Next.js 15, React 19, MDX, Tailwind CSS
 
-## Structure
+#### Structure
 
 ```text
 app/              # Pages and routes
@@ -30,10 +24,10 @@ content/         # Blog posts (MDX)
 lib/             # Utilities
 ```
 
-## Adding Posts
+#### Adding Posts
 
 1. Create `content/blog/your-post.mdx`
-2. Add metadata to `lib/blog.ts`
+2. Redeploy, voila done
 
 ## Feeds
 
@@ -45,12 +39,11 @@ The blog exposes three feed formats:
 
 Feeds are rebuilt every hour and use the site URL configured in `lib/site.ts`.
 
-## Credits
+#### Credits
 
-Design inspired by [leerob.com](https://leerob.com/)
+- Design inspired by [leerob.com](https://leerob.com/)
+- Built with boilerplate from [leerob/next-mdx-blog](https://github.com/leerob/next-mdx-blog)
 
-Built with boilerplate from [leerob/next-mdx-blog](https://github.com/leerob/next-mdx-blog)
-
-## License
+#### License
 
 MIT

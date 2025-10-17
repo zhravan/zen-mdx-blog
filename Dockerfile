@@ -9,7 +9,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build && npm run export 
+RUN npm run build 
 
 # Stage 2 — Serve with Caddy
 

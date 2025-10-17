@@ -24,7 +24,9 @@ export function ClientHighlighter({ code, lang }: Props) {
       if (!code || !lang) return;
       try {
         // Dynamically import Shiki in the browser via ESM CDN
-        const { getHighlighter } = await import('https://esm.sh/shiki@1.22.0');
+        // Use Function constructor to avoid webpack trying to bundle the HTTPS import
+        const importShiki = new Function('return import("https://esm.sh/shiki@1.22.0")');
+        const { getHighlighter } = await importShiki();
         const highlighter = await getHighlighter({
           themes: [syntaxTheme],
           langs: [lang]

@@ -1,6 +1,6 @@
 <samp>
 
-### Monolog - Just another minimalist mdx blog
+### Zen - Just another minimalist mdx blog
 
 #### Setup
 

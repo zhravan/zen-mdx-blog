@@ -31,10 +31,10 @@ const projects = [
 
 export default function Work() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-xxs">
       <section className="animate-fade-in">
         <h1 className="text-sm mb-4">Work</h1>
-        <p className="text-xs mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
+        <p className="mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
           A selection of projects I have built and contributed to.
         </p>
       </section>
@@ -49,7 +49,7 @@ export default function Work() {
             >
               <div className="flex items-baseline justify-between gap-4">
                 <h2
-                  className="text-xs transition-opacity group-hover:opacity-80"
+                  className="transition-opacity group-hover:opacity-80"
                   style={{ color: 'var(--color-foreground)' }}
                 >
                   {project.title}
@@ -65,16 +65,10 @@ export default function Work() {
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
-              <p
-                className="text-xs leading-relaxed"
-                style={{ color: 'var(--color-muted-foreground)' }}
-              >
+              <p className="leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>
                 {project.description}
               </p>
-              <p
-                className="text-xs opacity-70"
-                style={{ color: 'var(--color-muted-foreground)' }}
-              >
+              <p className="opacity-70" style={{ color: 'var(--color-muted-foreground)' }}>
                 {project.tech.join(' · ')}
               </p>
             </article>
@@ -83,7 +77,7 @@ export default function Work() {
       </section>
 
       <section>
-        <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+        <p className="" style={{ color: 'var(--color-muted-foreground)' }}>
           You can find more of my work on{' '}
           <a href="https://github.com" target="_blank" rel="noopener noreferrer">
             GitHub

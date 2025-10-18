@@ -38,10 +38,10 @@ export default function Blog() {
     .sort((a, b) => (b === 'Unknown' ? -1 : a === 'Unknown' ? 1 : Number(b) - Number(a)));
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 text-xxs">
       <section>
         <h1 className="text-sm mb-3">Blog</h1>
-        <p className="text-[11px]" style={{ color: 'var(--color-muted-foreground)' }}>
+        <p className="" style={{ color: 'var(--color-muted-foreground)' }}>
           Posts about tiny projects and various other things.
         </p>
       </section>
@@ -53,7 +53,7 @@ export default function Blog() {
               const items = byYear[year];
               return (
                 <section key={year} className="space-y-2">
-                  <h2 className="text-[12px]" style={{ color: 'var(--color-muted-foreground)' }}>
+                  <h2 className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
                     {year}
                   </h2>
                   <ul className="list-none p-0 m-0 space-y-[6px]">
@@ -68,14 +68,14 @@ export default function Blog() {
                         <div className="inline sm:inline-flex sm:items-baseline sm:gap-2 align-middle">
                           <Link
                             href={`/blog/${post.slug}`}
-                            className="text-[12px] hover:opacity-90 focus:opacity-90 align-middle"
+                            className="hover:opacity-90 focus:opacity-90 align-middle"
                             title={post.description}
                           >
                             {post.title}
                           </Link>
                           <span className="hidden sm:inline" aria-hidden />
                           <time
-                            className="block sm:inline text-[11px] whitespace-nowrap"
+                            className="block sm:inline whitespace-nowrap"
                             style={{ color: 'var(--color-muted-foreground)' }}
                             dateTime={post.date}
                           >

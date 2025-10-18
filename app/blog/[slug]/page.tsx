@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
+import { getPostMetadata } from '@/lib/seo';
 import { BackLink } from '@/components/navigation';
 
 export async function generateStaticParams() {
@@ -23,10 +24,11 @@ export async function generateMetadata({
     };
   }
 
-  return {
+  return getPostMetadata({
     title: post.title,
-    description: post.description
-  };
+    description: post.description,
+    slug
+  });
 }
 
 export default async function BlogPost({

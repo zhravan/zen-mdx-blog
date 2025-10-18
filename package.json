@@ -19,7 +19,8 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "shiki": "^1.29.2",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "yaml": "^2.8.1"
   },
   "devDependencies": {
     "@types/node": "^22.15.29",

@@ -65,21 +65,23 @@ export default function Blog() {
                           className="absolute left-0 top-[0.6em] w-[3px] h-[3px] rounded-full"
                           style={{ backgroundColor: 'var(--color-muted-foreground)' }}
                         />
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          className="text-[12px] hover:opacity-90 focus:opacity-90 align-middle"
-                          title={post.description}
-                        >
-                          {post.title}
-                        </Link>
-                        <span className="mx-2" aria-hidden />
-                        <time
-                          className="text-[11px] whitespace-nowrap"
-                          style={{ color: 'var(--color-muted-foreground)' }}
-                          dateTime={post.date}
-                        >
-                          {formatDateNoYear(post.date)}
-                        </time>
+                        <div className="inline sm:inline-flex sm:items-baseline sm:gap-2 align-middle">
+                          <Link
+                            href={`/blog/${post.slug}`}
+                            className="text-[12px] hover:opacity-90 focus:opacity-90 align-middle"
+                            title={post.description}
+                          >
+                            {post.title}
+                          </Link>
+                          <span className="hidden sm:inline" aria-hidden />
+                          <time
+                            className="block sm:inline text-[11px] whitespace-nowrap"
+                            style={{ color: 'var(--color-muted-foreground)' }}
+                            dateTime={post.date}
+                          >
+                            {formatDateNoYear(post.date)}
+                          </time>
+                        </div>
                       </li>
                     ))}
                   </ul>

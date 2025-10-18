@@ -35,6 +35,17 @@ body {
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
 }
 
+/* Code UI variables for easy tuning */
+:root {
+  --code-font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  --code-font-size: 0.65rem;
+  --code-line-height: 1.6;
+  --code-tab-size: 2;
+  --code-radius: 0.5rem;
+  --code-padding: 1rem;
+  --code-border: 1px solid var(--color-border);
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   letter-spacing: 0;
@@ -122,10 +133,11 @@ a:hover {
 
 .prose pre:not(.shiki) {
   background-color: var(--color-muted);
-  padding: 1rem;
-  border-radius: 0.5rem;
+  padding: var(--code-padding);
+  border-radius: var(--code-radius);
   overflow-x: auto;
   margin-bottom: 1rem;
+  border: var(--code-border);
 }
 
 /* Ensure code blocks never soft-wrap; prefer horizontal scroll */
@@ -138,6 +150,10 @@ pre.shiki code {
   word-break: normal;
   overflow-wrap: normal;
   hyphens: none;
+  font-family: var(--code-font-family);
+  font-size: var(--code-font-size);
+  line-height: var(--code-line-height);
+  tab-size: var(--code-tab-size);
 }
 
 /* Inline code should remain selectable but not auto-select everything */
@@ -170,6 +186,29 @@ pre.shiki code {
   background-color: transparent !important;
   padding: 0 !important;
   border-radius: 0 !important;
+}
+
+/* Beautify Shiki blocks: padding, border, radius, scroll */
+pre.shiki {
+  padding: var(--code-padding) !important;
+  border-radius: var(--code-radius) !important;
+  border: var(--code-border);
+  overflow-x: auto;
+}
+
+/* Subtle scrollbars for code blocks (WebKit) */
+.prose pre::-webkit-scrollbar,
+pre.shiki::-webkit-scrollbar {
+  height: 8px;
+}
+.prose pre::-webkit-scrollbar-track,
+pre.shiki::-webkit-scrollbar-track {
+  background: transparent;
+}
+.prose pre::-webkit-scrollbar-thumb,
+pre.shiki::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
 }
 
 .prose strong {

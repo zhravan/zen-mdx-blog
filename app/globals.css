@@ -128,6 +128,24 @@ a:hover {
   margin-bottom: 1rem;
 }
 
+/* Ensure code blocks never soft-wrap; prefer horizontal scroll */
+.prose pre,
+.prose pre code,
+pre.shiki,
+pre.shiki code {
+  white-space: pre !important;
+  overflow-x: auto;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+/* Inline code should remain selectable but not auto-select everything */
+.prose code,
+.prose pre code {
+  user-select: text;
+}
+
 .prose blockquote {
   border-left: 4px solid var(--color-border) !important;
   padding-left: 1rem !important;
@@ -145,6 +163,13 @@ a:hover {
 .prose pre:not(.shiki) code {
   background-color: transparent !important;
   padding: 0 !important;
+}
+
+/* Do not apply inline code styling inside highlighted code blocks */
+.prose pre.shiki code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
 }
 
 .prose strong {

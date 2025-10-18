@@ -78,6 +78,7 @@ export async function Pre({ children }: { children: React.ReactNode }) {
             padding: '1rem',
             borderRadius: '0.5rem',
             overflowX: 'auto',
+            whiteSpace: 'pre',
           }}
         >
           {children}

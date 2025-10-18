@@ -112,6 +112,20 @@ export const ACTIVE_THEME: ThemeName = "vitesse-dark"; // Change this!
 3. Update `ACTIVE_THEME` in `lib/site.ts`
 4. Restart the dev server
 
+## SEO configuration via YAML
+
+You can control global SEO without touching code using `config/seo.yaml`:
+
+- siteUrl: canonical site origin (used for metadata, sitemap, and feeds)
+- title and titleTemplate: default page titles (e.g., "%s | Your Name")
+- description: default site description
+- openGraph: default OG type/locale and optional image
+- twitter: card type and optional handles
+
+Overrides: `NEXT_PUBLIC_SITE_URL` environment variable overrides `siteUrl` when present.
+
+Per-post metadata: Frontmatter `title` and `description` are used for post pages, and combined with the YAML template.
+
 ## Feeds
 
 The blog exposes three feed formats:

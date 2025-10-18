@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
+import { getPostMetadata } from '@/lib/seo';
 import { BackLink } from '@/components/navigation';
 
 export async function generateStaticParams() {
@@ -23,10 +24,11 @@ export async function generateMetadata({
     };
   }
 
-  return {
+  return getPostMetadata({
     title: post.title,
-    description: post.description
-  };
+    description: post.description,
+    slug
+  });
 }
 
 export default async function BlogPost({
@@ -50,13 +52,13 @@ export default async function BlogPost({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-xxs">
       <div className="flex items-center gap-2 mb-8">
         <BackLink href="/blog">Back to Blog</BackLink>
       </div>
 
-      <article className="animate-fade-in prose prose-sm max-w-none">
-        <p className="text-xs text-muted-foreground opacity-70 mb-4">
+      <article className="animate-fade-in prose max-w-none">
+        <p className="opacity-70 mb-4" style={{ color: 'var(--color-muted-foreground)' }}>
           {post.date}
         </p>
         <Content />

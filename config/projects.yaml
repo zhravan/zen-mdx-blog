@@ -1,0 +1,20 @@
+# Projects shown on the Work page
+# Add, remove, or reorder entries as needed.
+- title: Project Alpha
+  description: A developer tool that simplifies API integration and reduces boilerplate code.
+  tech: [React, TypeScript, Node.js]
+  roles: [creator, full-stack]
+  period: 2024–2025
+  link: https://github.com
+- title: Design System
+  description: A comprehensive component library built with accessibility and performance in mind.
+  tech: [React, "Tailwind CSS", Storybook]
+  roles: [lead-engineer, product-designer]
+  period: 2023–2024
+  link: https://github.com
+- title: CLI Tool
+  description: Command-line utility for automating common development workflows.
+  tech: [Node.js, TypeScript]
+  roles: [maintainer]
+  period: 2022
+  link: https://github.com

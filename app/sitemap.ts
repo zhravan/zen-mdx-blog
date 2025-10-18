@@ -1,19 +1,20 @@
 import { getAllPosts } from '@/lib/blog';
-import { SITE_URL } from '@/lib/site';
+import { loadSeoConfig } from '@/lib/seo';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;
 
 export default async function sitemap() {
   const posts = getAllPosts();
+  const { siteUrl } = loadSeoConfig();
 
   const blogPosts = posts.map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
+    url: `${siteUrl}/blog/${post.slug}`,
     lastModified: new Date().toISOString()
   }));
 
   const routes = ['', '/blog', '/work', '/about'].map((route) => ({
-    url: `${SITE_URL}${route}`,
+    url: `${siteUrl}${route}`,
     lastModified: new Date().toISOString()
   }));
 

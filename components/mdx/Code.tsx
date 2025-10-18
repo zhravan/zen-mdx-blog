@@ -1,6 +1,9 @@
 import React from 'react';
-import { ClientHighlighter } from './ClientHighlighter';
 import { CopyButton } from './CopyButton';
+import { getTheme } from '@/lib/themes';
+import { ACTIVE_THEME } from '@/lib/site';
+// Server-side syntax highlighting to avoid FOUC on refresh
+import { codeToHtml } from 'shiki';
 
 export function InlineCode({ children }: { children: React.ReactNode }) {
   return (
@@ -18,7 +21,7 @@ export function InlineCode({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function Pre({ children }: { children: React.ReactNode }) {
+export async function Pre({ children }: { children: React.ReactNode }) {
   let lang: string | undefined;
   let codeText = '';
 
@@ -31,6 +34,23 @@ export function Pre({ children }: { children: React.ReactNode }) {
     codeText = typeof raw === 'string' ? raw : Array.isArray(raw) ? raw.join('') : '';
   }
 
+  // Resolve the active syntax theme once on the server
+  const theme = getTheme(ACTIVE_THEME);
+  const syntaxTheme = theme.syntaxTheme;
+
+  // Try server-side highlighting. If it fails or lang is missing, we'll fallback.
+  let highlightedHtml: string | null = null;
+  if (codeText && lang) {
+    try {
+      highlightedHtml = await codeToHtml(codeText, {
+        lang,
+        theme: syntaxTheme,
+      } as any);
+    } catch {
+      highlightedHtml = null;
+    }
+  }
+
   return (
     <div className="relative group" style={{ margin: '1rem 0' }}>
       <div
@@ -39,19 +59,31 @@ export function Pre({ children }: { children: React.ReactNode }) {
       >
         <CopyButton text={codeText} />
       </div>
-      {/* Fallback pre while client highlighter loads or when language unknown */}
-      <pre
-        style={{
-          backgroundColor: 'var(--color-muted)',
-          padding: '1rem',
-          borderRadius: '0.5rem',
-          overflowX: 'auto'
-        }}
-      >
-        {children}
-      </pre>
-      {/* Client-side highlight overlay replaces the above visually via absolute flow */}
-      <ClientHighlighter code={codeText} lang={lang} />
+      {/* Prefer server-side highlighted HTML to avoid theme flash */}
+      {highlightedHtml ? (
+        <div
+          // Shiki returns a full <pre class="shiki">...</pre> block
+          dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+          // Ensure consistent spacing/rounding/scroll
+          style={{
+            borderRadius: '0.5rem',
+            overflowX: 'auto',
+          }}
+        />
+      ) : (
+        // Fallback when no language or SSR highlighting failed
+        <pre
+          style={{
+            backgroundColor: 'var(--color-muted)',
+            padding: '1rem',
+            borderRadius: '0.5rem',
+            overflowX: 'auto',
+            whiteSpace: 'pre',
+          }}
+        >
+          {children}
+        </pre>
+      )}
     </div>
   );
 }

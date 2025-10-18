@@ -6,22 +6,13 @@ import { ScrollToTop } from '@/components/ScrollToTop';
 import { CommandPalette } from '@/components/CommandPalette';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import ThemeStyleTag from '@/components/ThemeStyleTag';
 import { getAllPosts } from '@/lib/blog';
-import { SITE_URL } from '@/lib/site';
+import { getDefaultMetadata } from '@/lib/seo';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  alternates: {
-    canonical: '/'
-  },
-  title: {
-    default: 'Your Name',
-    template: '%s | Your Name'
-  },
-  description: 'Developer, writer, and creator.'
-};
+export const metadata: Metadata = getDefaultMetadata();
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -39,13 +30,16 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={spaceGrotesk.className}>
+      <head>
+        <ThemeStyleTag />
+      </head>
       <body className="antialiased">
         <ThemeProvider>
           <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
             <ScrollProgress />
             <nav>
-              <div className="max-w-2xl mx-auto px-8 py-8">
-                <div className="flex gap-6">
+              <div className="max-w-2xl mx-auto px-4 sm:px-8 py-6 sm:py-8">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-6">
                   {navItems.map((item) => (
                     <NavLink key={item.path} href={item.path}>
                       {item.name}
@@ -54,9 +48,9 @@ export default function RootLayout({
                 </div>
               </div>
             </nav>
-            <main className="max-w-2xl mx-auto px-8 py-16">{children}</main>
+            <main className="max-w-2xl mx-auto px-4 sm:px-8 py-12 sm:py-16">{children}</main>
             <footer className="mt-24">
-              <div className="max-w-2xl mx-auto px-8 py-8">
+              <div className="max-w-2xl mx-auto px-4 sm:px-8 py-6 sm:py-8">
                 <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
                   © {new Date().getFullYear()}
                 </p>

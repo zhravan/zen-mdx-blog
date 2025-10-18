@@ -1,14 +1,15 @@
 import { getAllPosts } from '@/lib/blog';
-import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from '@/lib/site';
+import { loadSeoConfig } from '@/lib/seo';
 
 export const revalidate = 3600; // Rebuild feed every hour
 
 export async function GET() {
   const posts = getAllPosts();
+  const { siteUrl, title: SITE_TITLE, description: SITE_DESCRIPTION } = loadSeoConfig();
 
   const items = posts
     .map((post) => {
-      const url = `${SITE_URL}/blog/${post.slug}`;
+      const url = `${siteUrl}/blog/${post.slug}`;
       const pubDate = post.date ? new Date(post.date).toUTCString() : new Date().toUTCString();
       const title = post.title || post.slug;
       const description = post.description || '';
@@ -16,7 +17,7 @@ export async function GET() {
     })
     .join('');
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n  <channel>\n    <title><![CDATA[${SITE_TITLE}]]></title>\n    <link>${SITE_URL}</link>\n    <description><![CDATA[${SITE_DESCRIPTION}]]></description>\n    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>${items}\n  </channel>\n</rss>`;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n  <channel>\n    <title><![CDATA[${SITE_TITLE}]]></title>\n    <link>${siteUrl}</link>\n    <description><![CDATA[${SITE_DESCRIPTION}]]></description>\n    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>${items}\n  </channel>\n</rss>`;
 
   return new Response(xml, {
     headers: {

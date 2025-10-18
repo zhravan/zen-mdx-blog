@@ -1,0 +1,27 @@
+# Site-wide SEO configuration
+# Update these values to change global metadata without touching code.
+
+siteUrl: "https://example.com"
+
+# Default <title> and template for pages
+# If titleTemplate is omitted, it falls back to "%s | <title>"
+
+title: "Your Name"
+
+titleTemplate: "%s | Your Name"
+
+# Default description used across the site
+
+description: "Engineer, writer, and creator."
+
+openGraph:
+  type: "website"
+  # Optional: path to a default OG image. Provide an absolute URL or a path under public/
+  # image: "/og.png"
+  locale: "en_US"
+
+twitter:
+  card: "summary_large_image"
+  # Optional: your @handle
+  # site: "@yourhandle"
+  # creator: "@yourhandle"

@@ -1,40 +1,18 @@
 import { ExternalLink } from 'lucide-react';
+import { getProjects } from '@/lib/projects';
 
 export const metadata = {
   title: 'Work',
   description: 'A selection of projects I have built and contributed to.'
 };
 
-const projects = [
-  {
-    title: 'Project Alpha',
-    description:
-      'A developer tool that simplifies API integration and reduces boilerplate code.',
-    tech: ['React', 'TypeScript', 'Node.js'],
-    link: 'https://github.com'
-  },
-  {
-    title: 'Design System',
-    description:
-      'A comprehensive component library built with accessibility and performance in mind.',
-    tech: ['React', 'Tailwind CSS', 'Storybook'],
-    link: 'https://github.com'
-  },
-  {
-    title: 'CLI Tool',
-    description:
-      'Command-line utility for automating common development workflows.',
-    tech: ['Node.js', 'TypeScript'],
-    link: 'https://github.com'
-  }
-];
-
 export default function Work() {
+  const projects = getProjects();
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-xxs">
       <section className="animate-fade-in">
         <h1 className="text-sm mb-4">Work</h1>
-        <p className="text-xs mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
+        <p className="mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
           A selection of projects I have built and contributed to.
         </p>
       </section>
@@ -49,7 +27,7 @@ export default function Work() {
             >
               <div className="flex items-baseline justify-between gap-4">
                 <h2
-                  className="text-xs transition-opacity group-hover:opacity-80"
+                  className="transition-opacity group-hover:opacity-80"
                   style={{ color: 'var(--color-foreground)' }}
                 >
                   {project.title}
@@ -65,25 +43,32 @@ export default function Work() {
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
-              <p
-                className="text-xs leading-relaxed"
-                style={{ color: 'var(--color-muted-foreground)' }}
-              >
+              <p className="leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>
                 {project.description}
               </p>
-              <p
-                className="text-xs opacity-70"
-                style={{ color: 'var(--color-muted-foreground)' }}
-              >
-                {project.tech.join(' · ')}
-              </p>
+              {project.tech.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-[3px] border px-1.5 py-[1px]"
+                      style={{
+                        borderColor: 'var(--color-border)',
+                        color: 'var(--color-muted-foreground)'
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
             </article>
           ))}
         </div>
       </section>
 
       <section>
-        <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+        <p className="" style={{ color: 'var(--color-muted-foreground)' }}>
           You can find more of my work on{' '}
           <a href="https://github.com" target="_blank" rel="noopener noreferrer">
             GitHub

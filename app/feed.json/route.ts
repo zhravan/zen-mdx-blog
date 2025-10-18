@@ -1,13 +1,14 @@
 import { getAllPosts } from '@/lib/blog';
-import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from '@/lib/site';
+import { loadSeoConfig } from '@/lib/seo';
 
 export const revalidate = 3600;
 
 export async function GET() {
   const posts = getAllPosts();
+  const { siteUrl, title: SITE_TITLE, description: SITE_DESCRIPTION } = loadSeoConfig();
 
   const items = posts.map((post) => {
-    const url = `${SITE_URL}/blog/${post.slug}`;
+  const url = `${siteUrl}/blog/${post.slug}`;
     return {
       id: url,
       url,
@@ -19,10 +20,10 @@ export async function GET() {
 
   const json = {
     version: 'https://jsonfeed.org/version/1',
-    title: SITE_TITLE,
-    home_page_url: SITE_URL,
-    feed_url: `${SITE_URL}/feed.json`,
-    description: SITE_DESCRIPTION,
+  title: SITE_TITLE,
+  home_page_url: siteUrl,
+  feed_url: `${siteUrl}/feed.json`,
+  description: SITE_DESCRIPTION,
     items
   };
 

@@ -8,21 +8,11 @@ import { ScrollProgress } from '@/components/ScrollProgress';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import ThemeStyleTag from '@/components/ThemeStyleTag';
 import { getAllPosts } from '@/lib/blog';
-import { SITE_URL } from '@/lib/site';
+import { getDefaultMetadata } from '@/lib/seo';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  alternates: {
-    canonical: '/'
-  },
-  title: {
-    default: 'Your Name',
-    template: '%s | Your Name'
-  },
-  description: 'Developer, writer, and creator.'
-};
+export const metadata: Metadata = getDefaultMetadata();
 
 const navItems = [
   { name: 'Home', path: '/' },

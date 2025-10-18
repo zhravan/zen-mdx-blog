@@ -17,4 +17,4 @@ export const SITE_DESCRIPTION = "Engineer, writer, and creator.";
  * - 'tokyo-night'
  * - 'catppuccin-mocha'
  */
-export const ACTIVE_THEME: ThemeName = "vitesse-dark";
+export const ACTIVE_THEME: ThemeName = "catppuccin-mocha";

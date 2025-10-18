@@ -4,9 +4,9 @@ import { Paragraph, Strong, Em, Blockquote } from '@/components/mdx/Text';
 import { UnorderedList, OrderedList, ListItem } from '@/components/mdx/List';
 import { InlineCode, Pre } from '@/components/mdx/Code';
 
-type MDXComponents = {
-  [key: string]: React.ComponentType<any>;
-};
+// Allow both sync and async server components
+type MDXComponent = React.ComponentType<any> | ((props: any) => Promise<React.JSX.Element>);
+type MDXComponents = Record<string, MDXComponent>;
 
 export function useMDXComponents(): MDXComponents {
   return {

@@ -120,7 +120,7 @@ a:hover {
   font-size: 0.875rem;
 }
 
-.prose pre {
+.prose pre:not(.shiki) {
   background-color: var(--color-muted);
   padding: 1rem;
   border-radius: 0.5rem;
@@ -142,7 +142,7 @@ a:hover {
   margin: 0 !important;
 }
 
-.prose pre code {
+.prose pre:not(.shiki) code {
   background-color: transparent !important;
   padding: 0 !important;
 }

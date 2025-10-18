@@ -11,6 +11,16 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
+#### Self-Hosting with Docker
+
+This project supports self-hosting using Docker and Caddy.
+
+#### Build and Run
+```bash
+docker build -t my-app .
+docker run -d -p 80:80 my-app
+```
+
 #### Stack
 
 Next.js 15, React 19, MDX, Tailwind CSS

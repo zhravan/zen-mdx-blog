@@ -1,35 +1,13 @@
 import { ExternalLink } from 'lucide-react';
+import { getProjects } from '@/lib/projects';
 
 export const metadata = {
   title: 'Work',
   description: 'A selection of projects I have built and contributed to.'
 };
 
-const projects = [
-  {
-    title: 'Project Alpha',
-    description:
-      'A developer tool that simplifies API integration and reduces boilerplate code.',
-    tech: ['React', 'TypeScript', 'Node.js'],
-    link: 'https://github.com'
-  },
-  {
-    title: 'Design System',
-    description:
-      'A comprehensive component library built with accessibility and performance in mind.',
-    tech: ['React', 'Tailwind CSS', 'Storybook'],
-    link: 'https://github.com'
-  },
-  {
-    title: 'CLI Tool',
-    description:
-      'Command-line utility for automating common development workflows.',
-    tech: ['Node.js', 'TypeScript'],
-    link: 'https://github.com'
-  }
-];
-
 export default function Work() {
+  const projects = getProjects();
   return (
     <div className="space-y-6 text-xxs">
       <section className="animate-fade-in">
@@ -68,9 +46,22 @@ export default function Work() {
               <p className="leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>
                 {project.description}
               </p>
-              <p className="opacity-70" style={{ color: 'var(--color-muted-foreground)' }}>
-                {project.tech.join(' · ')}
-              </p>
+              {project.tech.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-[3px] border px-1.5 py-[1px]"
+                      style={{
+                        borderColor: 'var(--color-border)',
+                        color: 'var(--color-muted-foreground)'
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
             </article>
           ))}
         </div>

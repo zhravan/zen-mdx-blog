@@ -271,3 +271,23 @@ pre.shiki::-webkit-scrollbar-thumb {
   animation: fade-up 0.5s ease-out;
   animation-fill-mode: both;
 }
+
+/* Global caret blink used by 404 page */
+@keyframes caretBlink { 0%, 60% { opacity: 1 } 61%, 100% { opacity: 0 } }
+.caret-blink { background: var(--color-muted-foreground); animation: caretBlink 1.1s steps(1) infinite; }
+
+/* Minimal glitch effect for 404 warp link */
+@keyframes glitch {
+  0% { transform: translate(0,0) }
+  10% { transform: translate(0.5px,-0.5px) }
+  20% { transform: translate(-0.5px,0.5px) }
+  30% { transform: translate(0.3px,0.3px) }
+  40% { transform: translate(-0.3px,-0.2px) }
+  50% { transform: translate(0,0) }
+  60% { transform: translate(0.4px,-0.4px) }
+  70% { transform: translate(-0.4px,0.4px) }
+  80% { transform: translate(0.2px,-0.2px) }
+  90% { transform: translate(-0.2px,0.2px) }
+  100% { transform: translate(0,0) }
+}
+.glitch-link:hover { animation: glitch 200ms linear 1; }

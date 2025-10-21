@@ -56,27 +56,26 @@ export default function Blog() {
                   <h2 className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
                     {year}
                   </h2>
-                  <ul className="list-none p-0 m-0 space-y-[6px]">
+                  <ul className="list-none p-0 m-0 space-y-3">
                     {items.map((post) => (
-                      <li key={post.slug} className="relative pl-4 leading-6">
+                      <li key={post.slug} className="relative pl-4 text-xxs leading-6">
                         {/* tiny custom bullet */}
                         <span
                           aria-hidden
-                          className="absolute left-0 top-[0.6em] w-[3px] h-[3px] rounded-full"
+                          className="absolute left-0 top-[0.55em] w-[3px] h-[3px] rounded-full"
                           style={{ backgroundColor: 'var(--color-muted-foreground)' }}
                         />
-                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
-                          <div className="flex items-baseline gap-2 flex-1">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:gap-2">
+                          <div className="flex items-start gap-2 flex-1 flex-wrap">
                             <Link
                               href={`/blog/${post.slug}`}
-                              className="hover:opacity-90 focus:opacity-90"
+                              className="hover:opacity-90 focus:opacity-90 inline-block"
                               title={post.description}
                             >
                               {post.title}
                             </Link>
-                            <span className="hidden sm:inline" aria-hidden />
                             <time
-                              className="whitespace-nowrap"
+                              className="whitespace-nowrap opacity-70"
                               style={{ color: 'var(--color-muted-foreground)' }}
                               dateTime={post.date}
                             >

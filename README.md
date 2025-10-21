@@ -41,12 +41,18 @@ Open <http://localhost:3000>
 | YAML-based Plugin Config | ✓ |
 | Easy to Extend | ✓ |
 | Comments (Giscus) | |
-| Open Graph Images | |
+| Open Graph Images (Dynamic) | |
 | Search (Fuse.js) | |
 | Code Line Numbers | |
 | Code Language Badges | |
+| Code Diff Highlighting | |
 | View Counter | |
-| Analytics Integration | |
+| Analytics (Umami) | |
+| Social Share Buttons | |
+| Keyboard Shortcuts | |
+| Series Navigation | |
+| Content Warnings | |
+| Diagrams (Mermaid) | |
 
 See [docs/index.md](docs/index.md) for plugin documentation.
 

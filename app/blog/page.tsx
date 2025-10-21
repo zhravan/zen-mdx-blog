@@ -65,22 +65,37 @@ export default function Blog() {
                           className="absolute left-0 top-[0.6em] w-[3px] h-[3px] rounded-full"
                           style={{ backgroundColor: 'var(--color-muted-foreground)' }}
                         />
-                        <div className="inline sm:inline-flex sm:items-baseline sm:gap-2 align-middle">
-                          <Link
-                            href={`/blog/${post.slug}`}
-                            className="hover:opacity-90 focus:opacity-90 align-middle"
-                            title={post.description}
-                          >
-                            {post.title}
-                          </Link>
-                          <span className="hidden sm:inline" aria-hidden />
-                          <time
-                            className="block sm:inline whitespace-nowrap"
-                            style={{ color: 'var(--color-muted-foreground)' }}
-                            dateTime={post.date}
-                          >
-                            {formatDateNoYear(post.date)}
-                          </time>
+                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
+                          <div className="flex items-baseline gap-2 flex-1">
+                            <Link
+                              href={`/blog/${post.slug}`}
+                              className="hover:opacity-90 focus:opacity-90"
+                              title={post.description}
+                            >
+                              {post.title}
+                            </Link>
+                            <span className="hidden sm:inline" aria-hidden />
+                            <time
+                              className="whitespace-nowrap"
+                              style={{ color: 'var(--color-muted-foreground)' }}
+                              dateTime={post.date}
+                            >
+                              {formatDateNoYear(post.date)}
+                            </time>
+                          </div>
+                          {post.tags && post.tags.length > 0 && (
+                            <div className="flex gap-1.5 mt-1 sm:mt-0 flex-wrap">
+                              {post.tags.slice(0, 3).map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="text-[10px] px-1.5 py-0.5 rounded border opacity-60"
+                                  style={{ borderColor: 'var(--color-muted-foreground)' }}
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       </li>
                     ))}

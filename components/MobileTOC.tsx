@@ -1,13 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
-
-interface TocHeading {
-  id: string;
-  text: string;
-  level: number;
-}
+import type { TocHeading } from '@/lib/plugins/toc';
 
 interface MobileTOCProps {
   headings: TocHeading[];
@@ -16,8 +11,11 @@ interface MobileTOCProps {
 export function MobileTOC({ headings }: MobileTOCProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Filter out h1 headings (level 1)
-  const filteredHeadings = headings.filter(heading => heading.level > 1);
+  // Filter out h1 headings (level 1) - memoized to avoid recalculation
+  const filteredHeadings = useMemo(
+    () => headings.filter(heading => heading.level > 1),
+    [headings]
+  );
 
   if (filteredHeadings.length === 0) {
     return null;

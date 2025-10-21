@@ -51,12 +51,40 @@ export function findRelatedPosts(currentSlug: string): BlogPost[] | null {
 }
 
 /**
- * Find related posts by tag similarity (future: add tags to frontmatter)
+ * Find related posts by tag similarity
  */
 function findRelatedByTags(currentPost: BlogPost, otherPosts: BlogPost[]): BlogPost[] {
-  // For now, fallback to similarity since tags aren't in the schema yet
-  // TODO: Add tags to BlogPost interface and frontmatter parsing
-  return findRelatedBySimilarity(currentPost, otherPosts);
+  // If current post has no tags, fallback to similarity
+  if (!currentPost.tags || currentPost.tags.length === 0) {
+    return findRelatedBySimilarity(currentPost, otherPosts);
+  }
+
+  const currentTags = new Set(currentPost.tags.map(t => t.toLowerCase()));
+  
+  const scoredPosts = otherPosts
+    .map(post => {
+      if (!post.tags || post.tags.length === 0) {
+        return { post, score: 0 };
+      }
+      
+      // Count matching tags
+      const matchingTags = post.tags.filter(tag => 
+        currentTags.has(tag.toLowerCase())
+      ).length;
+      
+      return { post, score: matchingTags };
+    })
+    .filter(({ score }) => score > 0); // Only include posts with matching tags
+
+  // Sort by tag matches (descending), then by date (newest first)
+  return scoredPosts
+    .sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      return new Date(b.post.date).getTime() - new Date(a.post.date).getTime();
+    })
+    .map(({ post }) => post);
 }
 
 /**

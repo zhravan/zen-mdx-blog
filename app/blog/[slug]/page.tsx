@@ -9,6 +9,7 @@ import { findRelatedPosts } from '@/lib/plugins/related-posts';
 import { ReadingTimeBadge } from '@/components/ReadingTimeBadge';
 import { TableOfContents } from '@/components/TableOfContents';
 import { RelatedPosts } from '@/components/RelatedPosts';
+import { TagsList } from '@/components/TagsList';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -79,7 +80,7 @@ export default async function BlogPost({
 
       <div className={showTocSidebar ? 'lg:grid lg:grid-cols-[1fr_250px] lg:gap-12' : ''}>
         <article className="animate-fade-in prose max-w-none">
-          <div className="space-y-2 mb-6">
+          <div className="space-y-3 mb-6">
             <p className="opacity-70" style={{ color: 'var(--color-muted-foreground)' }}>
               {post.date}
             </p>
@@ -90,6 +91,9 @@ export default async function BlogPost({
                 showIcon={readingTimeConfig.showIcon}
                 showWordCount={readingTimeConfig.showWordCount}
               />
+            )}
+            {post.tags && post.tags.length > 0 && (
+              <TagsList tags={post.tags} />
             )}
           </div>
 

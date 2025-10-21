@@ -2,12 +2,22 @@
 
 import { useEffect, useState } from 'react';
 
-export function ScrollToTop() {
+interface ScrollToTopProps {
+  showAfter?: number;
+  position?: 'bottom-right' | 'bottom-left';
+  smooth?: boolean;
+}
+
+export function ScrollToTop({ 
+  showAfter = 400, 
+  position = 'bottom-right',
+  smooth = true 
+}: ScrollToTopProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > showAfter) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -16,12 +26,12 @@ export function ScrollToTop() {
 
     window.addEventListener('scroll', toggleVisibility);
     return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
+  }, [showAfter]);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: smooth ? 'smooth' : 'auto'
     });
   };
 
@@ -29,10 +39,14 @@ export function ScrollToTop() {
     return null;
   }
 
+  const positionClasses = position === 'bottom-right' 
+    ? 'bottom-6 right-6' 
+    : 'bottom-6 left-6';
+
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-6 right-6 p-2 transition-opacity hover:opacity-80"
+      className={`fixed ${positionClasses} p-2 transition-opacity hover:opacity-80`}
       style={{
         backgroundColor: 'var(--color-muted)',
         color: 'var(--color-foreground)',

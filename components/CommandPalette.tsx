@@ -18,30 +18,40 @@ interface CommandPaletteProps {
     date: string;
     description: string;
   }>;
+  fuzzyThreshold?: number;
+  showPages?: boolean;
+  showPosts?: boolean;
 }
 
-export function CommandPalette({ posts }: CommandPaletteProps) {
+export function CommandPalette({ 
+  posts, 
+  fuzzyThreshold = 0.3,
+  showPages = true,
+  showPosts = true 
+}: CommandPaletteProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
 
   const items: SearchItem[] = [
-    { title: 'Home', path: '/', type: 'page' },
-    { title: 'Blog', path: '/blog', type: 'page' },
-    { title: 'Work', path: '/work', type: 'page' },
-    { title: 'About', path: '/about', type: 'page' },
-    ...posts.map(post => ({
+    ...(showPages ? [
+      { title: 'Home', path: '/', type: 'page' as const },
+      { title: 'Blog', path: '/blog', type: 'page' as const },
+      { title: 'Work', path: '/work', type: 'page' as const },
+      { title: 'About', path: '/about', type: 'page' as const },
+    ] : []),
+    ...(showPosts ? posts.map(post => ({
       title: post.title,
       path: `/blog/${post.slug}`,
       type: 'post' as const,
       description: post.description
-    }))
+    })) : [])
   ];
 
   const fuse = new Fuse(items, {
     keys: ['title', 'description'],
-    threshold: 0.3,
+    threshold: fuzzyThreshold,
     includeScore: true
   });
 

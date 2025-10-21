@@ -2,7 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export function ScrollProgress() {
+interface ScrollProgressProps {
+  position?: 'top' | 'bottom';
+  height?: number;
+}
+
+export function ScrollProgress({ position = 'top', height = 3 }: ScrollProgressProps) {
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
   const rafRef = useRef<number | null>(null);
@@ -43,12 +48,17 @@ export function ScrollProgress() {
   if (!visible) return null;
 
   const width = `${Math.round(progress * 100)}%`;
+  const positionStyles = position === 'top' 
+    ? { top: 0 }
+    : { bottom: 0 };
 
   return (
     <div
       aria-hidden="true"
-      className="fixed left-0 top-0 z-50 h-[3px]"
+      className="fixed left-0 z-50"
       style={{
+        ...positionStyles,
+        height: `${height}px`,
         width,
         backgroundColor: 'var(--color-link)',
         boxShadow: '0 1px 0 rgba(0,0,0,0.2)',

@@ -5,3 +5,6 @@ export * from './registry';
 export * from './reading-time';
 export * from './toc';
 export * from './related-posts';
+export * from './command-palette';
+export * from './scroll-progress';
+export * from './scroll-to-top';

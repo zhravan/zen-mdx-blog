@@ -2,7 +2,6 @@ import React from 'react';
 import { CopyButton } from './CopyButton';
 import { getTheme } from '@/lib/themes';
 import { ACTIVE_THEME } from '@/lib/site';
-// Server-side syntax highlighting to avoid FOUC on refresh
 import { codeToHtml } from 'shiki';
 
 export function InlineCode({ children }: { children: React.ReactNode }) {
@@ -34,11 +33,9 @@ export async function Pre({ children }: { children: React.ReactNode }) {
     codeText = typeof raw === 'string' ? raw : Array.isArray(raw) ? raw.join('') : '';
   }
 
-  // Resolve the active syntax theme once on the server
   const theme = getTheme(ACTIVE_THEME);
   const syntaxTheme = theme.syntaxTheme;
 
-  // Try server-side highlighting. If it fails or lang is missing, we'll fallback.
   let highlightedHtml: string | null = null;
   if (codeText && lang) {
     try {
@@ -59,12 +56,9 @@ export async function Pre({ children }: { children: React.ReactNode }) {
       >
         <CopyButton text={codeText} />
       </div>
-      {/* Prefer server-side highlighted HTML to avoid theme flash */}
       {highlightedHtml ? (
         <div
-          // Shiki returns a full <pre class="shiki">...</pre> block
           dangerouslySetInnerHTML={{ __html: highlightedHtml }}
-          // Ensure consistent spacing/rounding/scroll
           style={{
             borderRadius: '0.5rem',
             overflowX: 'auto',
@@ -72,7 +66,6 @@ export async function Pre({ children }: { children: React.ReactNode }) {
           }}
         />
       ) : (
-        // Fallback when no language or SSR highlighting failed
         <pre
           style={{
             backgroundColor: 'var(--color-muted)',

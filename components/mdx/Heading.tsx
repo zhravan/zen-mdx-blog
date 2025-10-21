@@ -1,16 +1,5 @@
 import React from 'react';
-
-/**
- * Generate a URL-friendly ID from heading text
- */
-function generateHeadingId(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '') // Remove special characters
-    .replace(/\s+/g, '-')     // Replace spaces with hyphens
-    .replace(/-+/g, '-')      // Remove consecutive hyphens
-    .trim();
-}
+import { generateHeadingId } from '@/lib/plugins/toc';
 
 /**
  * Extract text content from React children

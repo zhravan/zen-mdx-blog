@@ -1,13 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
-
-interface TocHeading {
-  id: string;
-  text: string;
-  level: number;
-}
+import type { TocHeading } from '@/lib/plugins/toc';
 
 interface TableOfContentsProps {
   headings: TocHeading[];
@@ -22,6 +17,12 @@ export function TableOfContents({
 }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>('');
 
+  // Filter out h1 headings (level 1) - memoized to avoid recalculation
+  const filteredHeadings = useMemo(
+    () => headings.filter(heading => heading.level > 1),
+    [headings]
+  );
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -35,7 +36,6 @@ export function TableOfContents({
     );
 
     // Only observe h2-h6 headings
-    const filteredHeadings = headings.filter(heading => heading.level > 1);
     filteredHeadings.forEach(({ id }) => {
       const element = document.getElementById(id);
       if (element) {
@@ -44,7 +44,7 @@ export function TableOfContents({
     });
 
     return () => observer.disconnect();
-  }, [headings]);
+  }, [filteredHeadings]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -64,9 +64,6 @@ export function TableOfContents({
       window.history.pushState(null, '', `#${id}`);
     }
   };
-
-  // Filter out h1 headings (level 1)
-  const filteredHeadings = headings.filter(heading => heading.level > 1);
 
   if (filteredHeadings.length === 0) {
     return null;

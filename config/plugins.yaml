@@ -1,0 +1,77 @@
+# Plugin configuration for monolog-mdx-blog
+# Enable/disable features and configure their behavior
+
+plugins:
+  # Table of Contents - Auto-generated navigation from headings
+  toc:
+    enabled: true
+    position: "right"        # Options: "left", "right", "inline"
+    minHeadings: 2           # Minimum headings required to show TOC
+    maxDepth: 3              # Maximum heading depth (h1=1, h2=2, h3=3)
+    showScrollProgress: true
+    sticky: true
+    
+  # Reading Time Estimator - Shows estimated reading duration
+  reading-time:
+    enabled: true
+    wordsPerMinute: 200      # Average reading speed
+    showWordCount: true
+    showIcon: true
+    
+  # Related Posts - Suggest similar content
+  related-posts:
+    enabled: true
+    count: 3                 # Number of related posts to show
+    algorithm: "tags"        # Options: "tags", "similarity", "recent"
+    showDate: true
+    showDescription: true
+    
+  # Code Block Enhancements
+  code-enhancements:
+    enabled: true
+    showFileName: true       # Show filename badge on code blocks
+    showLineNumbers: true
+    enableCopy: true
+    highlightLines: true     # Support {1-3,7} syntax
+    
+  # View Counter - Track post popularity (privacy-friendly)
+  view-counter:
+    enabled: false
+    provider: "local"        # Options: "local", "api"
+    showCount: true
+    
+  # Series Navigator - Multi-part post navigation
+  series:
+    enabled: true
+    showProgress: true       # Show "Part X of Y"
+    autoGenerateIndex: true
+    
+  # External Link Badges - Mark external links with icon
+  external-links:
+    enabled: true
+    icon: "↗"
+    openInNewTab: true
+    nofollow: false
+    
+  # Search Integration
+  search:
+    enabled: true
+    provider: "local"        # Options: "local", "algolia"
+    fuzzyThreshold: 0.3
+    searchFields:
+      - title
+      - description
+      - tags
+      - headings
+    
+  # Analytics (privacy-friendly)
+  analytics:
+    enabled: false
+    provider: "plausible"    # Options: "plausible", "umami", "simple-analytics"
+    domain: ""
+    
+  # Draft Preview Mode
+  drafts:
+    enabled: true
+    showInList: false        # Show drafts in blog list (dev mode only)
+    previewToken: ""         # Optional: secret token for preview URLs

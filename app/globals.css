@@ -202,11 +202,9 @@ pre.shiki {
   .prose pre:not(.shiki) {
     font-size: 0.55rem !important;
     padding: 0.75rem !important;
-    margin-left: -1rem;
-    margin-right: -1rem;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
+    border-radius: var(--code-radius);
+    max-width: 100%;
+    overflow-x: auto;
   }
   
   :root {

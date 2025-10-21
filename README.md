@@ -48,7 +48,7 @@ Open <http://localhost:3000>
 | View Counter | |
 | Analytics Integration | |
 
-See [docs/](docs/) for plugin documentation.
+See [docs/index.md](docs/index.md) for plugin documentation.
 
 ## Project structure
 

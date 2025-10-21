@@ -12,12 +12,12 @@ export function TagsList({ tags, showIcon = true }: TagsListProps) {
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2 text-xxs">
-      {showIcon && <Tag size={14} className="opacity-60" />}
+    <div className="flex flex-wrap items-center gap-1.5 text-[10px]">
+      {showIcon && <Tag size={11} className="opacity-50" />}
       {tags.map((tag) => (
         <span
           key={tag}
-          className="px-2 py-1 rounded-md bg-opacity-10 border border-current opacity-70 hover:opacity-100 transition-opacity"
+          className="px-1.5 py-0.5 rounded bg-opacity-10 border border-current opacity-50 hover:opacity-80 transition-opacity"
         >
           {tag}
         </span>

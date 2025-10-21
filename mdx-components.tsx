@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { H1, H2, H3 } from '@/components/mdx/Heading';
+import { H1, H2, H3, H4, H5, H6 } from '@/components/mdx/Heading';
 import { Paragraph, Strong, Em, Blockquote } from '@/components/mdx/Text';
 import { UnorderedList, OrderedList, ListItem } from '@/components/mdx/List';
 import { InlineCode, Pre } from '@/components/mdx/Code';
@@ -13,6 +13,9 @@ export function useMDXComponents(): MDXComponents {
     h1: H1,
     h2: H2,
     h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
     p: Paragraph,
     strong: Strong,
     em: Em,

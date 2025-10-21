@@ -45,7 +45,7 @@ plugins:
     count: 3                 # Number of related posts to show
     algorithm: "tags"        # Options: "tags", "similarity", "recent"
     showDate: true
-    showDescription: true
+    showDescription: false
     
   # Code Block Enhancements
   code-enhancements:

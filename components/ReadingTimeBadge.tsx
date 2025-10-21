@@ -17,17 +17,17 @@ export function ReadingTimeBadge({
   const wordText = showWordCount && words ? ` · ${words.toLocaleString()} words` : '';
 
   return (
-    <div className="flex items-center gap-3 text-xxs opacity-70">
+    <div className="flex items-center gap-2 text-[10px] opacity-50">
       {showIcon && (
-        <span className="flex items-center gap-1.5">
-          <Clock size={14} />
+        <span className="flex items-center gap-1">
+          <Clock size={11} />
           <span>{minuteText}</span>
         </span>
       )}
       {!showIcon && <span>{minuteText}</span>}
       {showWordCount && words && (
-        <span className="flex items-center gap-1.5">
-          <FileText size={14} />
+        <span className="flex items-center gap-1">
+          <FileText size={11} />
           <span>{words.toLocaleString()} words</span>
         </span>
       )}

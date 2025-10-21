@@ -79,29 +79,31 @@ export default async function BlogPost({
         <BackLink href="/blog">Back to Blog</BackLink>
       </div>
 
+      {/* Metadata section - above content on mobile only */}
+      <div className="space-y-2 mb-6 lg:hidden">
+        <p className="text-[10px] opacity-50" style={{ color: 'var(--color-muted-foreground)' }}>
+          {post.date}
+        </p>
+        {readingTime && readingTimeConfig && (
+          <ReadingTimeBadge
+            minutes={readingTime.minutes}
+            words={readingTime.words}
+            showIcon={readingTimeConfig.showIcon}
+            showWordCount={readingTimeConfig.showWordCount}
+          />
+        )}
+        {post.tags && post.tags.length > 0 && (
+          <TagsList tags={post.tags} />
+        )}
+      </div>
+
+      {/* Mobile TOC */}
+      {tocHeadings && tocHeadings.length > 0 && (
+        <MobileTOC headings={tocHeadings} />
+      )}
+
       <div className={showTocSidebar ? 'lg:grid lg:grid-cols-[1fr_250px] lg:gap-12' : ''}>
         <article className="animate-fade-in prose max-w-none">
-          <div className="space-y-3 mb-6">
-            <p className="opacity-70" style={{ color: 'var(--color-muted-foreground)' }}>
-              {post.date}
-            </p>
-            {readingTime && readingTimeConfig && (
-              <ReadingTimeBadge
-                minutes={readingTime.minutes}
-                words={readingTime.words}
-                showIcon={readingTimeConfig.showIcon}
-                showWordCount={readingTimeConfig.showWordCount}
-              />
-            )}
-            {post.tags && post.tags.length > 0 && (
-              <TagsList tags={post.tags} />
-            )}
-          </div>
-
-          {tocHeadings && tocHeadings.length > 0 && (
-            <MobileTOC headings={tocHeadings} />
-          )}
-
           {showTocInline && (
             <TableOfContents
               headings={tocHeadings}
@@ -122,7 +124,25 @@ export default async function BlogPost({
         </article>
 
         {showTocSidebar && (
-          <aside className="hidden lg:block">
+          <aside className="hidden lg:block space-y-6">
+            {/* Metadata section - in sidebar on desktop */}
+            <div className="space-y-2 pb-6 border-b border-gray-200 dark:border-gray-800">
+              <p className="text-[10px] opacity-50" style={{ color: 'var(--color-muted-foreground)' }}>
+                {post.date}
+              </p>
+              {readingTime && readingTimeConfig && (
+                <ReadingTimeBadge
+                  minutes={readingTime.minutes}
+                  words={readingTime.words}
+                  showIcon={readingTimeConfig.showIcon}
+                  showWordCount={readingTimeConfig.showWordCount}
+                />
+              )}
+              {post.tags && post.tags.length > 0 && (
+                <TagsList tags={post.tags} />
+              )}
+            </div>
+
             <TableOfContents
               headings={tocHeadings}
               position={tocConfig.position}

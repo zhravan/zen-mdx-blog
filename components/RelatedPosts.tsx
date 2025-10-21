@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import { BlogPost } from '@/lib/blog';
 
 interface RelatedPostsProps {
@@ -11,45 +10,34 @@ interface RelatedPostsProps {
 export function RelatedPosts({ 
   posts, 
   showDate = true,
-  showDescription = true 
+  showDescription = false 
 }: RelatedPostsProps) {
   if (posts.length === 0) {
     return null;
   }
 
   return (
-    <section className="mt-16 pt-8 border-t">
-      <h2 className="text-sm font-medium mb-6 opacity-90">Related Posts</h2>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <section className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <h2 className="text-[10px] font-medium mb-4 opacity-40 uppercase tracking-wider">
+        Related
+      </h2>
+      <div className="space-y-2">
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group block p-4 rounded-lg border hover:border-current transition-colors"
+            className="group block py-1.5 hover:opacity-100 opacity-60 transition-opacity text-xs"
           >
-            <div className="space-y-2">
-              <h3 className="font-medium text-xxs group-hover:opacity-100 opacity-90 transition-opacity">
-                {post.title}
-              </h3>
-              {showDate && post.date && (
-                <p className="text-xxs opacity-60">
-                  {new Date(post.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                  })}
-                </p>
-              )}
-              {showDescription && post.description && (
-                <p className="text-xxs opacity-70 line-clamp-2">
-                  {post.description}
-                </p>
-              )}
-              <div className="flex items-center gap-1 text-xxs opacity-60 group-hover:opacity-100 transition-opacity">
-                <span>Read more</span>
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </div>
-            </div>
+            <span className="block">{post.title}</span>
+            {showDate && post.date && (
+              <span className="text-[10px] opacity-50 block mt-0.5">
+                {new Date(post.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </span>
+            )}
           </Link>
         ))}
       </div>

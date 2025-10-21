@@ -5,11 +5,11 @@ import { BackLink } from '@/components/navigation';
 import { getPluginConfig } from '@/lib/plugins/registry';
 import { getReadingTimeForPost } from '@/lib/plugins/reading-time';
 import { getTocForPost } from '@/lib/plugins/toc';
-import { findRelatedPosts } from '@/lib/plugins/related-posts';
+import { getPostNavigation } from '@/lib/plugins/post-navigation';
 import { ReadingTimeBadge } from '@/components/ReadingTimeBadge';
 import { TableOfContents } from '@/components/TableOfContents';
 import { MobileTOC } from '@/components/MobileTOC';
-import { RelatedPosts } from '@/components/RelatedPosts';
+import { PostNavigation } from '@/components/PostNavigation';
 import { TagsList } from '@/components/TagsList';
 
 export async function generateStaticParams() {
@@ -63,11 +63,10 @@ export default async function BlogPost({
   // Load plugin data
   const readingTime = await getReadingTimeForPost(slug);
   const tocHeadings = await getTocForPost(slug);
-  const relatedPosts = findRelatedPosts(slug);
+  const postNav = getPostNavigation(slug);
   
   // Get plugin configs
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
-  const relatedConfig = getPluginConfig<{ showDate: boolean; showDescription: boolean }>('related-posts');
   const readingTimeConfig = getPluginConfig<{ showIcon: boolean; showWordCount: boolean }>('reading-time');
 
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
@@ -114,13 +113,7 @@ export default async function BlogPost({
 
           <Content />
 
-          {relatedPosts && relatedConfig && (
-            <RelatedPosts
-              posts={relatedPosts}
-              showDate={relatedConfig.showDate}
-              showDescription={relatedConfig.showDescription}
-            />
-          )}
+          <PostNavigation previous={postNav.previous} next={postNav.next} />
         </article>
 
         {showTocSidebar && (

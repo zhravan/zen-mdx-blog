@@ -9,6 +9,9 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import ThemeStyleTag from '@/components/ThemeStyleTag';
 import { getAllPosts } from '@/lib/blog';
 import { getDefaultMetadata } from '@/lib/seo';
+import { getCommandPaletteConfig } from '@/lib/plugins/command-palette';
+import { getScrollProgressConfig } from '@/lib/plugins/scroll-progress';
+import { getScrollToTopConfig } from '@/lib/plugins/scroll-to-top';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
@@ -27,6 +30,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const posts = getAllPosts();
+  
+  // Load plugin configurations
+  const commandPaletteConfig = getCommandPaletteConfig();
+  const scrollProgressConfig = getScrollProgressConfig();
+  const scrollToTopConfig = getScrollToTopConfig();
 
   return (
     <html lang="en" className={spaceGrotesk.className}>
@@ -36,7 +44,12 @@ export default function RootLayout({
       <body className="antialiased">
         <ThemeProvider>
           <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
-            <ScrollProgress />
+            {scrollProgressConfig && (
+              <ScrollProgress 
+                position={scrollProgressConfig.position}
+                height={scrollProgressConfig.height}
+              />
+            )}
             <nav>
               <div className="max-w-2xl mx-auto px-4 sm:px-8 py-6 sm:py-8">
                 <div className="flex flex-wrap items-center gap-3 sm:gap-6">
@@ -56,8 +69,21 @@ export default function RootLayout({
                 </p>
               </div>
             </footer>
-            <ScrollToTop />
-            <CommandPalette posts={posts} />
+            {scrollToTopConfig && (
+              <ScrollToTop 
+                showAfter={scrollToTopConfig.showAfter}
+                position={scrollToTopConfig.position}
+                smooth={scrollToTopConfig.smooth}
+              />
+            )}
+            {commandPaletteConfig && (
+              <CommandPalette 
+                posts={posts}
+                fuzzyThreshold={commandPaletteConfig.fuzzyThreshold}
+                showPages={commandPaletteConfig.showPages}
+                showPosts={commandPaletteConfig.showPosts}
+              />
+            )}
           </div>
         </ThemeProvider>
       </body>

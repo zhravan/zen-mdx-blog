@@ -2,6 +2,27 @@
 # Enable/disable features and configure their behavior
 
 plugins:
+  # Command Palette - Quick search (⌘K)
+  command-palette:
+    enabled: true
+    shortcut: "cmd+k"        # Keyboard shortcut
+    fuzzyThreshold: 0.3      # Fuse.js search sensitivity (0-1)
+    showPages: true          # Include static pages
+    showPosts: true          # Include blog posts
+    
+  # Scroll Progress Bar - Visual reading progress
+  scroll-progress:
+    enabled: true
+    position: "top"          # Options: "top", "bottom"
+    height: 3                # Height in pixels
+    
+  # Scroll to Top Button - Quick navigation to top
+  scroll-to-top:
+    enabled: true
+    showAfter: 400           # Show after pixels scrolled
+    position: "bottom-right" # Options: "bottom-right", "bottom-left"
+    smooth: true             # Smooth scroll animation
+    
   # Table of Contents - Auto-generated navigation from headings
   toc:
     enabled: true

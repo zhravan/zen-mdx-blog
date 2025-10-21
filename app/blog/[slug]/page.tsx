@@ -8,6 +8,7 @@ import { getTocForPost } from '@/lib/plugins/toc';
 import { findRelatedPosts } from '@/lib/plugins/related-posts';
 import { ReadingTimeBadge } from '@/components/ReadingTimeBadge';
 import { TableOfContents } from '@/components/TableOfContents';
+import { MobileTOC } from '@/components/MobileTOC';
 import { RelatedPosts } from '@/components/RelatedPosts';
 import { TagsList } from '@/components/TagsList';
 
@@ -96,6 +97,10 @@ export default async function BlogPost({
               <TagsList tags={post.tags} />
             )}
           </div>
+
+          {tocHeadings && tocHeadings.length > 0 && (
+            <MobileTOC headings={tocHeadings} />
+          )}
 
           {showTocInline && (
             <TableOfContents

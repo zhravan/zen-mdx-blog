@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useImperativeHandle, forwardRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Fuse from 'fuse.js';
 
@@ -23,16 +23,32 @@ interface CommandPaletteProps {
   showPosts?: boolean;
 }
 
-export function CommandPalette({ 
+export interface CommandPaletteHandle {
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
+}
+
+export const CommandPalette = forwardRef<CommandPaletteHandle, CommandPaletteProps>(({ 
   posts, 
   fuzzyThreshold = 0.3,
   showPages = true,
   showPosts = true 
-}: CommandPaletteProps) {
+}, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
+
+  useImperativeHandle(ref, () => ({
+    open: () => setIsOpen(true),
+    close: () => {
+      setIsOpen(false);
+      setQuery('');
+      setSelectedIndex(0);
+    },
+    toggle: () => setIsOpen(prev => !prev)
+  }));
 
   const items: SearchItem[] = [
     ...(showPages ? [
@@ -162,14 +178,7 @@ export function CommandPalette({
                       {item.type === 'page' ? 'Page' : 'Post'}
                     </span>
                   </div>
-                  {item.description && (
-                    <div
-                      className="text-xs mt-1 opacity-70"
-                      style={{ color: 'var(--color-muted-foreground)' }}
-                    >
-                      {item.description}
-                    </div>
-                  )}
+
                 </button>
               ))
             )}
@@ -191,4 +200,6 @@ export function CommandPalette({
       </div>
     </>
   );
-}
+});
+
+CommandPalette.displayName = 'CommandPalette';

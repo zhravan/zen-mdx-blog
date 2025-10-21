@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import { NavLink } from '@/components/navigation';
 import { ScrollToTop } from '@/components/ScrollToTop';
-import { CommandPalette } from '@/components/CommandPalette';
+import { CommandPaletteWithButton } from '@/components/CommandPaletteWithButton';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import ThemeStyleTag from '@/components/ThemeStyleTag';
@@ -77,7 +77,7 @@ export default function RootLayout({
               />
             )}
             {commandPaletteConfig && (
-              <CommandPalette 
+              <CommandPaletteWithButton 
                 posts={posts}
                 fuzzyThreshold={commandPaletteConfig.fuzzyThreshold}
                 showPages={commandPaletteConfig.showPages}

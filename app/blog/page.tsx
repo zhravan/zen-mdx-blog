@@ -88,7 +88,7 @@ export default function Blog() {
                               {post.tags.slice(0, 3).map((tag) => (
                                 <span
                                   key={tag}
-                                  className="text-[10px] px-1.5 py-0.5 rounded border opacity-60"
+                                  className="text-[11px] sm:text-[10px] px-2 py-1 sm:px-1.5 sm:py-0.5 rounded border opacity-60"
                                   style={{ borderColor: 'var(--color-muted-foreground)' }}
                                 >
                                   {tag}

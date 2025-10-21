@@ -16,7 +16,10 @@ interface MobileTOCProps {
 export function MobileTOC({ headings }: MobileTOCProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (headings.length === 0) {
+  // Filter out h1 headings (level 1)
+  const filteredHeadings = headings.filter(heading => heading.level > 1);
+
+  if (filteredHeadings.length === 0) {
     return null;
   }
 
@@ -24,7 +27,17 @@ export function MobileTOC({ headings }: MobileTOCProps) {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Calculate offset for sticky header
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - offset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Update URL hash and close the TOC
       window.history.pushState(null, '', `#${id}`);
       setIsOpen(false);
     }
@@ -32,49 +45,49 @@ export function MobileTOC({ headings }: MobileTOCProps) {
 
   return (
     <details 
-      className="lg:hidden mb-6 p-4 border rounded-lg text-xxs"
-      style={{ 
-        borderColor: 'var(--color-border)',
-        backgroundColor: 'var(--color-muted)'
-      }}
+      className="lg:hidden mb-8 rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden text-[10px] bg-gray-50 dark:bg-gray-900/50 [&_*]:list-none"
       open={isOpen}
       onToggle={(e) => setIsOpen((e.target as HTMLDetailsElement).open)}
     >
       <summary 
-        className="font-medium cursor-pointer select-none list-none flex items-center justify-between"
-        style={{ color: 'var(--color-foreground)' }}
+        className="cursor-pointer select-none flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors"
       >
-        <span>Table of Contents</span>
+        <span className="text-[10px] font-medium opacity-40 uppercase tracking-wider">
+          Contents ({filteredHeadings.length})
+        </span>
         <svg
-          className={cn('transition-transform', isOpen && 'rotate-180')}
-          width="12"
-          height="12"
-          viewBox="0 0 24 24"
+          className={cn('w-3.5 h-3.5 opacity-40 transition-transform duration-200', isOpen && 'rotate-180')}
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          viewBox="0 0 24 24"
         >
-          <polyline points="6 9 12 15 18 9" />
+          <polyline points="6 9 12 15 18 9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </summary>
-      <ul className="space-y-2 mt-3">
-        {headings.map(({ id, text, level }) => (
-          <li
-            key={id}
-            style={{ paddingLeft: `${(level - 1) * 0.75}rem` }}
-          >
+      
+      <div className="px-4 pb-4 pt-2 bg-white dark:bg-gray-900">
+        <div className="space-y-0 border-l border-gray-200 dark:border-gray-800">
+          {filteredHeadings.map(({ id, text, level }) => (
             <a
+              key={id}
               href={`#${id}`}
               onClick={(e) => handleClick(e, id)}
-              className="block py-1 transition-colors hover:opacity-100 opacity-70"
+              className={cn(
+                'block py-1.5 -ml-px border-l transition-all duration-150',
+                'hover:border-gray-400 dark:hover:border-gray-600',
+                'opacity-40 hover:opacity-100',
+                'overflow-hidden',
+                level === 2 && 'pl-1.5',
+                level === 3 && 'pl-3',
+                level > 3 && 'pl-4.5'
+              )}
+              title={text}
             >
-              {text}
+              <span className="block truncate">{text}</span>
             </a>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+      </div>
     </details>
   );
 }

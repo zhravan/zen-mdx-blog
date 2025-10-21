@@ -7,7 +7,7 @@ export const frontmatter = {
 
 # Modern React Performance Patterns
 
-React has evolved significantly, and with React 19 and frameworks like Next.js 15, we have powerful tools for building performant applications. However, performance doesn't come for free—you need to understand the patterns and apply them thoughtfully.
+React has evolved significantly, and with React 19 and frameworks like Next.js 15, we have powerful tools for building performant applications. However, performance doesn't come for free; you need to understand the patterns and apply them thoughtfully.
 
 ## Understanding React's Rendering Model
 
@@ -152,10 +152,10 @@ function SearchResults() {
 Keep state close to where it's used:
 
 ```tsx
-// ❌ Bad: Global state for local concern
+// Bad: Global state for local concern
 const globalCounter = useGlobalState('counter');
 
-// ✅ Good: Local state
+// Good: Local state
 const [counter, setCounter] = useState(0);
 ```
 
@@ -164,10 +164,10 @@ const [counter, setCounter] = useState(0);
 Split contexts to prevent unnecessary renders:
 
 ```tsx
-// ❌ Bad: Single context causes all consumers to re-render
+// Bad: Single context causes all consumers to re-render
 const AppContext = createContext({ user, theme, data });
 
-// ✅ Good: Separate contexts
+// Good: Separate contexts
 const UserContext = createContext(user);
 const ThemeContext = createContext(theme);
 const DataContext = createContext(data);
@@ -307,10 +307,10 @@ Not every component needs `React.memo`. Simple components render fast enough wit
 Creates new references every render:
 
 ```tsx
-// ❌ Bad
+// Bad
 <Component config={{ option: true }} items={[1, 2, 3]} />
 
-// ✅ Good
+// Good
 const config = { option: true };
 const items = [1, 2, 3];
 <Component config={config} items={items} />
@@ -321,12 +321,12 @@ const items = [1, 2, 3];
 Incomplete dependency arrays cause stale closures:
 
 ```tsx
-// ❌ Bad
+// Bad
 useEffect(() => {
   console.log(value);
 }, []); // value not in deps!
 
-// ✅ Good
+// Good
 useEffect(() => {
   console.log(value);
 }, [value]);

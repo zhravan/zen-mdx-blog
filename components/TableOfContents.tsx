@@ -34,7 +34,9 @@ export function TableOfContents({
       { rootMargin: '0px 0px -80% 0px' }
     );
 
-    headings.forEach(({ id }) => {
+    // Only observe h2-h6 headings
+    const filteredHeadings = headings.filter(heading => heading.level > 1);
+    filteredHeadings.forEach(({ id }) => {
       const element = document.getElementById(id);
       if (element) {
         observer.observe(element);
@@ -48,47 +50,65 @@ export function TableOfContents({
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Calculate offset for sticky header (adjust as needed)
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - offset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Update URL hash
       window.history.pushState(null, '', `#${id}`);
     }
   };
 
-  if (headings.length === 0) {
+  // Filter out h1 headings (level 1)
+  const filteredHeadings = headings.filter(heading => heading.level > 1);
+
+  if (filteredHeadings.length === 0) {
     return null;
   }
 
   return (
     <nav
       className={cn(
-        'space-y-2 text-xxs',
+        'text-[10px]',
         sticky && 'sticky top-24',
-        position === 'inline' && 'mb-8 p-4 border rounded-lg',
+        position === 'inline' && 'mb-8 pb-6 border-b border-gray-200 dark:border-gray-800',
         position !== 'inline' && 'max-h-[calc(100vh-8rem)] overflow-y-auto'
       )}
       aria-label="Table of contents"
     >
-      <p className="font-medium mb-3 opacity-70">On this page</p>
-      <ul className="space-y-2">
-        {headings.map(({ id, text, level }) => (
-          <li
+      <p className="text-[10px] font-medium opacity-40 mb-3 uppercase tracking-wider">
+        Contents
+      </p>
+      
+      <div className="space-y-0 border-l border-gray-200 dark:border-gray-800">
+        {filteredHeadings.map(({ id, text, level }) => (
+          <a
             key={id}
-            style={{ paddingLeft: `${(level - 1) * 0.75}rem` }}
+            href={`#${id}`}
+            onClick={(e) => handleClick(e, id)}
+            className={cn(
+              'block py-1.5 -ml-px border-l transition-all duration-150',
+              'hover:border-gray-400 dark:hover:border-gray-600',
+              'overflow-hidden',
+              level === 2 && 'pl-1.5',
+              level === 3 && 'pl-3',
+              level > 3 && 'pl-4.5',
+              activeId === id
+                ? 'border-gray-900 dark:border-gray-100 opacity-100 font-medium'
+                : 'border-transparent opacity-40 hover:opacity-70'
+            )}
+            title={text}
           >
-            <a
-              href={`#${id}`}
-              onClick={(e) => handleClick(e, id)}
-              className={cn(
-                'block py-1 transition-colors hover:opacity-100 border-l-2 pl-3',
-                activeId === id
-                  ? 'opacity-100 border-current font-medium'
-                  : 'opacity-60 border-transparent'
-              )}
-            >
-              {text}
-            </a>
-          </li>
+            <span className="block truncate">{text}</span>
+          </a>
         ))}
-      </ul>
+      </div>
     </nav>
   );
 }

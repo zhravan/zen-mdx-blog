@@ -1,11 +1,10 @@
 <samp>
-## Zen — Minimal MDX Blog
 
-Clean, fast, content‑first blog starter built with Next.js 15, React 19, MDX, and Tailwind CSS.
+# Zen — Minimal MDX Blog
 
-## Quick start
+Clean, fast, content‑first blog starter with Next.js 15, React 19, and MDX.
 
-Prereqs: Node 18+ and pnpm.
+## Quick Start
 
 ```bash
 pnpm install
@@ -14,10 +13,42 @@ pnpm dev
 
 Open <http://localhost:3000>
 
-## Write a post
+## Features
 
-- Add an MDX file to `content/blog/`, e.g. `content/blog/my-first-post.mdx`.
-- Commit and redeploy when you're ready.
+| Feature | Status |
+| --- | :---: |
+| MDX Support | ✓ |
+| Syntax Highlighting (Shiki) | ✓ |
+| Code Copy Button | ✓ |
+| Custom MDX Components | ✓ |
+| Static Site Generation | ✓ |
+| Fast Page Loads | ✓ |
+| Responsive Design | ✓ |
+| Table of Contents (scroll-spy) | ✓ |
+| Reading Time Estimate | ✓ |
+| Related Posts (tag-based) | ✓ |
+| Tags & Tagging | ✓ |
+| Series/Multi-part Posts | ✓ |
+| Draft Posts | ✓ |
+| Command Palette (⌘K) | ✓ |
+| Scroll Progress Bar | ✓ |
+| Scroll to Top Button | ✓ |
+| RSS/Atom/JSON Feeds | ✓ |
+| Sitemap Generation | ✓ |
+| SEO Optimized | ✓ |
+| Light/Dark Mode | ✓ |
+| Theme-aware Components | ✓ |
+| YAML-based Plugin Config | ✓ |
+| Easy to Extend | ✓ |
+| Comments (Giscus) | |
+| Open Graph Images | |
+| Search (Fuse.js) | |
+| Code Line Numbers | |
+| Code Language Badges | |
+| View Counter | |
+| Analytics Integration | |
+
+See [docs/](docs/) for plugin documentation.
 
 ## Project structure
 
@@ -26,7 +57,9 @@ app/        Pages and routes
 components/ UI and MDX components
 content/    Blog posts (MDX)
 lib/        Utilities and site config
-config/     YAML config (seo, projects)
+  plugins/  Plugin implementations
+config/     YAML config (seo, projects, plugins)
+docs/       Documentation
 ```
 
 ## Scripts

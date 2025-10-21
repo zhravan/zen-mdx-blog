@@ -52,7 +52,7 @@ export async function Pre({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="relative group" style={{ margin: '1rem 0' }}>
+    <div className="relative group" style={{ margin: '1rem 0', maxWidth: '100%', overflow: 'hidden' }}>
       <div
         className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity"
         style={{ zIndex: 1 }}
@@ -68,6 +68,7 @@ export async function Pre({ children }: { children: React.ReactNode }) {
           style={{
             borderRadius: '0.5rem',
             overflowX: 'auto',
+            maxWidth: '100%',
           }}
         />
       ) : (
@@ -79,6 +80,7 @@ export async function Pre({ children }: { children: React.ReactNode }) {
             borderRadius: '0.5rem',
             overflowX: 'auto',
             whiteSpace: 'pre',
+            maxWidth: '100%',
           }}
         >
           {children}

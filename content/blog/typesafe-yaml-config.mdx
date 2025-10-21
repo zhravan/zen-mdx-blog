@@ -1,0 +1,428 @@
+export const frontmatter = {
+  title: "Type-Safe Configuration with YAML and TypeScript",
+  date: "October 22, 2025",
+  description: "Learn how to build robust, type-safe configuration systems using YAML files and TypeScript interfaces for better developer experience."
+};
+
+# Type-Safe Configuration with YAML and TypeScript
+
+Configuration files are the backbone of modern applications. They control feature flags, define settings, and manage environments. But untyped configuration is a recipe for runtime errors. Let's explore how to build type-safe configuration systems with YAML and TypeScript.
+
+## Why YAML for Configuration?
+
+YAML has several advantages over JSON for configuration:
+
+**Human-Readable**: Clean syntax without brackets and braces makes it easy to read and edit.
+
+**Comments**: Native support for comments helps document configuration options.
+
+**Multi-line Strings**: Better for longer text values without escaping.
+
+**Type Support**: Strings, numbers, booleans, arrays, and objects work naturally.
+
+## The Problem with Untyped Config
+
+Consider this common scenario:
+
+```typescript
+// config.yaml
+database:
+  host: localhost
+  port: 5432
+
+// app.ts
+const config = loadYaml('config.yaml');
+console.log(config.databse.port); // Typo! Runtime error!
+```
+
+No type checking means errors only appear at runtime, often in production.
+
+## Building Type-Safe Configuration
+
+### Step 1: Define TypeScript Interfaces
+
+Start by defining the shape of your configuration:
+
+```typescript
+interface DatabaseConfig {
+  host: string;
+  port: number;
+  username: string;
+  password: string;
+  ssl: boolean;
+}
+
+interface CacheConfig {
+  enabled: boolean;
+  ttl: number;
+  maxSize: number;
+}
+
+interface AppConfig {
+  database: DatabaseConfig;
+  cache: CacheConfig;
+  logLevel: 'debug' | 'info' | 'warn' | 'error';
+}
+```
+
+### Step 2: Create a Loader Function
+
+Load and validate YAML against your types:
+
+```typescript
+import yaml from 'yaml';
+import fs from 'fs';
+
+function loadConfig<T>(path: string): T {
+  const content = fs.readFileSync(path, 'utf8');
+  const config = yaml.parse(content);
+  return config as T;
+}
+
+// Usage with type safety
+const config = loadConfig<AppConfig>('config.yaml');
+console.log(config.database.port); // Type-safe!
+```
+
+### Step 3: Add Runtime Validation
+
+TypeScript types disappear at runtime, so add validation:
+
+```typescript
+import { z } from 'zod';
+
+const DatabaseConfigSchema = z.object({
+  host: z.string(),
+  port: z.number().int().positive(),
+  username: z.string(),
+  password: z.string(),
+  ssl: z.boolean()
+});
+
+const AppConfigSchema = z.object({
+  database: DatabaseConfigSchema,
+  cache: z.object({
+    enabled: z.boolean(),
+    ttl: z.number().positive(),
+    maxSize: z.number().positive()
+  }),
+  logLevel: z.enum(['debug', 'info', 'warn', 'error'])
+});
+
+function loadConfig<T>(path: string, schema: z.ZodSchema<T>): T {
+  const content = fs.readFileSync(path, 'utf8');
+  const config = yaml.parse(content);
+  return schema.parse(config); // Throws if invalid
+}
+
+// Now with runtime validation
+const config = loadConfig('config.yaml', AppConfigSchema);
+```
+
+## Advanced Patterns
+
+### Environment-Specific Configs
+
+Support multiple environments:
+
+```typescript
+type Environment = 'development' | 'staging' | 'production';
+
+function loadConfig<T>(
+  env: Environment,
+  schema: z.ZodSchema<T>
+): T {
+  const path = `config.${env}.yaml`;
+  // Load and validate
+}
+
+const config = loadConfig(
+  process.env.NODE_ENV as Environment,
+  AppConfigSchema
+);
+```
+
+### Config Merging
+
+Combine base config with environment overrides:
+
+```typescript
+function mergeConfig<T>(
+  base: Partial<T>,
+  override: Partial<T>
+): T {
+  return {
+    ...base,
+    ...override,
+    // Deep merge for nested objects
+  } as T;
+}
+
+const baseConfig = loadConfig('config.base.yaml', AppConfigSchema);
+const envConfig = loadConfig('config.prod.yaml', AppConfigSchema);
+const config = mergeConfig(baseConfig, envConfig);
+```
+
+### Config Watching
+
+Reload configuration when files change:
+
+```typescript
+import chokidar from 'chokidar';
+
+class ConfigManager<T> {
+  private config: T;
+  private callbacks: Array<(config: T) => void> = [];
+  
+  constructor(path: string, schema: z.ZodSchema<T>) {
+    this.config = loadConfig(path, schema);
+    
+    chokidar.watch(path).on('change', () => {
+      this.config = loadConfig(path, schema);
+      this.callbacks.forEach(cb => cb(this.config));
+    });
+  }
+  
+  get(): T {
+    return this.config;
+  }
+  
+  onChange(callback: (config: T) => void) {
+    this.callbacks.push(callback);
+  }
+}
+
+const configManager = new ConfigManager('config.yaml', AppConfigSchema);
+configManager.onChange((newConfig) => {
+  console.log('Config updated!', newConfig);
+});
+```
+
+## Real-World Example: Plugin System
+
+Here's a complete plugin configuration system:
+
+```typescript
+// config/plugins.yaml
+plugins:
+  analytics:
+    enabled: true
+    provider: plausible
+    domain: example.com
+  cache:
+    enabled: true
+    ttl: 3600
+
+// types.ts
+interface PluginConfig {
+  enabled: boolean;
+  [key: string]: any;
+}
+
+interface PluginsConfig {
+  plugins: Record<string, PluginConfig>;
+}
+
+// registry.ts
+const PluginsConfigSchema = z.object({
+  plugins: z.record(
+    z.object({
+      enabled: z.boolean()
+    }).passthrough() // Allow additional properties
+  )
+});
+
+let cachedConfig: PluginsConfig | null = null;
+
+export function loadPluginConfig(): PluginsConfig {
+  if (cachedConfig) {
+    return cachedConfig;
+  }
+  
+  cachedConfig = loadConfig(
+    'config/plugins.yaml',
+    PluginsConfigSchema
+  );
+  return cachedConfig;
+}
+
+export function getPluginConfig<T extends PluginConfig>(
+  name: string
+): T | null {
+  const config = loadPluginConfig();
+  const plugin = config.plugins[name];
+  
+  if (!plugin?.enabled) {
+    return null;
+  }
+  
+  return plugin as T;
+}
+
+// Usage
+interface AnalyticsConfig extends PluginConfig {
+  provider: string;
+  domain: string;
+}
+
+const analytics = getPluginConfig<AnalyticsConfig>('analytics');
+if (analytics) {
+  console.log(analytics.domain); // Type-safe!
+}
+```
+
+## Best Practices
+
+### 1. Document Your Schema
+
+Add JSDoc comments to interfaces:
+
+```typescript
+interface CacheConfig {
+  /** Enable caching functionality */
+  enabled: boolean;
+  
+  /** Time to live in seconds */
+  ttl: number;
+  
+  /** Maximum cache size in megabytes */
+  maxSize: number;
+}
+```
+
+### 2. Provide Defaults
+
+Use sensible defaults for optional fields:
+
+```typescript
+const defaultConfig: Partial<AppConfig> = {
+  logLevel: 'info',
+  cache: {
+    enabled: true,
+    ttl: 3600,
+    maxSize: 100
+  }
+};
+
+function loadConfigWithDefaults<T>(
+  path: string,
+  defaults: Partial<T>
+): T {
+  const config = loadConfig(path);
+  return { ...defaults, ...config } as T;
+}
+```
+
+### 3. Validate on Startup
+
+Fail fast if configuration is invalid:
+
+```typescript
+try {
+  const config = loadConfig('config.yaml', AppConfigSchema);
+  startApp(config);
+} catch (error) {
+  console.error('Invalid configuration:', error);
+  process.exit(1);
+}
+```
+
+### 4. Generate Config Schema Docs
+
+Use tools to generate documentation from schemas:
+
+```typescript
+import { generateSchema } from '@anatine/zod-openapi';
+
+const openApiSchema = generateSchema(AppConfigSchema);
+// Export as documentation
+```
+
+## Testing Configuration
+
+### Unit Tests
+
+Test configuration loading and validation:
+
+```typescript
+import { describe, it, expect } from 'vitest';
+
+describe('loadConfig', () => {
+  it('should load valid config', () => {
+    const config = loadConfig('test/fixtures/valid.yaml', AppConfigSchema);
+    expect(config.database.port).toBe(5432);
+  });
+  
+  it('should throw on invalid config', () => {
+    expect(() => {
+      loadConfig('test/fixtures/invalid.yaml', AppConfigSchema);
+    }).toThrow();
+  });
+});
+```
+
+### Snapshot Tests
+
+Ensure configuration stays stable:
+
+```typescript
+it('should match snapshot', () => {
+  const config = loadConfig('config.yaml', AppConfigSchema);
+  expect(config).toMatchSnapshot();
+});
+```
+
+## Debugging Configuration
+
+### Config Inspector
+
+Build a debug tool to view current configuration:
+
+```typescript
+function inspectConfig(config: AppConfig) {
+  console.log('Current Configuration:');
+  console.log(JSON.stringify(config, null, 2));
+  
+  // Highlight sensitive data
+  const sanitized = { ...config };
+  if (sanitized.database.password) {
+    sanitized.database.password = '***REDACTED***';
+  }
+  return sanitized;
+}
+```
+
+### Validation Errors
+
+Provide clear error messages:
+
+```typescript
+try {
+  AppConfigSchema.parse(config);
+} catch (error) {
+  if (error instanceof z.ZodError) {
+    error.errors.forEach(err => {
+      console.error(
+        `Config error at ${err.path.join('.')}: ${err.message}`
+      );
+    });
+  }
+  throw error;
+}
+```
+
+## Conclusion
+
+Type-safe configuration systems prevent entire classes of bugs and improve developer experience dramatically. By combining YAML's readability with TypeScript's type system and runtime validation, you get the best of all worlds.
+
+The investment in setting up proper configuration management pays dividends as your application grows and configuration becomes more complex.
+
+## Resources
+
+- [YAML Specification](https://yaml.org/spec/)
+- [Zod Documentation](https://zod.dev/)
+- [TypeScript Handbook - Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
+
+---
+
+*This post is part of the TypeScript Best Practices series.*

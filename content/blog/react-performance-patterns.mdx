@@ -1,0 +1,361 @@
+export const frontmatter = {
+  title: "Modern React Performance Patterns",
+  date: "October 18, 2025",
+  description: "Practical techniques for optimizing React applications, from component design to rendering strategies and state management."
+};
+
+# Modern React Performance Patterns
+
+React has evolved significantly, and with React 19 and frameworks like Next.js 15, we have powerful tools for building performant applications. However, performance doesn't come for free—you need to understand the patterns and apply them thoughtfully.
+
+## Understanding React's Rendering Model
+
+### The Virtual DOM
+
+React's Virtual DOM is fast, but it's not magic. Every render cycle involves:
+
+1. Creating new virtual DOM tree
+2. Diffing with previous tree
+3. Applying changes to real DOM
+
+Unnecessary renders are the #1 performance bottleneck.
+
+### Component Re-rendering
+
+A component re-renders when:
+- Its props change
+- Its state changes
+- Its parent re-renders
+- Context it consumes changes
+
+## Core Optimization Techniques
+
+### 1. Memoization with React.memo
+
+Prevent unnecessary re-renders of child components:
+
+```tsx
+const ExpensiveComponent = React.memo(({ data }) => {
+  return <div>{processData(data)}</div>;
+});
+```
+
+**When to use**: Components that render frequently with the same props.
+
+**When to skip**: Simple components where memoization overhead exceeds benefits.
+
+### 2. useMemo for Expensive Calculations
+
+Cache computed values:
+
+```tsx
+function DataTable({ items, filter }) {
+  const filteredItems = useMemo(() => {
+    return items.filter(item => 
+      item.name.includes(filter)
+    );
+  }, [items, filter]);
+  
+  return <Table data={filteredItems} />;
+}
+```
+
+### 3. useCallback for Function Identity
+
+Stabilize function references:
+
+```tsx
+function SearchBar({ onSearch }) {
+  const [query, setQuery] = useState('');
+  
+  const handleSubmit = useCallback(() => {
+    onSearch(query);
+  }, [query, onSearch]);
+  
+  return <form onSubmit={handleSubmit}>...</form>;
+}
+```
+
+## Advanced Patterns
+
+### Code Splitting
+
+Split your bundle to load only what's needed:
+
+```tsx
+const Editor = lazy(() => import('./Editor'));
+
+function App() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Editor />
+    </Suspense>
+  );
+}
+```
+
+### Virtualization
+
+Render only visible items in long lists:
+
+```tsx
+import { FixedSizeList } from 'react-window';
+
+function LargeList({ items }) {
+  return (
+    <FixedSizeList
+      height={600}
+      itemCount={items.length}
+      itemSize={50}
+      width="100%"
+    >
+      {({ index, style }) => (
+        <div style={style}>{items[index]}</div>
+      )}
+    </FixedSizeList>
+  );
+}
+```
+
+### Concurrent Features (React 19)
+
+Use transitions for non-urgent updates:
+
+```tsx
+function SearchResults() {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [isPending, startTransition] = useTransition();
+  
+  function handleChange(e) {
+    setQuery(e.target.value);
+    startTransition(() => {
+      setResults(search(e.target.value));
+    });
+  }
+  
+  return (
+    <>
+      <input value={query} onChange={handleChange} />
+      {isPending && <Spinner />}
+      <Results data={results} />
+    </>
+  );
+}
+```
+
+## State Management Strategies
+
+### 1. Colocation
+
+Keep state close to where it's used:
+
+```tsx
+// ❌ Bad: Global state for local concern
+const globalCounter = useGlobalState('counter');
+
+// ✅ Good: Local state
+const [counter, setCounter] = useState(0);
+```
+
+### 2. Context Optimization
+
+Split contexts to prevent unnecessary renders:
+
+```tsx
+// ❌ Bad: Single context causes all consumers to re-render
+const AppContext = createContext({ user, theme, data });
+
+// ✅ Good: Separate contexts
+const UserContext = createContext(user);
+const ThemeContext = createContext(theme);
+const DataContext = createContext(data);
+```
+
+### 3. Zustand for Global State
+
+Lightweight and performant:
+
+```tsx
+import create from 'zustand';
+
+const useStore = create((set) => ({
+  count: 0,
+  increment: () => set((state) => ({ 
+    count: state.count + 1 
+  }))
+}));
+
+function Counter() {
+  const count = useStore((state) => state.count);
+  const increment = useStore((state) => state.increment);
+  return <button onClick={increment}>{count}</button>;
+}
+```
+
+## Next.js Specific Optimizations
+
+### Server Components
+
+Render non-interactive parts on the server:
+
+```tsx
+// app/page.tsx - Server Component by default
+async function BlogList() {
+  const posts = await fetchPosts(); // No client-side fetch!
+  
+  return (
+    <div>
+      {posts.map(post => (
+        <BlogCard key={post.id} post={post} />
+      ))}
+    </div>
+  );
+}
+```
+
+### Image Optimization
+
+Use Next.js Image component:
+
+```tsx
+import Image from 'next/image';
+
+function Hero() {
+  return (
+    <Image
+      src="/hero.jpg"
+      alt="Hero"
+      width={1200}
+      height={600}
+      priority
+      placeholder="blur"
+    />
+  );
+}
+```
+
+### Dynamic Imports
+
+Load components only when needed:
+
+```tsx
+import dynamic from 'next/dynamic';
+
+const HeavyComponent = dynamic(
+  () => import('./HeavyComponent'),
+  { 
+    loading: () => <Skeleton />,
+    ssr: false // Skip SSR for client-only components
+  }
+);
+```
+
+## Measuring Performance
+
+### React DevTools Profiler
+
+Record component render times:
+
+1. Open React DevTools
+2. Go to Profiler tab
+3. Click record
+4. Interact with your app
+5. Stop recording
+6. Analyze flame graph
+
+### Web Vitals
+
+Monitor Core Web Vitals:
+
+```tsx
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+
+function sendToAnalytics(metric) {
+  console.log(metric);
+}
+
+getCLS(sendToAnalytics);
+getFID(sendToAnalytics);
+getFCP(sendToAnalytics);
+getLCP(sendToAnalytics);
+getTTFB(sendToAnalytics);
+```
+
+### Lighthouse
+
+Run regular audits:
+
+```bash
+npm install -g lighthouse
+lighthouse https://yoursite.com --view
+```
+
+## Common Mistakes
+
+### 1. Premature Optimization
+
+Don't optimize until you have a performance problem. Profile first, optimize second.
+
+### 2. Over-memoization
+
+Not every component needs `React.memo`. Simple components render fast enough without it.
+
+### 3. Inline Object/Array Props
+
+Creates new references every render:
+
+```tsx
+// ❌ Bad
+<Component config={{ option: true }} items={[1, 2, 3]} />
+
+// ✅ Good
+const config = { option: true };
+const items = [1, 2, 3];
+<Component config={config} items={items} />
+```
+
+### 4. Missing Dependencies
+
+Incomplete dependency arrays cause stale closures:
+
+```tsx
+// ❌ Bad
+useEffect(() => {
+  console.log(value);
+}, []); // value not in deps!
+
+// ✅ Good
+useEffect(() => {
+  console.log(value);
+}, [value]);
+```
+
+## Checklist for Performance
+
+- [ ] Profile before optimizing
+- [ ] Use React DevTools Profiler
+- [ ] Memoize expensive calculations
+- [ ] Stabilize function references
+- [ ] Split code for large bundles
+- [ ] Virtualize long lists
+- [ ] Optimize images
+- [ ] Use Server Components where possible
+- [ ] Monitor Web Vitals
+- [ ] Keep dependencies updated
+
+## Conclusion
+
+React performance is about understanding the rendering model and applying the right patterns at the right time. Start with good component design, measure actual performance, and optimize bottlenecks systematically.
+
+Remember: **Fast enough is fast enough**. Don't sacrifice code clarity for micro-optimizations unless you have proof they matter.
+
+## Resources
+
+- [React Documentation - Performance](https://react.dev/learn/render-and-commit)
+- [Next.js Performance Guide](https://nextjs.org/docs/app/building-your-application/optimizing)
+- [web.dev - React Performance](https://web.dev/react/)
+
+---
+
+*Part of the Modern React series. Up next: "Type-Safe React with TypeScript 5.0".*

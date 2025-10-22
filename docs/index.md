@@ -4,39 +4,82 @@ All features are controlled via `config/plugins.yaml`. Enable/disable without co
 
 ### Configuration
 
-```yaml
-plugins:
-  command-palette:
-    enabled: true
-    shortcut: "cmd+k"
-    fuzzyThreshold: 0.3
-    
-  scroll-progress:
-    enabled: true
-    position: "top"
-    height: 3
-    
-  scroll-to-top:
-    enabled: true
-    showAfter: 400
-    position: "bottom-right"
-    
-  toc:
-    enabled: true
-    position: "right"
-    minHeadings: 2
-    maxDepth: 3
-    
-  reading-time:
-    enabled: true
-    wordsPerMinute: 200
-    showWordCount: true
-    
-  related-posts:
-    enabled: true
-    count: 3
-    algorithm: "tags"
+# Documentation
+
+Monolog MDX Blog - A minimal, plugin-based MDX blog built with Next.js 15.
+
+## Quick Links
+
+- **[Configuration Guide](configuration.md)** - Quick start and basic setup
+- **[Plugin System](plugins.md)** - Complete plugin reference and custom plugin creation
+- **[Draft Access System](draft-access.md)** - Draft post preview with token authentication
+
+## Quick Start
+
+1. **Install dependencies**:
+   ```bash
+   pnpm install
+   ```
+
+2. **Enable plugins** in `config/plugins.yaml`:
+   ```yaml
+   plugins:
+     command-palette:
+       enabled: true
+     scroll-progress:
+       enabled: true
+     toc:
+       enabled: true
+   ```
+
+3. **Create a post** in `content/blog/my-post.mdx`:
+   ```mdx
+   export const frontmatter = {
+     title: "My Post",
+     date: "October 22, 2025",
+     description: "Post description",
+     tags: ["nextjs", "mdx"]
+   };
+
+   # Hello World
+
+   Your content here.
+   ```
+
+4. **Run dev server**:
+   ```bash
+   pnpm dev
+   ```
+
+## Features
+
+- Plugin-based architecture (enable/disable via YAML config)
+- MDX blog posts with frontmatter
+- Command palette search (⌘K)
+- Reading progress indicator
+- Table of contents
+- Related posts
+- Draft post system with token authentication
+- Tag-based navigation
+- RSS/Atom/JSON feeds
+- Dark mode support
+
+## Project Structure
+
 ```
+├── app/              # Next.js app router pages
+├── components/       # React components
+├── config/           # Configuration files (plugins.yaml, seo.yaml)
+├── content/blog/     # MDX blog posts
+├── docs/             # Documentation (you are here)
+└── lib/              # Utilities and business logic
+```
+
+## Documentation
+
+- See [configuration.md](configuration.md) for quick setup
+- See [plugins.md](plugins.md) for plugin details
+- See [draft-access.md](draft-access.md) for draft post workflow
 
 ### Available Plugins
 

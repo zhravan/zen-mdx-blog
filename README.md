@@ -17,37 +17,37 @@ Open <http://localhost:3000>
 
 | Feature | Status |
 | --- | :---: |
-| MDX Support | ✓ |
-| Syntax Highlighting (Shiki) | ✓ |
-| Code Copy Button | ✓ |
-| Custom MDX Components | ✓ |
-| Static Site Generation | ✓ |
-| Fast Page Loads | ✓ |
-| Responsive Design | ✓ |
-| Table of Contents (scroll-spy) | ✓ |
-| Reading Time Estimate | ✓ |
-| Related Posts (tag-based) | ✓ |
-| Tags & Tagging | ✓ |
-| Series/Multi-part Posts | ✓ |
-| Draft Posts | ✓ |
-| Command Palette (⌘K) | ✓ |
-| Scroll Progress Bar | ✓ |
-| Scroll to Top Button | ✓ |
-| RSS/Atom/JSON Feeds | ✓ |
-| Sitemap Generation | ✓ |
-| SEO Optimized | ✓ |
-| Theme Mode | ✓ |
-| Theme-aware Components | ✓ |
-| YAML-based Plugin Config | ✓ |
-| Plugin arch / easy to extend setup | ✓ |
+| MDX Support | Yes |
+| Syntax Highlighting (Shiki) | Yes |
+| Code Copy Button | Yes |
+| Custom MDX Components | Yes |
+| Static Site Generation | Yes |
+| Fast Page Loads | Yes |
+| Responsive Design | Yes |
+| Table of Contents (scroll-spy) | Yes |
+| Reading Time Estimate | Yes |
+| Related Posts (tag-based) | Yes |
+| Tags & Tagging | Yes |
+| Series/Multi-part Posts | Yes |
+| Draft Posts | Yes |
+| Command Palette (⌘K) | Yes |
+| Scroll Progress Bar | Yes |
+| Scroll to Top Button | Yes |
+| RSS/Atom/JSON Feeds | Yes |
+| Sitemap Generation | Yes |
+| SEO Optimized | Yes |
+| Theme Mode | Yes |
+| Theme-aware Components | Yes |
+| YAML-based Plugin Config | Yes |
+| Plugin arch / easy to extend setup | Yes |
 | Comments (Giscus) | |
 | Open Graph Images (Dynamic) | |
-| Search (Fuse.js) | ✓ |
-| Code Line Numbers | ✓ |
+| Search (Fuse.js) | Yes |
+| Code Line Numbers | Yes |
 | Code Language Badges | |
 | Code Diff Highlighting | |
 | View Counter | |
-| Analytics (umami, plausible or simple-analytics) | ✓ |
+| Analytics (umami, plausible or simple-analytics) | Yes |
 | Social Share Buttons | |
 | Keyboard Shortcuts | |
 | Series Navigation | |

@@ -1,4 +1,4 @@
-# Quick Start
+# Understading Plugin setup
 
 ## Enable Plugins
 

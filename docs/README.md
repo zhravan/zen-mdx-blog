@@ -7,8 +7,9 @@ Start here: **[index.md](index.md)** - Overview and quick start guide
 ## Guides
 
 - **[configuration.md](configuration.md)** - Quick configuration reference
-- **[plugins.md](plugins.md)** - Complete plugin system documentation
+- **[plugins.md](plugins.md)** - Understand plugin system documentation
 - **[draft-access.md](draft-access.md)** - Draft post preview system
+- - **[analytics.md](analytics.md)** - Analytics setup for blog
 
 ## Quick Setup
 

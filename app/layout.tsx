@@ -7,11 +7,13 @@ import { CommandPaletteWithButton } from '@/components/CommandPaletteWithButton'
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import ThemeStyleTag from '@/components/ThemeStyleTag';
+import { Analytics } from '@/components/Analytics';
 import { getAllPosts } from '@/lib/blog';
 import { getDefaultMetadata } from '@/lib/seo';
 import { getCommandPaletteConfig } from '@/lib/plugins/command-palette';
 import { getScrollProgressConfig } from '@/lib/plugins/scroll-progress';
 import { getScrollToTopConfig } from '@/lib/plugins/scroll-to-top';
+import { getAnalyticsConfig, getAnalyticsScriptSrc, getAnalyticsScriptAttrs } from '@/lib/plugins/analytics';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
@@ -35,6 +37,11 @@ export default function RootLayout({
   const commandPaletteConfig = getCommandPaletteConfig();
   const scrollProgressConfig = getScrollProgressConfig();
   const scrollToTopConfig = getScrollToTopConfig();
+  
+  // Analytics configuration
+  const analyticsConfig = getAnalyticsConfig();
+  const analyticsScriptSrc = analyticsConfig ? getAnalyticsScriptSrc(analyticsConfig.provider, analyticsConfig.domain) : '';
+  const analyticsScriptAttrs = analyticsConfig ? getAnalyticsScriptAttrs(analyticsConfig) : {};
 
   return (
     <html lang="en" className={spaceGrotesk.className}>
@@ -42,6 +49,11 @@ export default function RootLayout({
         <ThemeStyleTag />
       </head>
       <body className="antialiased">
+        <Analytics 
+          config={analyticsConfig}
+          scriptSrc={analyticsScriptSrc}
+          scriptAttrs={analyticsScriptAttrs}
+        />
         <ThemeProvider>
           <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
             {scrollProgressConfig && (

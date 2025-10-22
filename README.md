@@ -39,15 +39,15 @@ Open <http://localhost:3000>
 | Theme Mode | ✓ |
 | Theme-aware Components | ✓ |
 | YAML-based Plugin Config | ✓ |
-| Easy to Extend | ✓ |
+| Plugin arch / easy to extend setup | ✓ |
 | Comments (Giscus) | |
 | Open Graph Images (Dynamic) | |
-| Search (Fuse.js) | |
-| Code Line Numbers | |
+| Search (Fuse.js) | ✓ |
+| Code Line Numbers | ✓ |
 | Code Language Badges | |
 | Code Diff Highlighting | |
 | View Counter | |
-| Analytics (Umami) | |
+| Analytics (umami, plausible or simple-analytics) | ✓ |
 | Social Share Buttons | |
 | Keyboard Shortcuts | |
 | Series Navigation | |

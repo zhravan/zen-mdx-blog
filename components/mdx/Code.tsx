@@ -10,9 +10,9 @@ export function InlineCode({ children }: { children: React.ReactNode }) {
     <code
       style={{
         backgroundColor: 'var(--color-muted)',
-        padding: '0.125rem 0.375rem',
+        padding: '0.1rem 0.3rem',
         borderRadius: '0.25rem',
-        fontSize: '0.75rem',
+        fontSize: '0.7rem',
         fontFamily: "'Menlo', 'Monaco', 'Courier New', monospace"
       }}
     >
@@ -21,7 +21,7 @@ export function InlineCode({ children }: { children: React.ReactNode }) {
   );
 }
 
-export async function Pre({ children, ...props }: { children: React.ReactNode; [key: string]: any }) {
+export async function Pre({ children, ...props }: { children: React.ReactNode;[key: string]: any }) {
   let lang: string | undefined;
   let codeText = '';
   let meta: string | undefined;
@@ -48,7 +48,7 @@ export async function Pre({ children, ...props }: { children: React.ReactNode; [
         lang,
         theme: syntaxTheme,
       } as any);
-      
+
       // Add line numbers and highlight lines if enabled
       if (showLineNumbers) {
         const lines = codeText.split('\n');
@@ -61,13 +61,13 @@ export async function Pre({ children, ...props }: { children: React.ReactNode; [
               const lineNumber = index + 1;
               const isHighlighted = highlightLines.includes(lineNumber);
               const highlightStyle = isHighlighted ? 'background: rgba(253, 224, 71, 0.1);' : '';
-              
-              return `<div style="display: flex; ${highlightStyle}">
-                <span style="min-width: 2.5rem; text-align: right; padding-right: 1rem; user-select: none; opacity: 0.4; font-size: 0.75rem;">${lineNumber}</span>
+
+              return `<div style="display: flex; ${highlightStyle} line-height: 1.3;">
+                <span style="min-width: 1.75rem; text-align: right; padding-right: 0.6rem; user-select: none; opacity: 0.4; font-size: 0.65rem;">${lineNumber}</span>
                 <span style="flex: 1;">${line}</span>
               </div>`;
             }).join('\n');
-            
+
             highlightedHtml = html.replace(codeMatch[1], numberedLines);
           } else {
             highlightedHtml = html;
@@ -84,15 +84,15 @@ export async function Pre({ children, ...props }: { children: React.ReactNode; [
   }
 
   return (
-    <div className="relative group" style={{ margin: '1rem 0', maxWidth: '100%', overflow: 'hidden' }}>
+    <div className="relative group" style={{ margin: '0.5rem 0', maxWidth: '100%', overflow: 'hidden' }}>
       {fileName && (
         <div
-          className="text-[10px] opacity-40 px-4 pt-3 pb-1 font-medium"
+          className="text-[9px] opacity-40 px-2.5 pt-1.5 pb-0 font-medium"
           style={{
             fontFamily: "'Menlo', 'Monaco', 'Courier New', monospace",
             backgroundColor: 'var(--color-muted)',
-            borderTopLeftRadius: '0.5rem',
-            borderTopRightRadius: '0.5rem',
+            borderTopLeftRadius: '0.375rem',
+            borderTopRightRadius: '0.375rem',
           }}
         >
           {fileName}
@@ -110,7 +110,7 @@ export async function Pre({ children, ...props }: { children: React.ReactNode; [
         <div
           dangerouslySetInnerHTML={{ __html: highlightedHtml }}
           style={{
-            borderRadius: fileName ? '0 0 0.5rem 0.5rem' : '0.5rem',
+            borderRadius: fileName ? '0 0 0.375rem 0.375rem' : '0.375rem',
             overflowX: 'auto',
             maxWidth: '100%',
           }}
@@ -119,8 +119,8 @@ export async function Pre({ children, ...props }: { children: React.ReactNode; [
         <pre
           style={{
             backgroundColor: 'var(--color-muted)',
-            padding: '1rem',
-            borderRadius: fileName ? '0 0 0.5rem 0.5rem' : '0.5rem',
+            padding: '0.6rem',
+            borderRadius: fileName ? '0 0 0.375rem 0.375rem' : '0.375rem',
             overflowX: 'auto',
             whiteSpace: 'pre',
             maxWidth: '100%',

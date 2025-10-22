@@ -166,11 +166,9 @@ export function NewsletterForm() {
 
 All supported providers are privacy-friendly:
 
-- ✅ No cookies
-- ✅ No personal data collection
-- ✅ GDPR compliant
-- ✅ CCPA compliant
-- ✅ No cross-site tracking
+- No cookies
+- No personal data collection
+- No cross-site tracking
 
 ## Troubleshooting
 

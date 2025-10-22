@@ -36,7 +36,7 @@ Open <http://localhost:3000>
 | RSS/Atom/JSON Feeds | ✓ |
 | Sitemap Generation | ✓ |
 | SEO Optimized | ✓ |
-| Light/Dark Mode | ✓ |
+| Theme Mode | ✓ |
 | Theme-aware Components | ✓ |
 | YAML-based Plugin Config | ✓ |
 | Easy to Extend | ✓ |

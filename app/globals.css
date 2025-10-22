@@ -36,10 +36,10 @@ body {
 :root {
   --code-font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
   --code-font-size: 0.65rem;
-  --code-line-height: 1.6;
+  --code-line-height: 0.5rem;
   --code-tab-size: 2;
-  --code-radius: 0.5rem;
-  --code-padding: 1rem;
+  --code-radius: 0.75rem;
+  --code-padding: 0.6rem;
   --code-border: 1px solid var(--color-border);
 }
 
@@ -193,7 +193,7 @@ pre.shiki {
   pre.shiki,
   .prose pre:not(.shiki) {
     font-size: 0.55rem !important;
-    padding: 0.75rem !important;
+    padding: 0.5rem !important;
     border-radius: var(--code-radius);
     max-width: 100%;
     overflow-x: auto;
@@ -201,7 +201,8 @@ pre.shiki {
   
   :root {
     --code-font-size: 0.55rem;
-    --code-padding: 0.75rem;
+    --code-padding: 0.5rem;
+    --code-line-height: 1.25;
   }
 }
 

@@ -39,7 +39,7 @@ export function ShareButtons({
   }, []);
 
   // Don't render if plugin is disabled and not in preview mode
-  if (config && !config.enabled && !preview) {
+  if (config?.enabled === false && !preview) {
     return null;
   }
 

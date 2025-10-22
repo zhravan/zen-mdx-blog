@@ -1,0 +1,106 @@
+export const frontmatter = {
+  title: 'External Links Demo',
+  date: '2024-03-16',
+  description: 'Demonstrating the external links plugin with automatic detection and styling.',
+  tags: ['demo', 'links', 'features'],
+};
+
+# External Links Demo
+
+This post demonstrates the **external-links** plugin that automatically enhances external links with icons, security attributes, and proper behavior.
+
+## How It Works
+
+The plugin automatically detects:
+- Internal links (same domain)
+- External links (different domains)
+- Hash links (anchors)
+- Relative links
+
+## Internal Links
+
+These stay on the same site (no icon):
+
+- [About page](/about)
+- [Blog home](/blog)
+- [Another post](/blog/welcome)
+- [Work page](/work)
+
+## External Links
+
+These open in a new tab with an icon (↗):
+
+- [Next.js Official Site](https://nextjs.org)
+- [React Documentation](https://react.dev)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [MDX Documentation](https://mdxjs.com)
+- [GitHub](https://github.com)
+- [Stack Overflow](https://stackoverflow.com)
+
+## Anchor Links
+
+Jump to sections on this page (no icon):
+
+- [What It Does](#what-it-does)
+- [Configuration](#configuration)
+- [Security](#security)
+
+## Mixed List
+
+A combination of internal and external links:
+
+1. Read our [TypeScript guide](/blog/typescript-intro) (internal)
+2. Check [MDN Web Docs](https://developer.mozilla.org) (external ↗)
+3. View [previous posts](/blog) (internal)
+4. Learn from [CSS-Tricks](https://css-tricks.com) (external ↗)
+5. See [related articles](/blog#latest) (anchor)
+
+## What It Does
+
+The external-links plugin automatically:
+
+- **Adds icon** - Shows ↗ symbol for external links
+- **Opens in new tab** - Uses `target="_blank"`
+- **Security attributes** - Adds `rel="noopener noreferrer"`
+- **Optional nofollow** - Can add `rel="nofollow"` if configured
+
+## Configuration
+
+The plugin is configured in `config/plugins.yaml`:
+
+```yaml
+external-links:
+  enabled: true
+  icon: "↗"           # Icon to show
+  openInNewTab: true  # Open externals in new tab
+  nofollow: false     # Add nofollow attribute
+```
+
+## Security
+
+External links automatically get these attributes for security:
+
+- `target="_blank"` - Opens in new window
+- `rel="noopener"` - Prevents window.opener access
+- `rel="noreferrer"` - Doesn't send referrer information
+
+This protects against:
+- Reverse tabnabbing attacks
+- Window.opener exploits
+- Privacy leaks
+
+## Resources
+
+Useful external resources:
+
+- [Web.dev Security Best Practices](https://web.dev/security/)
+- [OWASP Link Security](https://owasp.org)
+- [MDN rel Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+
+## Paragraph with Links
+
+When you're building a web application with [Next.js](https://nextjs.org), you might want to reference the [React docs](https://react.dev) or check out community resources like [Dev.to](https://dev.to). Don't forget to read our [internal guides](/blog) too!
+
+---
+
+**Note:** All external links in this post automatically have the ↗ icon and open in new tabs!

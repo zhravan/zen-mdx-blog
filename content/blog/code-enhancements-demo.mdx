@@ -1,0 +1,172 @@
+export const frontmatter = {
+  title: 'Code Enhancements Demo',
+  date: '2024-03-15',
+  description: 'Demonstrating filename badges, line numbers, and syntax highlighting features.',
+  tags: ['demo', 'code', 'features'],
+};
+
+# Code Enhancements Demo
+
+This post showcases the **code-enhancements** plugin features including filename badges, line numbers, and line highlighting.
+
+## Basic Code Block
+
+Simple code without any enhancements:
+
+```typescript
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+```
+
+## Code with Filename Badge
+
+Add `filename="..."` to show the filename:
+
+```typescript filename="utils.ts"
+export function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+export function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+```
+
+## Code with Line Numbers
+
+The `showLineNumbers` config enables line numbers globally, or add it explicitly:
+
+```javascript showLineNumbers
+// Counter component with useState
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+```
+
+## Highlighting Specific Lines
+
+Use `{line-numbers}` syntax to highlight lines. For example, `{1-3,7}` highlights lines 1-3 and line 7:
+
+```typescript filename="api.ts" {1-3,7,12-14}
+import { NextResponse } from 'next/server';
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+  
+  if (!id) {
+    return NextResponse.json({ error: 'ID required' }, { status: 400 });
+  }
+  
+  try {
+    const data = await fetchData(id);
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to fetch' }, { status: 500 });
+  }
+}
+```
+
+## Complex Example
+
+Filename + line numbers + highlighted lines:
+
+```python filename="data_processor.py" {5-8,15-17}
+import pandas as pd
+from typing import List, Dict
+
+def process_data(file_path: str) -> pd.DataFrame:
+    # Load the CSV file
+    df = pd.read_csv(file_path)
+    
+    # Clean column names
+    df.columns = df.columns.str.lower().str.replace(' ', '_')
+    
+    # Remove duplicates
+    df = df.drop_duplicates()
+    
+    # Handle missing values
+    df = df.fillna({
+        'age': df['age'].median(),
+        'salary': df['salary'].mean()
+    })
+    
+    return df
+
+def aggregate_by_category(df: pd.DataFrame, category: str) -> Dict:
+    return df.groupby(category).agg({
+        'value': ['sum', 'mean', 'count']
+    }).to_dict()
+```
+
+## Shell Commands
+
+Shell scripts with line highlighting:
+
+```bash filename="deploy.sh" {1,4-6,10}
+#!/bin/bash
+
+echo "Starting deployment..."
+git pull origin main
+npm install
+npm run build
+
+echo "Building Docker image..."
+docker build -t myapp:latest .
+docker push registry.example.com/myapp:latest
+
+echo "Deployment complete!"
+```
+
+## JSON Configuration
+
+Configuration files with specific sections highlighted:
+
+```json filename="tsconfig.json" {4-7,12-14}
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src"]
+}
+```
+
+## Inline Code
+
+Inline code works too: `const result = await fetch('/api/data')` and `npm install package-name`.
+
+---
+
+**Note:** All code blocks support:
+- Copy button (hover to see)
+- Syntax highlighting via Shiki
+- Filename badges
+- Line numbers
+- Line highlighting

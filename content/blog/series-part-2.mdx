@@ -1,0 +1,137 @@
+export const frontmatter = {
+  title: 'Building a Modern Blog - Part 2: MDX Configuration',
+  date: '2024-03-12',
+  description: 'Configure MDX, add syntax highlighting, and create beautiful blog post templates.',
+  tags: ['tutorial', 'mdx', 'styling'],
+  series: 'Building a Modern Blog',
+  seriesPart: 2,
+};
+
+# Building a Modern Blog - Part 2: MDX Configuration
+
+Continuing from **Part 1**, let's configure MDX and create our blog post rendering system.
+
+## Configuring Next.js for MDX
+
+Update your `next.config.js`:
+
+```javascript filename="next.config.js" {3-10}
+const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  experimental: {
+    mdxRs: true,
+  },
+  webpack: (config) => {
+    config.resolve.extensions.push('.mdx');
+    return config;
+  },
+};
+
+module.exports = nextConfig;
+```
+
+## Installing Shiki for Syntax Highlighting
+
+Add Shiki for beautiful code highlighting:
+
+```bash
+npm install shiki
+```
+
+## Creating Custom MDX Components
+
+Build reusable MDX components:
+
+```tsx filename="components/mdx/Heading.tsx" {8-12}
+import React from 'react';
+
+export function H2({ children }: { children: React.ReactNode }) {
+  return (
+    <h2
+      style={{
+        fontSize: '1.5rem',
+        fontWeight: 600,
+        marginTop: '2rem',
+        marginBottom: '1rem',
+        lineHeight: 1.4,
+      }}
+    >
+      {children}
+    </h2>
+  );
+}
+```
+
+## Blog Post Template
+
+Create the dynamic blog page:
+
+```tsx filename="app/blog/[slug]/page.tsx" {12-15,20-22}
+import { notFound } from 'next/navigation';
+import { getAllPosts } from '@/lib/blog';
+
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export default async function BlogPost({ params }) {
+  const { slug } = await params;
+  const post = getAllPosts().find((p) => p.slug === slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const Content = (await import(`@/content/blog/${slug}.mdx`)).default;
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <time>{post.date}</time>
+      <Content />
+    </article>
+  );
+}
+```
+
+## Adding Custom Styles
+
+Style your blog posts:
+
+```css filename="app/blog.css" {1-4,10-13}
+article {
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+article h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+article p {
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+```
+
+## What's Next?
+
+In **Part 3**, we'll add:
+- Plugin system
+- Table of contents
+- Reading time estimator
+- Tag filtering
+
+The series continues!
+
+---
+
+**Note:** The SeriesNavigator component will automatically show all parts and navigation.

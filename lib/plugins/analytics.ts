@@ -1,5 +1,16 @@
 import { getPluginConfig } from './registry';
 
+// TypeScript declarations for analytics providers
+declare global {
+  interface Window {
+    plausible?: (eventName: string, options?: { props?: Record<string, any> }) => void;
+    umami?: {
+      track: (eventName: string | { url: string }, props?: Record<string, any>) => void;
+    };
+    sa_event?: (eventName: string) => void;
+  }
+}
+
 export interface AnalyticsConfig {
   enabled: boolean;
   provider: 'plausible' | 'umami' | 'simple-analytics';
@@ -60,4 +71,81 @@ export function getAnalyticsScriptAttrs(config: AnalyticsConfig): Record<string,
 export function shouldLoadAnalytics(): boolean {
   const config = getAnalyticsConfig();
   return !!(config?.enabled && config?.domain);
+}
+
+/**
+ * Track custom event (client-side only)
+ * @param eventName - Name of the event to track
+ * @param props - Optional event properties
+ */
+export function trackEvent(eventName: string, props?: Record<string, any>): void {
+  if (typeof window === 'undefined') return;
+  
+  const config = getAnalyticsConfig();
+  if (!config?.enabled) return;
+
+  try {
+    switch (config.provider) {
+      case 'plausible':
+        // @ts-ignore - Plausible is loaded externally
+        if (window.plausible) {
+          window.plausible(eventName, { props });
+        }
+        break;
+      
+      case 'umami':
+        // @ts-ignore - Umami is loaded externally
+        if (window.umami) {
+          window.umami.track(eventName, props);
+        }
+        break;
+      
+      case 'simple-analytics':
+        // @ts-ignore - Simple Analytics is loaded externally
+        if (window.sa_event) {
+          window.sa_event(eventName);
+        }
+        break;
+    }
+  } catch (error) {
+    // Silently fail - analytics should never break the app
+    console.warn('Analytics tracking error:', error);
+  }
+}
+
+/**
+ * Track page view (usually automatic, but can be called manually for SPA navigation)
+ * @param url - Optional URL to track (defaults to current page)
+ */
+export function trackPageView(url?: string): void {
+  if (typeof window === 'undefined') return;
+  
+  const config = getAnalyticsConfig();
+  if (!config?.enabled) return;
+
+  const pageUrl = url || window.location.pathname + window.location.search;
+
+  try {
+    switch (config.provider) {
+      case 'plausible':
+        // @ts-ignore
+        if (window.plausible) {
+          window.plausible('pageview', { props: { url: pageUrl } });
+        }
+        break;
+      
+      case 'umami':
+        // @ts-ignore
+        if (window.umami) {
+          window.umami.track({ url: pageUrl });
+        }
+        break;
+      
+      case 'simple-analytics':
+        // Simple Analytics automatically tracks page views
+        break;
+    }
+  } catch (error) {
+    console.warn('Analytics page view tracking error:', error);
+  }
 }

@@ -1,19 +1,18 @@
 'use client';
 
-import { useEffect } from 'react';
 import Script from 'next/script';
-import { getAnalyticsConfig, getAnalyticsScriptSrc, getAnalyticsScriptAttrs, shouldLoadAnalytics } from '@/lib/plugins/analytics';
+import type { AnalyticsConfig } from '@/lib/plugins/analytics';
 
-export function Analytics() {
-  const config = getAnalyticsConfig();
-  const shouldLoad = shouldLoadAnalytics();
+interface AnalyticsProps {
+  config: AnalyticsConfig | null;
+  scriptSrc: string;
+  scriptAttrs: Record<string, string>;
+}
 
-  if (!shouldLoad || !config) {
+export function Analytics({ config, scriptSrc, scriptAttrs }: AnalyticsProps) {
+  if (!config?.enabled || !config.domain) {
     return null;
   }
-
-  const scriptSrc = getAnalyticsScriptSrc(config.provider, config.domain);
-  const scriptAttrs = getAnalyticsScriptAttrs(config);
 
   return (
     <Script

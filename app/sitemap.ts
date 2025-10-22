@@ -1,11 +1,12 @@
 import { getAllPosts } from '@/lib/blog';
 import { loadSeoConfig } from '@/lib/seo';
+import { filterDrafts } from '@/lib/plugins/drafts';
 
 export const dynamic = 'force-static';
-export const revalidate = 3600;
 
 export default async function sitemap() {
-  const posts = getAllPosts();
+  const allPosts = getAllPosts(true);
+  const posts = filterDrafts(allPosts); // Filter drafts from sitemap
   const { siteUrl } = loadSeoConfig();
 
   const blogPosts = posts.map((post) => ({

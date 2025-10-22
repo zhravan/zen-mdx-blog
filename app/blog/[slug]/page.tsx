@@ -6,15 +6,19 @@ import { getPluginConfig } from '@/lib/plugins/registry';
 import { getReadingTimeForPost } from '@/lib/plugins/reading-time';
 import { getTocForPost } from '@/lib/plugins/toc';
 import { getPostNavigation } from '@/lib/plugins/post-navigation';
+import { isDraft } from '@/lib/plugins/drafts';
 import { ReadingTimeBadge } from '@/components/ReadingTimeBadge';
 import { TableOfContents } from '@/components/TableOfContents';
 import { MobileTOC } from '@/components/MobileTOC';
 import { PostNavigation } from '@/components/PostNavigation';
 import { TagsList } from '@/components/TagsList';
+import { DraftBadge } from '@/components/DraftBadge';
+import { DraftPreviewGate } from '@/components/DraftPreviewGate';
+import { Suspense } from 'react';
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
-  return posts.map((post) => ({
+  const allPosts = getAllPosts(true); // Include drafts for static generation
+  return allPosts.map((post) => ({
     slug: post.slug
   }));
 }
@@ -68,15 +72,22 @@ export default async function BlogPost({
   // Get plugin configs
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
   const readingTimeConfig = getPluginConfig<{ showIcon: boolean; showWordCount: boolean }>('reading-time');
+  const draftsConfig = getPluginConfig<{ enabled: boolean; previewToken: string }>('drafts');
 
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
   const showTocInline = tocHeadings && tocConfig && tocConfig.position === 'inline';
 
   return (
-    <div className="space-y-6 text-xxs">
-      <div className="flex items-center gap-2 mb-8">
-        <BackLink href="/blog">Back to Blog</BackLink>
-      </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <DraftPreviewGate 
+        isDraft={isDraft(post)} 
+        previewToken={draftsConfig?.previewToken || ''}
+      >
+        <div className="space-y-6 text-xxs">
+          <div className="flex items-center gap-2 mb-8">
+            <BackLink href="/blog">Back to Blog</BackLink>
+            {isDraft(post) && <DraftBadge draft={true} />}
+          </div>
 
       {/* Metadata section - above content on mobile only */}
       <div className="space-y-2 mb-6 lg:hidden">
@@ -144,6 +155,8 @@ export default async function BlogPost({
           </aside>
         )}
       </div>
-    </div>
+        </div>
+      </DraftPreviewGate>
+    </Suspense>
   );
 }

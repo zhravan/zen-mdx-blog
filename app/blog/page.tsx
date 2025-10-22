@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/blog';
+import { filterDrafts } from '@/lib/plugins/drafts';
 
 export const metadata = {
   title: 'Blog',
@@ -7,7 +8,9 @@ export const metadata = {
 };
 
 export default function Blog() {
-  const posts = getAllPosts();
+  const allPosts = getAllPosts();
+  // Filter out drafts in production
+  const posts = filterDrafts(allPosts);
   const total = posts.length;
 
   const getSuffix = (n: number) => {

@@ -1,10 +1,12 @@
 import { getAllPosts } from '@/lib/blog';
 import { loadSeoConfig } from '@/lib/seo';
+import { filterDrafts } from '@/lib/plugins/drafts';
 
-export const revalidate = 3600; // Rebuild feed every hour
+export const dynamic = 'force-static';
 
 export async function GET() {
-  const posts = getAllPosts();
+  const allPosts = getAllPosts(true);
+  const posts = filterDrafts(allPosts); // Filter drafts from feed
   const { siteUrl, title: SITE_TITLE, description: SITE_DESCRIPTION } = loadSeoConfig();
 
   const items = posts

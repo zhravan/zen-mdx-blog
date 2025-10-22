@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Twitter, Linkedin, MessageCircle, Copy, Share2 } from "lucide-react";
+import { Twitter, Linkedin, MessageCircle as Reddit, Copy, Share2 } from "lucide-react";
 
-interface Props {
+interface ShareButtonsProps {
   title: string;
   url: string;
   className?: string;
 }
 
-export function ShareButtons({ title, url, className }: Props) {
+export function ShareButtons({ title, url, className = '' }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
 
   const shareTargets = [
@@ -26,7 +26,7 @@ export function ShareButtons({ title, url, className }: Props) {
     {
       name: "Reddit",
       href: `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`,
-      Icon: MessageCircle,
+      Icon: Reddit,
     },
   ];
 
@@ -47,7 +47,7 @@ export function ShareButtons({ title, url, className }: Props) {
   }
 
   return (
-    <div className={"flex items-center gap-2 " + (className || "")}> 
+    <div className={`flex items-center gap-2 ${className}`}>
       <span className="text-[10px] opacity-60">Share</span>
       {shareTargets.map(({ name, href, Icon }) => (
         <Link

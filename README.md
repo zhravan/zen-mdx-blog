@@ -1,10 +1,18 @@
 <samp>
 
-# Zen — Minimal MDX Blog
+<p align="center">
+  <h1 align="center">Zen — Minimal MDX Blog</h1>
+</p>
 
+<p align="center">
+  <a href="https://github.com/zhravan/zen-mdx-blog"><img src="app/favicon.ico" alt="zen blogs"  align="center" width="25%" /></a>
+</p>
+
+<p align="center">
 Clean, fast, content‑first blog starter with Next.js 15, React 19, and MDX.
+</p>
 
-## Quick Start
+## Lets gooo
 
 ```bash
 pnpm install

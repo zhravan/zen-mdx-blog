@@ -1,10 +1,18 @@
-// Plugin Registry
+// Plugin registry and utilities
 export * from './registry';
 
-// Individual Plugins
-export * from './reading-time';
-export * from './toc';
-export * from './related-posts';
+// Individual plugins
 export * from './command-palette';
 export * from './scroll-progress';
 export * from './scroll-to-top';
+export * from './toc';
+export * from './reading-time';
+export * from './related-posts';
+export * from './post-navigation';
+export * from './code-enhancements';
+export * from './series';
+export * from './external-links';
+export * from './view-counter';
+export * from './analytics';
+export * from './drafts';
+export * from './search';

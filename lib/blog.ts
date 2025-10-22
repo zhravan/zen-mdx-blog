@@ -88,7 +88,14 @@ export function getAllPosts(includeDrafts = false): BlogPost[] {
         draft: frontmatter.draft || false
       };
     })
-    .filter(post => includeDrafts || !post.draft); // Filter out drafts in production
+    .filter(post => {
+      // In development, always include drafts
+      if (process.env.NODE_ENV === 'development') {
+        return true;
+      }
+      // In production, respect the includeDrafts parameter
+      return includeDrafts || !post.draft;
+    });
 
   return posts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -96,5 +103,7 @@ export function getAllPosts(includeDrafts = false): BlogPost[] {
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return getAllPosts().find((post) => post.slug === slug);
+  // In development, include drafts when looking up by slug
+  const includeDrafts = process.env.NODE_ENV === 'development';
+  return getAllPosts(includeDrafts).find((post) => post.slug === slug);
 }

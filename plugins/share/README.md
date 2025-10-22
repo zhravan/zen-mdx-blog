@@ -27,12 +27,11 @@ share-buttons:
     copy: true            # Show copy link button
     native: true          # Show native share button (mobile only)
   showLabels: false       # Show "Share:" text label
-  position: "bottom"      # Position in post (bottom, top, both)
 ```
 
 ## Usage
 
-The plugin is automatically integrated into blog posts. No manual integration needed.
+The plugin requires manual integration into blog posts. Add the ShareButtons component where you want it to appear:
 
 ### Manual Usage
 

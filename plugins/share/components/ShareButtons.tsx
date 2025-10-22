@@ -1,6 +1,6 @@
 'use client';
 
-import { Twitter, Linkedin, MessageCircle as Reddit, Copy, Share2 } from 'lucide-react';
+import { Twitter, Linkedin, MessageSquare, Copy, Share2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
@@ -73,7 +73,7 @@ export function ShareButtons({
     {
       name: 'Reddit',
       href: `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`,
-      icon: <Reddit className="h-3.5 w-3.5" />,
+      icon: <MessageSquare className="h-3.5 w-3.5" />,
       enabled: buttonConfig.reddit !== false
     }
   ];

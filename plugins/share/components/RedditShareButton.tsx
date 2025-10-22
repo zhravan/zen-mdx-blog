@@ -1,4 +1,4 @@
-import { MessageCircle as Reddit } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 import { ShareButton } from './ShareButton';
 
 interface RedditShareButtonProps {
@@ -17,7 +17,7 @@ export function RedditShareButton({ title, url, className }: RedditShareButtonPr
       target="_blank"
       rel="noopener noreferrer"
       label="Share on Reddit"
-      icon={<Reddit className="h-3.5 w-3.5" />}
+      icon={<MessageSquare className="h-3.5 w-3.5" />}
       className={className}
     />
   );

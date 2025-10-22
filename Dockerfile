@@ -1,18 +1,24 @@
 # Stage 1 - Build App
 FROM node:20-alpine AS builder
 
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package files
+COPY package.json pnpm-lock.yaml ./
 
-RUN npm install
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
+# Copy source files
 COPY . .
 
-RUN npm run build
+# Build the app (Next.js static export)
+RUN pnpm build
 
 # Stage 2 — Serve with Caddy
-
 FROM caddy:2-alpine
 
 # Copy the exported static site from the builder

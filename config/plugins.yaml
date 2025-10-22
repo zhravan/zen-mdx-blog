@@ -96,3 +96,16 @@ plugins:
     enabled: true
     showInList: false        # Show drafts in blog list (dev mode only)
     previewToken: "secret"   # Optional: secret token for preview URLs
+    
+  # Share Buttons - Social sharing for blog posts
+  share-buttons:
+    enabled: true
+    previewOnly: false       # If true, only show in preview mode
+    buttons:
+      twitter: true
+      linkedin: true
+      reddit: true
+      copy: true
+      native: true           # Native share API on mobile
+    showLabels: false        # Show "Share" text label
+    position: "bottom"       # Position in post (bottom, top, both)

@@ -15,8 +15,10 @@ import { TagsList } from '@/components/TagsList';
 import { DraftBadge } from '@/components/DraftBadge';
 import { DraftPreviewGate } from '@/components/DraftPreviewGate';
 import { Suspense } from 'react';
-import { ShareButtons } from '@/components/ShareButtons';
+// Share buttons plugin
+import { ShareButtons } from '@/plugins/share/components/ShareButtons';
 import { loadSeoConfig } from '@/lib/seo';
+import { getPluginConfig as loadPluginConfig } from '@/lib/plugins/loader';
 
 export async function generateStaticParams() {
   const allPosts = getAllPosts(true); // Include drafts for static generation
@@ -77,6 +79,7 @@ export default async function BlogPost({
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
   const readingTimeConfig = getPluginConfig<{ showIcon: boolean; showWordCount: boolean }>('reading-time');
   const draftsConfig = getPluginConfig<{ enabled: boolean; previewToken: string }>('drafts');
+  const shareButtonsConfig = loadPluginConfig('share-buttons');
 
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
   const showTocInline = tocHeadings && tocConfig && tocConfig.position === 'inline';
@@ -128,7 +131,15 @@ export default async function BlogPost({
 
           <Content />
 
-          <ShareButtons title={post.title} url={absoluteUrl} className="mt-6" />
+          {/* Share buttons */}
+          <div className="mt-6">
+            <ShareButtons 
+              title={post.title} 
+              url={absoluteUrl}
+              preview={process.env.NODE_ENV === 'development'}
+              config={shareButtonsConfig || undefined}
+            />
+          </div>
 
           <PostNavigation previous={postNav.previous} next={postNav.next} />
         </article>
@@ -151,7 +162,13 @@ export default async function BlogPost({
               {post.tags && post.tags.length > 0 && (
                 <TagsList tags={post.tags} />
               )}
-              <ShareButtons title={post.title} url={absoluteUrl} />
+              {/* Share buttons in sidebar */}
+              <ShareButtons 
+                title={post.title} 
+                url={absoluteUrl}
+                preview={process.env.NODE_ENV === 'development'}
+                config={shareButtonsConfig || undefined}
+              />
             </div>
 
             <TableOfContents

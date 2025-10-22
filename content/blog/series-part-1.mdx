@@ -1,0 +1,128 @@
+export const frontmatter = {
+  title: 'Building a Modern Blog - Part 1: Setup',
+  date: '2024-03-10',
+  description: 'Learn how to set up a modern blog with Next.js, TypeScript, and MDX. Part 1 of our comprehensive series.',
+  tags: ['tutorial', 'nextjs', 'typescript'],
+  series: 'Building a Modern Blog',
+  seriesPart: 1,
+};
+
+# Building a Modern Blog - Part 1: Setup
+
+Welcome to the first part of our **Building a Modern Blog** series! In this comprehensive guide, we'll create a production-ready blog from scratch.
+
+## What We'll Build
+
+Over this series, you'll learn to build:
+
+- MDX-powered content
+- Custom theming system
+- Plugin architecture
+- Analytics integration
+- Search functionality
+- Optimized performance
+
+## Prerequisites
+
+Before we begin, make sure you have:
+
+```bash
+node --version  # v18 or higher
+npm --version   # v9 or higher
+```
+
+## Project Setup
+
+Let's create our Next.js project:
+
+```bash filename="terminal"
+npx create-next-app@latest my-blog --typescript --tailwind --app
+cd my-blog
+```
+
+## Installing Dependencies
+
+We'll need a few key packages:
+
+```bash
+npm install @next/mdx mdx-js-react gray-matter
+npm install -D @types/mdx
+```
+
+## Project Structure
+
+Create this folder structure:
+
+```text
+my-blog/
+├── app/
+│   ├── blog/
+│   │   ├── [slug]/
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   └── layout.tsx
+├── content/
+│   └── blog/
+│       └── first-post.mdx
+├── lib/
+│   └── blog.ts
+└── package.json
+```
+
+## Creating the Blog Library
+
+Let's build our blog data layer:
+
+```typescript filename="lib/blog.ts"
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  description: string;
+  content: string;
+}
+
+const postsDirectory = path.join(process.cwd(), 'content/blog');
+
+export function getAllPosts(): BlogPost[] {
+  const fileNames = fs.readdirSync(postsDirectory);
+  const allPostsData = fileNames
+    .filter((fileName) => fileName.endsWith('.mdx'))
+    .map((fileName) => {
+      const slug = fileName.replace(/\.mdx$/, '');
+      const fullPath = path.join(postsDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const { data, content } = matter(fileContents);
+
+      return {
+        slug,
+        title: data.title,
+        date: data.date,
+        description: data.description,
+        content,
+      };
+    });
+
+  return allPostsData.sort((a, b) => 
+    new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+}
+```
+
+## Next Steps
+
+In **Part 2**, we'll:
+- Configure MDX rendering
+- Add syntax highlighting
+- Create blog post templates
+- Implement dynamic routing
+
+Stay tuned!
+
+---
+
+**Series Navigation:** This is Part 1 of the Building a Modern Blog series. The series navigator will appear here automatically!

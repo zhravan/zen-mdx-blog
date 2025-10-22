@@ -1,0 +1,263 @@
+export const frontmatter = {
+  title: 'Complete Plugin System Showcase',
+  date: '2024-03-18',
+  description: 'A comprehensive demonstration of all blog plugins working together in harmony.',
+  tags: ['demo', 'showcase', 'plugins', 'features'],
+  series: 'Building a Modern Blog',
+  seriesPart: 4,
+};
+
+# Complete Plugin System Showcase
+
+This post demonstrates **all plugins** working together! You'll see code enhancements, series navigation, external links, and more.
+
+## Table of Contents
+
+The TOC plugin automatically generates navigation from headings (see sidebar on desktop →).
+
+## Code Enhancements in Action
+
+Here's a React component with all code features enabled:
+
+```tsx filename="components/BlogPost.tsx" {5-8,15-18} showLineNumbers
+import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
+import { getAllPosts } from '@/lib/blog';
+
+// Import plugin utilities
+import { getTocForPost } from '@/lib/plugins/toc';
+import { getReadingTime } from '@/lib/plugins/reading-time';
+import { getSeriesForPost } from '@/lib/plugins/series';
+
+import { TableOfContents } from '@/components/TableOfContents';
+import { SeriesNavigator } from '@/components/SeriesNavigator';
+import { ViewCounter } from '@/components/ViewCounter';
+
+export default async function BlogPost({ params }) {
+  // Load post data
+  const { slug } = await params;
+  const post = getAllPosts().find(p => p.slug === slug);
+  
+  if (!post) {
+    notFound();
+  }
+  
+  // Load plugin data
+  const toc = await getTocForPost(slug);
+  const readingTime = await getReadingTime(slug);
+  const series = getSeriesForPost(slug);
+  
+  return (
+    <div className="blog-layout">
+      {series && <SeriesNavigator series={series} />}
+      
+      <article>
+        <h1>{post.title}</h1>
+        <div className="metadata">
+          <time>{post.date}</time>
+          {readingTime && <span>{readingTime.text}</span>}
+          <ViewCounter slug={slug} />
+        </div>
+        
+        <Content />
+      </article>
+      
+      {toc && <TableOfContents headings={toc} />}
+    </div>
+  );
+}
+```
+
+## Reading Time & View Counter
+
+At the top of this post, you should see:
+- Reading time estimate (X min read)
+- View counter (if enabled)
+- Tags
+
+These are automatically calculated from the content!
+
+## Series Navigation
+
+This post is **Part 4** of the "Building a Modern Blog" series. The SeriesNavigator component shows:
+
+- All parts in the series
+- Current position indicator
+- Previous/Next navigation
+- Series description
+
+Check the widget above to navigate between parts!
+
+## External Links with Icons
+
+The external-links plugin automatically enhances these:
+
+- [Next.js Documentation](https://nextjs.org/docs) ↗
+- [React 19 Announcement](https://react.dev/blog/2024/12/05/react-19) ↗
+- [MDX Official Site](https://mdxjs.com) ↗
+- Internal link: [Code Demo Post](/blog/code-enhancements-demo)
+- Another external: [TypeScript Playground](https://www.typescriptlang.org/play) ↗
+
+Notice how external links have the ↗ icon and open in new tabs!
+
+## Search Functionality
+
+The search plugin provides:
+
+```typescript filename="lib/plugins/search.ts" {8-12}
+export async function searchPosts(query: string): Promise<SearchResult[]> {
+  const index = await buildSearchIndex();
+  const results: SearchResult[] = [];
+
+  for (const item of index) {
+    let maxScore = 0;
+
+    // Search in title (highest weight)
+    if (config.searchFields.includes('title')) {
+      const score = fuzzySearch(query, item.title);
+      maxScore = Math.max(maxScore, score * 1.5);
+    }
+
+    // Search in description
+    if (config.searchFields.includes('description')) {
+      const score = fuzzySearch(query, item.description);
+      maxScore = Math.max(maxScore, score);
+    }
+
+    if (maxScore > 0) {
+      results.push({ ...item, score: maxScore });
+    }
+  }
+
+  return results.sort((a, b) => b.score - a.score);
+}
+```
+
+Try the search (⌘K or Ctrl+K) to find posts!
+
+## Analytics Integration
+
+The analytics plugin supports multiple providers:
+
+```yaml filename="config/plugins.yaml"
+analytics:
+  enabled: true
+  provider: "plausible"  # or "umami", "simple-analytics"
+  domain: "yourdomain.com"
+```
+
+Privacy-friendly tracking with no cookies!
+
+## Configuration-Driven Design
+
+All features are controlled via `config/plugins.yaml`:
+
+```yaml
+plugins:
+  # Code features
+  code-enhancements:
+    enabled: true
+    showFileName: true
+    showLineNumbers: true
+    highlightLines: true
+    
+  # Content features  
+  series:
+    enabled: true
+    showProgress: true
+    
+  # Navigation
+  toc:
+    enabled: true
+    position: "right"
+    maxDepth: 3
+    
+  # Metadata
+  reading-time:
+    enabled: true
+    wordsPerMinute: 200
+    
+  # Engagement
+  view-counter:
+    enabled: false
+    provider: "local"
+    
+  # External
+  external-links:
+    enabled: true
+    icon: "↗"
+    openInNewTab: true
+```
+
+## Shell Script Example
+
+Even shell scripts get beautiful highlighting:
+
+```bash filename="deploy.sh" {1,5-7}
+#!/bin/bash
+set -e
+
+echo "Deploying blog..."
+npm run build
+npm run export
+aws s3 sync out/ s3://my-blog-bucket
+
+echo "Deployment complete!"
+```
+
+## JSON Configuration
+
+Configuration files look great too:
+
+```json filename="package.json" {3-5,8-10}
+{
+  "name": "monolog-mdx-blog",
+  "version": "1.0.0",
+  "description": "Modern blog with plugin system",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next build && next export"
+  },
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0"
+  }
+}
+```
+
+## All Plugins Summary
+
+Here's what's working in this post:
+
+1. **Code Enhancements** - Filename, line numbers, highlighting
+2. **Series Navigation** - Part 4 of Building a Modern Blog
+3. **Table of Contents** - Auto-generated from headings
+4. **Reading Time** - Calculated from word count
+5. **External Links** - Auto-detected with icons
+6. **View Counter** - Privacy-friendly tracking
+7. **Search** - Fuzzy search across content
+8. **Analytics** - Optional provider integration
+9. **Drafts** - Preview and filtering system
+
+## Performance
+
+All plugins are:
+- **Fast** - Build-time processing where possible
+- **Optional** - Disable via config
+- **Targeted** - Only load what's needed
+- **Type-safe** - Full TypeScript support
+
+## Learn More
+
+Related resources:
+- [Next.js App Router](https://nextjs.org/docs/app)
+- [MDX Documentation](https://mdxjs.com)
+- [Shiki Syntax Highlighter](https://shiki.style)
+- Internal: [TypeScript Setup](/blog/typesafe-yaml-config)
+
+---
+
+**This post showcases every plugin working together!** Check out individual demo posts for detailed examples of each feature.

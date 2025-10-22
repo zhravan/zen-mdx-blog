@@ -1,0 +1,163 @@
+export const frontmatter = {
+  title: 'Building a Modern Blog - Part 3: Plugin System',
+  date: '2024-03-14',
+  description: 'Implement a flexible plugin system for table of contents, reading time, and more.',
+  tags: ['tutorial', 'plugins', 'architecture'],
+  series: 'Building a Modern Blog',
+  seriesPart: 3,
+};
+
+# Building a Modern Blog - Part 3: Plugin System
+
+In this final part, we'll build a powerful plugin architecture that makes our blog extensible and maintainable.
+
+## Why a Plugin System?
+
+Benefits of plugins:
+- Enable/disable features without code changes
+- Easy configuration management
+- Clean separation of concerns
+- Simple to test and maintain
+
+## Plugin Configuration
+
+Create a YAML config file:
+
+```yaml filename="config/plugins.yaml"
+plugins:
+  toc:
+    enabled: true
+    position: "right"
+    maxDepth: 3
+    sticky: true
+    
+  reading-time:
+    enabled: true
+    wordsPerMinute: 200
+    showWordCount: true
+    
+  series:
+    enabled: true
+    showProgress: true
+```
+
+## Plugin Registry
+
+Build the registry system:
+
+```typescript filename="lib/plugins/registry.ts" {15-22}
+import fs from 'fs';
+import path from 'path';
+import yaml from 'yaml';
+
+export interface PluginConfig {
+  enabled: boolean;
+  [key: string]: any;
+}
+
+let cachedConfig: PluginsConfig | null = null;
+
+export function getPluginConfig<T>(name: string): T | null {
+  const config = loadPluginConfig();
+  const plugin = config.plugins[name];
+  
+  if (!plugin || !plugin.enabled) {
+    return null;
+  }
+  
+  return plugin as T;
+}
+```
+
+## Creating a Table of Contents Plugin
+
+```typescript filename="lib/plugins/toc.ts" {1-5,18-23}
+import { getPluginConfig } from './registry';
+
+export interface TocConfig {
+  enabled: boolean;
+  maxDepth: number;
+}
+
+export interface TocHeading {
+  id: string;
+  text: string;
+  level: number;
+}
+
+export function extractHeadings(content: string): TocHeading[] {
+  const config = getPluginConfig<TocConfig>('toc');
+  
+  if (!config) {
+    return [];
+  }
+  
+  const headings: TocHeading[] = [];
+  const regex = /^(#{1,6})\s+(.+)$/gm;
+  
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    const level = match[1].length;
+    const text = match[2].trim();
+    
+    if (level <= config.maxDepth) {
+      headings.push({
+        id: text.toLowerCase().replace(/\s+/g, '-'),
+        text,
+        level,
+      });
+    }
+  }
+  
+  return headings;
+}
+```
+
+## Using Plugins in Pages
+
+Integrate plugins into your blog:
+
+```tsx filename="app/blog/[slug]/page.tsx" {5-7,15-17}
+import { getPluginConfig } from '@/lib/plugins/registry';
+import { getTocForPost } from '@/lib/plugins/toc';
+import { TableOfContents } from '@/components/TableOfContents';
+
+export default async function BlogPost({ params }) {
+  const { slug } = await params;
+  const toc = await getTocForPost(slug);
+  const tocConfig = getPluginConfig('toc');
+  
+  return (
+    <div className="grid grid-cols-12 gap-8">
+      <article className="col-span-8">
+        <Content />
+      </article>
+      {tocConfig && toc && (
+        <aside className="col-span-4">
+          <TableOfContents headings={toc} />
+        </aside>
+      )}
+    </div>
+  );
+}
+```
+
+## Series Complete!
+
+You now have:
+- Production-ready blog setup
+- MDX with syntax highlighting
+- Extensible plugin system
+- Table of contents
+- Series navigation (see above!)
+
+## Additional Resources
+
+Check out these links to learn more:
+- [Next.js Documentation](https://nextjs.org/docs)
+- [MDX Documentation](https://mdxjs.com)
+- [Shiki GitHub](https://github.com/shikijs/shiki)
+
+---
+
+**Series Complete!** Thanks for following along. The SeriesNavigator above shows all three parts.

@@ -1,0 +1,85 @@
+export const frontmatter = {
+  title: 'This is a Draft Post',
+  date: '2024-03-20',
+  description: 'This post is marked as a draft and will not appear in production unless previewed with a token.',
+  tags: ['draft', 'wip', 'demo'],
+  draft: true,
+  previewToken: "secret"
+};
+
+# This is a Draft Post
+
+**Note:** This post is marked as `draft: true` in the frontmatter.
+
+## What Happens with Drafts?
+
+When a post is marked as draft:
+
+1. **In Development:**
+   - Visible if `showInList: true` in config
+   - Shows draft badge
+   - Full access for testing
+
+2. **In Production:**
+   - Hidden from all lists
+   - Not included in sitemap
+   - Requires preview token to access
+   - Returns 404 if accessed directly
+
+## Testing the Draft System
+
+This post demonstrates:
+
+- Draft badge component
+- Filtering in post lists
+- Preview mode with token
+- Development visibility
+
+## Preview URL
+
+In production, you can preview this with:
+
+```
+https://yoursite.com/blog/draft-example?preview=YOUR_SECRET_TOKEN
+```
+
+## Draft Content
+
+This is where you'd write content that's not ready for publication yet:
+
+- [ ] Finish research
+- [ ] Add code examples
+- [ ] Get peer review
+- [ ] Final proofread
+
+## Configuration
+
+The drafts plugin is configured in `config/plugins.yaml`:
+
+```yaml
+drafts:
+  enabled: true
+  showInList: false       # Show in dev mode
+  previewToken: "secret"  # For production preview
+```
+
+## When to Use Drafts
+
+Use draft posts when:
+
+- Content is incomplete
+- Needs review or fact-checking
+- Scheduled for future publication
+- Testing new features
+
+## Publishing
+
+To publish this post, simply:
+
+1. Remove `draft: true` from frontmatter
+2. Update the date
+3. Rebuild the site
+
+---
+
+**This post will not appear in production!** It's for development and preview purposes only.

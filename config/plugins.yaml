@@ -95,4 +95,4 @@ plugins:
   drafts:
     enabled: true
     showInList: false        # Show drafts in blog list (dev mode only)
-    previewToken: ""         # Optional: secret token for preview URLs
+    previewToken: "secret"   # Optional: secret token for preview URLs

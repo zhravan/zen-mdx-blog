@@ -15,6 +15,8 @@ import { TagsList } from '@/components/TagsList';
 import { DraftBadge } from '@/components/DraftBadge';
 import { DraftPreviewGate } from '@/components/DraftPreviewGate';
 import { Suspense } from 'react';
+import { ShareButtons } from '@/components/ShareButtons';
+import { loadSeoConfig } from '@/lib/seo';
 
 export async function generateStaticParams() {
   const allPosts = getAllPosts(true); // Include drafts for static generation
@@ -68,6 +70,8 @@ export default async function BlogPost({
   const readingTime = await getReadingTimeForPost(slug);
   const tocHeadings = await getTocForPost(slug);
   const postNav = getPostNavigation(slug);
+  const cfg = loadSeoConfig();
+  const absoluteUrl = `${cfg.siteUrl}/blog/${slug}`;
   
   // Get plugin configs
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
@@ -124,6 +128,8 @@ export default async function BlogPost({
 
           <Content />
 
+          <ShareButtons title={post.title} url={absoluteUrl} className="mt-6" />
+
           <PostNavigation previous={postNav.previous} next={postNav.next} />
         </article>
 
@@ -145,6 +151,7 @@ export default async function BlogPost({
               {post.tags && post.tags.length > 0 && (
                 <TagsList tags={post.tags} />
               )}
+              <ShareButtons title={post.title} url={absoluteUrl} />
             </div>
 
             <TableOfContents

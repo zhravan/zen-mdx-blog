@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { getAllPosts } from '@/lib/blog';
+import { getAllPosts, type BlogPost } from '@/lib/blog';
 import { filterDrafts } from '@/lib/plugins/drafts';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Blog',
@@ -9,105 +9,48 @@ export const metadata = {
 
 export default function Blog() {
   const allPosts = getAllPosts();
-  // Filter out drafts in production
   const posts = filterDrafts(allPosts);
-  const total = posts.length;
 
-  const getSuffix = (n: number) => {
-    const j = n % 10, k = n % 100;
-    if (j === 1 && k !== 11) return 'st';
-    if (j === 2 && k !== 12) return 'nd';
-    if (j === 3 && k !== 13) return 'rd';
-    return 'th';
+  const formatDate = (date: string) => {
+    const d = new Date(date);
+    return d.toLocaleString('en-US', {
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric'
+    });
   };
-
-  const formatDateNoYear = (iso: string) => {
-    if (!iso) return '';
-    const d = new Date(iso);
-    if (isNaN(d.getTime())) return iso;
-    const day = d.getDate();
-    const month = d.toLocaleString(undefined, { month: 'long' });
-    return `${month} ${day}${getSuffix(day)}`;
-  };
-
-  // Group posts by year (descending)
-  const byYear = posts.reduce<Record<string, typeof posts>>((acc, p) => {
-    const y = (new Date(p.date)).getFullYear();
-    const key = isNaN(y) ? 'Unknown' : String(y);
-    (acc[key] ||= []).push(p);
-    return acc;
-  }, {});
-  const yearKeys = Object.keys(byYear)
-    .sort((a, b) => (b === 'Unknown' ? -1 : a === 'Unknown' ? 1 : Number(b) - Number(a)));
 
   return (
-    <div className="space-y-4 text-xxs">
-      <section>
-        <h1 className="text-sm mb-3">Blog</h1>
-        <p className="" style={{ color: 'var(--color-muted-foreground)' }}>
-          Posts about tiny projects and various other things.
-        </p>
-      </section>
-
-      {(() => {
-        return (
-          <div className="space-y-6">
-            {yearKeys.map((year) => {
-              const items = byYear[year];
-              return (
-                <section key={year} className="space-y-2">
-                  <h2 className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
-                    {year}
-                  </h2>
-                  <ul className="list-none p-0 m-0 space-y-3">
-                    {items.map((post) => (
-                      <li key={post.slug} className="relative pl-4 text-xxs leading-6">
-                        {/* tiny custom bullet */}
-                        <span
-                          aria-hidden
-                          className="absolute left-0 top-[0.55em] w-[3px] h-[3px] rounded-full"
-                          style={{ backgroundColor: 'var(--color-muted-foreground)' }}
-                        />
-                        <div className="flex flex-col sm:flex-row sm:items-start sm:gap-2">
-                          <div className="flex items-start gap-2 flex-1 flex-wrap">
-                            <Link
-                              href={`/blog/${post.slug}`}
-                              className="hover:opacity-90 focus:opacity-90 inline-block"
-                              title={post.description}
-                            >
-                              {post.title}
-                            </Link>
-                            <time
-                              className="whitespace-nowrap opacity-70"
-                              style={{ color: 'var(--color-muted-foreground)' }}
-                              dateTime={post.date}
-                            >
-                              {formatDateNoYear(post.date)}
-                            </time>
-                          </div>
-                          {post.tags && post.tags.length > 0 && (
-                            <div className="flex gap-1.5 mt-1 sm:mt-0 flex-wrap">
-                              {post.tags.slice(0, 3).map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="text-[11px] sm:text-[10px] px-2 py-1 sm:px-1.5 sm:py-0.5 rounded border opacity-60"
-                                  style={{ borderColor: 'var(--color-muted-foreground)' }}
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              );
-            })}
-          </div>
-        );
-      })()}
+    <div className="max-w-2xl mx-auto py-8">
+      <h1 className="text-2xl font-semibold mb-8">Blog</h1>
+      
+      <div className="font-mono space-y-2">
+        {posts
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .map((post) => (
+            <div key={post.slug} className="group flex items-baseline gap-2">
+              <span className="text-xs text-muted-foreground select-none">•</span>
+              <time
+                dateTime={post.date}
+                className="text-sm text-muted-foreground whitespace-nowrap"
+              >
+                {formatDate(post.date)}
+              </time>
+              <span className="text-muted-foreground">:</span>
+              <Link
+                href={`/blog/${post.slug}`}
+                className="text-sm relative hover:text-foreground/80 transition-colors"
+              >
+                <span>{post.title}</span>
+                {post.description && (
+                  <span className="absolute left-0 -bottom-8 hidden group-hover:block bg-background border border-border px-3 py-1 rounded text-xs text-muted-foreground whitespace-normal max-w-[24rem] z-10">
+                    {post.description}
+                  </span>
+                )}
+              </Link>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }

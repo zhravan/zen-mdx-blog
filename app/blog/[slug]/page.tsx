@@ -15,10 +15,9 @@ import { TagsList } from '@/components/TagsList';
 import { DraftBadge } from '@/components/DraftBadge';
 import { DraftPreviewGate } from '@/components/DraftPreviewGate';
 import { Suspense } from 'react';
-// Share buttons plugin
-import { ShareButtons } from '@/plugins/share/components/ShareButtons';
+// Share buttons
+import { ShareButtons } from '@/lib/plugins/share';
 import { loadSeoConfig } from '@/lib/seo';
-import { getPluginConfig as loadPluginConfig } from '@/lib/plugins/loader';
 
 export async function generateStaticParams() {
   const allPosts = getAllPosts(true); // Include drafts for static generation
@@ -79,7 +78,6 @@ export default async function BlogPost({
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
   const readingTimeConfig = getPluginConfig<{ showIcon: boolean; showWordCount: boolean }>('reading-time');
   const draftsConfig = getPluginConfig<{ enabled: boolean; previewToken: string }>('drafts');
-  const shareButtonsConfig = loadPluginConfig('share-buttons');
 
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
   const showTocInline = tocHeadings && tocConfig && tocConfig.position === 'inline';
@@ -136,8 +134,6 @@ export default async function BlogPost({
             <ShareButtons 
               title={post.title} 
               url={absoluteUrl}
-              preview={process.env.NODE_ENV === 'development'}
-              config={shareButtonsConfig || undefined}
             />
           </div>
 
@@ -166,8 +162,6 @@ export default async function BlogPost({
               <ShareButtons 
                 title={post.title} 
                 url={absoluteUrl}
-                preview={process.env.NODE_ENV === 'development'}
-                config={shareButtonsConfig || undefined}
               />
             </div>
 

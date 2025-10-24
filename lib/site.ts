@@ -1,4 +1,5 @@
 import type { ThemeName } from "./themes";
+import { loadYaml } from './yaml-loader';
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const SITE_TITLE = "Your Name";
@@ -17,4 +18,5 @@ export const SITE_DESCRIPTION = "Engineer, writer, and creator.";
  * - 'tokyo-night'
  * - 'catppuccin-mocha'
  */
+export const siteConfig = loadYaml<SiteConfig>('site.yaml');
 export const ACTIVE_THEME: ThemeName = "vitesse-dark";

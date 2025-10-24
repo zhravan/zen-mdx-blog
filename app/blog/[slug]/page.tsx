@@ -15,8 +15,7 @@ import { TagsList } from '@/components/TagsList';
 import { DraftBadge } from '@/components/DraftBadge';
 import { DraftPreviewGate } from '@/components/DraftPreviewGate';
 import { Suspense } from 'react';
-// Share buttons
-import { ShareButtons } from '@/lib/plugins/share';
+import { ShareButtons } from '@/components/ShareButtons';
 import { loadSeoConfig } from '@/lib/seo';
 
 export async function generateStaticParams() {
@@ -78,6 +77,7 @@ export default async function BlogPost({
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
   const readingTimeConfig = getPluginConfig<{ showIcon: boolean; showWordCount: boolean }>('reading-time');
   const draftsConfig = getPluginConfig<{ enabled: boolean; previewToken: string }>('drafts');
+  const shareButtonsConfig = getPluginConfig<{ enabled: boolean; previewOnly: boolean }>('share-buttons');
 
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
   const showTocInline = tocHeadings && tocConfig && tocConfig.position === 'inline';
@@ -130,12 +130,14 @@ export default async function BlogPost({
           <Content />
 
           {/* Share buttons */}
-          <div className="mt-6">
-            <ShareButtons 
-              title={post.title} 
-              url={absoluteUrl}
-            />
-          </div>
+          {shareButtonsConfig?.enabled && (
+            <div className="mt-6">
+              <ShareButtons 
+                title={post.title} 
+                url={absoluteUrl}
+              />
+            </div>
+          )}
 
           <PostNavigation previous={postNav.previous} next={postNav.next} />
         </article>
@@ -159,10 +161,12 @@ export default async function BlogPost({
                 <TagsList tags={post.tags} />
               )}
               {/* Share buttons in sidebar */}
-              <ShareButtons 
-                title={post.title} 
-                url={absoluteUrl}
-              />
+              {shareButtonsConfig?.enabled && (
+                <ShareButtons 
+                  title={post.title} 
+                  url={absoluteUrl}
+                />
+              )}
             </div>
 
             <TableOfContents

@@ -81,6 +81,7 @@ export default async function BlogPost({
 
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
   const showTocInline = tocHeadings && tocConfig && tocConfig.position === 'inline';
+  const shouldShowShareButtons = shareButtonsConfig?.enabled && (!shareButtonsConfig.previewOnly || isDraft(post));
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -130,7 +131,7 @@ export default async function BlogPost({
           <Content />
 
           {/* Share buttons */}
-          {shareButtonsConfig?.enabled && (
+          {shouldShowShareButtons && (
             <div className="mt-6">
               <ShareButtons 
                 title={post.title} 
@@ -161,7 +162,7 @@ export default async function BlogPost({
                 <TagsList tags={post.tags} />
               )}
               {/* Share buttons in sidebar */}
-              {shareButtonsConfig?.enabled && (
+              {shouldShowShareButtons && (
                 <ShareButtons 
                   title={post.title} 
                   url={absoluteUrl}

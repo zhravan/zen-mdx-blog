@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
-import { Twitter, Linkedin, MessageCircle as Reddit, Copy, Share2 } from "lucide-react";
+import { Copy, Share2, Check } from "lucide-react";
 
 interface ShareButtonsProps {
   title: string;
@@ -11,24 +10,6 @@ interface ShareButtonsProps {
 
 export function ShareButtons({ title, url, className = '' }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
-
-  const shareTargets = [
-    {
-      name: "X",
-      href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
-      Icon: Twitter,
-    },
-    {
-      name: "LinkedIn",
-      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
-      Icon: Linkedin,
-    },
-    {
-      name: "Reddit",
-      href: `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`,
-      Icon: Reddit,
-    },
-  ];
 
   async function handleCopy() {
     try {
@@ -49,31 +30,19 @@ export function ShareButtons({ title, url, className = '' }: ShareButtonsProps) 
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <span className="text-[10px] opacity-60">Share</span>
-      {shareTargets.map(({ name, href, Icon }) => (
-        <Link
-          key={name}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Share on ${name}`}
-          className="h-7 w-7 inline-flex items-center justify-center rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 transition"
-        >
-          <Icon className="h-3.5 w-3.5" />
-        </Link>
-      ))}
       <button
         type="button"
         onClick={handleCopy}
         aria-label="Copy link"
         className="h-7 w-7 inline-flex items-center justify-center rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 transition"
       >
-        <Copy className="h-3.5 w-3.5" />
+        {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
       </button>
       <button
         type="button"
         onClick={handleNativeShare}
         aria-label="Share"
-        className="h-7 w-7 inline-flex items-center justify-center rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 transition sm:hidden"
+        className="h-7 w-7 inline-flex items-center justify-center rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 transition"
       >
         <Share2 className="h-3.5 w-3.5" />
       </button>

@@ -15,6 +15,8 @@ import { TagsList } from '@/components/TagsList';
 import { DraftBadge } from '@/components/DraftBadge';
 import { DraftPreviewGate } from '@/components/DraftPreviewGate';
 import { Suspense } from 'react';
+import { ShareButtons } from '@/components/ShareButtons';
+import { loadSeoConfig } from '@/lib/seo';
 
 export async function generateStaticParams() {
   const allPosts = getAllPosts(true); // Include drafts for static generation
@@ -68,14 +70,18 @@ export default async function BlogPost({
   const readingTime = await getReadingTimeForPost(slug);
   const tocHeadings = await getTocForPost(slug);
   const postNav = getPostNavigation(slug);
+  const cfg = loadSeoConfig();
+  const absoluteUrl = `${cfg.siteUrl}/blog/${slug}`;
   
   // Get plugin configs
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
   const readingTimeConfig = getPluginConfig<{ showIcon: boolean; showWordCount: boolean }>('reading-time');
   const draftsConfig = getPluginConfig<{ enabled: boolean; previewToken: string }>('drafts');
+  const shareButtonsConfig = getPluginConfig<{ enabled: boolean; previewOnly: boolean }>('share-buttons');
 
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
   const showTocInline = tocHeadings && tocConfig && tocConfig.position === 'inline';
+  const shouldShowShareButtons = shareButtonsConfig?.enabled && (!shareButtonsConfig.previewOnly || isDraft(post));
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -124,6 +130,16 @@ export default async function BlogPost({
 
           <Content />
 
+          {/* Share buttons */}
+          {shouldShowShareButtons && (
+            <div className="mt-6">
+              <ShareButtons 
+                title={post.title} 
+                url={absoluteUrl}
+              />
+            </div>
+          )}
+
           <PostNavigation previous={postNav.previous} next={postNav.next} />
         </article>
 
@@ -144,6 +160,13 @@ export default async function BlogPost({
               )}
               {post.tags && post.tags.length > 0 && (
                 <TagsList tags={post.tags} />
+              )}
+              {/* Share buttons in sidebar */}
+              {shouldShowShareButtons && (
+                <ShareButtons 
+                  title={post.title} 
+                  url={absoluteUrl}
+                />
               )}
             </div>
 

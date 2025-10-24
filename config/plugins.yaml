@@ -96,3 +96,8 @@ plugins:
     enabled: true
     showInList: false        # Show drafts in blog list (dev mode only)
     previewToken: "secret"   # Optional: secret token for preview URLs
+    
+  # Share Buttons - Social sharing functionality
+  share-buttons:
+    enabled: true
+    previewOnly: false       # Only show in preview mode

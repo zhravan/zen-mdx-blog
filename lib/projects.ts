@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import YAML from 'yaml';
+import { loadYaml } from './yaml-loader';
 
 export interface Project {
   title: string;

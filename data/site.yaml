@@ -1,0 +1,16 @@
+# Global site configuration and identity information.
+
+# Website Name / Person Name (used for branding and titles)
+name: "Your Name"
+
+# The base URL of the deployed site
+url: "https://example.com"
+
+# The main description/tagline for the person or site
+description: "Engineer, writer, and creator."
+
+# Contact information (Placeholder for now, we'll find the hardcoded value later)
+email: "placeholder@example.com"
+
+# Path to the site's favicon.ico or icon file (relative to /public)
+favicon: "/favicon.ico"

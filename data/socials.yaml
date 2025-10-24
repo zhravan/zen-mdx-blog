@@ -1,0 +1,11 @@
+# Social media profiles and contact links.
+- network: GitHub
+  url: "https://github.com"
+  handle: "@your-github-handle"
+  icon: "github" # Used for icon component later
+
+# Example structure for other links
+# - network: LinkedIn
+#   url: "https://linkedin.com/in/yourprofile"
+#   handle: "@your-linkedin-profile"
+#   icon: "linkedin"

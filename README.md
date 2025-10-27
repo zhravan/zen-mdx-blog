@@ -48,7 +48,7 @@ Open <http://localhost:3000>
 | Theme-aware Components | Yes |
 | YAML-based Plugin Config | Yes |
 | Plugin arch / easy to extend setup | Yes |
-| Comments (Giscus) | |
+| Comments (Giscus) | Yes |
 | Open Graph Images (Dynamic) | |
 | Search (Fuse.js) | Yes |
 | Code Line Numbers | Yes |
@@ -83,6 +83,27 @@ docs/       Documentation
 - `pnpm start` — run the production server
 - `pnpm export` — static export to `out/`
 - `pnpm preview` — serve the exported site from `out/`
+
+## Giscus Comments
+
+Giscus enables GitHub Discussions-powered comments on blog posts.
+
+1. Visit [giscus.app](https://giscus.app)
+2. Enter your repo (e.g., `username/repo`)
+3. Enable Discussions in your GitHub repo settings
+4. Copy the generated IDs
+5. Update `config/plugins.yaml`:
+
+```yaml
+giscus:
+  enabled: true
+  repo: "username/repo"
+  repoId: "your-repo-id"
+  category: "General"
+  categoryId: "your-category-id"
+```
+
+See `config/plugins.yaml` for all options (theme, position, etc).
 
 ## Run in production (Docker)
 

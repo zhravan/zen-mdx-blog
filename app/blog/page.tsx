@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/blog';
 import { filterDrafts } from '@/lib/plugins/drafts';
+import { PageHeader } from '@/components/PageHeader';
 
 export const metadata = {
   title: 'Blog',
@@ -31,13 +32,11 @@ export default function Blog() {
     .sort((a, b) => (b === 'Unknown' ? -1 : a === 'Unknown' ? 1 : Number(b) - Number(a)));
 
   return (
-    <div className="space-y-4 text-xs">
-      <section>
-        <h1 className="text-sm mb-2">Blog</h1>
-        <p className="text-xs opacity-60">
-          Posts about tiny projects and various other things.
-        </p>
-      </section>
+    <div className="space-y-6 text-xxs">
+      <PageHeader
+        title="Blog"
+        description="Posts about tiny projects and various other things."
+      />
 
       <div className="space-y-5">
         {yearKeys.map((year) => {

@@ -1,3 +1,5 @@
+import { PageHeader } from '@/components/PageHeader';
+
 export const metadata = {
   title: 'About',
   description: 'Learn more about me and what I do.'
@@ -6,9 +8,7 @@ export const metadata = {
 export default function About() {
   return (
     <div className="space-y-6 text-xxs">
-      <section className="animate-fade-in">
-        <h1 className="text-sm mb-4">About</h1>
-      </section>
+      <PageHeader title="About" />
 
       <section
         className="prose animate-fade-up"

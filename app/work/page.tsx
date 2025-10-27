@@ -1,5 +1,6 @@
 import { ExternalLink } from 'lucide-react';
 import { getProjects } from '@/lib/projects';
+import { PageHeader } from '@/components/PageHeader';
 
 export const metadata = {
   title: 'Work',
@@ -10,12 +11,10 @@ export default function Work() {
   const projects = getProjects();
   return (
     <div className="space-y-6 text-xxs">
-      <section className="animate-fade-in">
-        <h1 className="text-sm mb-4">Work</h1>
-        <p className="mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
-          A selection of projects I have built and contributed to.
-        </p>
-      </section>
+      <PageHeader
+        title="Work"
+        description="A selection of projects I have built and contributed to."
+      />
 
       <section>
         <div className="space-y-6">

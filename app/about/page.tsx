@@ -1,14 +1,16 @@
-export const metadata = {
+import { PageHeader } from '@/components/PageHeader';
+
+const pageMetadata = {
   title: 'About',
   description: 'Learn more about me and what I do.'
 };
 
+export const metadata = pageMetadata;
+
 export default function About() {
   return (
     <div className="space-y-6 text-xxs">
-      <section className="animate-fade-in">
-        <h1 className="text-sm mb-4">About</h1>
-      </section>
+      <PageHeader metadata={pageMetadata} />
 
       <section
         className="prose animate-fade-up"
@@ -52,7 +54,7 @@ export default function About() {
           something new, or just chat about technology, feel free to reach out.
         </p>
 
-        <div className="flex gap-4 mt-4">
+        <div className="flex flex-wrap gap-4 mt-4">
           <a
             href="https://github.com"
             target="_blank"
@@ -71,6 +73,16 @@ export default function About() {
           </a>
           <a href="mailto:hello@example.com" className="transition-colors duration-150">
             Email
+          </a>
+          <span style={{ color: 'var(--color-muted-foreground)' }}>·</span>
+          <a href="/feed.xml" className="transition-colors duration-150">
+            RSS
+          </a>
+          <a href="/atom.xml" className="transition-colors duration-150">
+            Atom
+          </a>
+          <a href="/feed.json" className="transition-colors duration-150">
+            JSON
           </a>
         </div>
       </section>

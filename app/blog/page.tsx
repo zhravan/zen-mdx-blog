@@ -5,7 +5,7 @@ import { PageHeader } from '@/components/PageHeader';
 
 const pageMetadata = {
   title: 'Blog',
-  description: 'Posts about tiny projects and various other things.'
+  description: 'Thoughts on technology, development, and building products.'
 };
 
 export const metadata = pageMetadata;

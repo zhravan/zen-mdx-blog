@@ -3,6 +3,7 @@ import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { getPostMetadata } from '@/lib/seo';
 import { BackLink } from '@/components/navigation';
 import { getPluginConfig } from '@/lib/plugins/registry';
+import { Giscus } from '@/lib/plugins';
 import { getReadingTimeForPost } from '@/lib/plugins/reading-time';
 import { getTocForPost } from '@/lib/plugins/toc';
 import { getPostNavigation } from '@/lib/plugins/post-navigation';
@@ -68,12 +69,12 @@ export default async function BlogPost({
   const readingTime = await getReadingTimeForPost(slug);
   const tocHeadings = await getTocForPost(slug);
   const postNav = getPostNavigation(slug);
-  
+
   // Get plugin configs
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
   const readingTimeConfig = getPluginConfig<{ showIcon: boolean; showWordCount: boolean }>('reading-time');
   const draftsConfig = getPluginConfig<{ enabled: boolean; previewToken: string }>('drafts');
-
+  
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
   const showTocInline = tocHeadings && tocConfig && tocConfig.position === 'inline';
 
@@ -125,6 +126,11 @@ export default async function BlogPost({
           <Content />
 
           <PostNavigation previous={postNav.previous} next={postNav.next} />
+
+          {/* Giscus comments plugin (self-contained enable/disable via config) */}
+          <br/>
+          <Giscus />
+
         </article>
 
         {showTocSidebar && (

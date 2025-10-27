@@ -54,7 +54,7 @@ export default function About() {
           something new, or just chat about technology, feel free to reach out.
         </p>
 
-        <div className="flex gap-4 mt-4">
+        <div className="flex flex-wrap gap-4 mt-4">
           <a
             href="https://github.com"
             target="_blank"
@@ -73,6 +73,16 @@ export default function About() {
           </a>
           <a href="mailto:hello@example.com" className="transition-colors duration-150">
             Email
+          </a>
+          <span style={{ color: 'var(--color-muted-foreground)' }}>·</span>
+          <a href="/feed.xml" className="transition-colors duration-150">
+            RSS
+          </a>
+          <a href="/atom.xml" className="transition-colors duration-150">
+            Atom
+          </a>
+          <a href="/feed.json" className="transition-colors duration-150">
+            JSON
           </a>
         </div>
       </section>

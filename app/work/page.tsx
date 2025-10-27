@@ -2,19 +2,18 @@ import { ExternalLink } from 'lucide-react';
 import { getProjects } from '@/lib/projects';
 import { PageHeader } from '@/components/PageHeader';
 
-export const metadata = {
+const pageMetadata = {
   title: 'Work',
   description: 'A selection of projects I have built and contributed to.'
 };
+
+export const metadata = pageMetadata;
 
 export default function Work() {
   const projects = getProjects();
   return (
     <div className="space-y-6 text-xxs">
-      <PageHeader
-        title="Work"
-        description="A selection of projects I have built and contributed to."
-      />
+      <PageHeader metadata={pageMetadata} />
 
       <section>
         <div className="space-y-6">

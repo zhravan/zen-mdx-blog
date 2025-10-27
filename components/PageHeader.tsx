@@ -1,15 +1,17 @@
 interface PageHeaderProps {
-  title: string;
-  description?: string;
+  metadata: {
+    title: string;
+    description?: string;
+  };
 }
 
-export function PageHeader({ title, description }: PageHeaderProps) {
+export function PageHeader({ metadata }: PageHeaderProps) {
   return (
     <section className="animate-fade-in">
-      <h1 className="text-sm mb-4">{title}</h1>
-      {description && (
+      <h1 className="text-sm mb-4">{metadata.title}</h1>
+      {metadata.description && (
         <p className="mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
-          {description}
+          {metadata.description}
         </p>
       )}
     </section>

@@ -3,10 +3,12 @@ import { getAllPosts } from '@/lib/blog';
 import { filterDrafts } from '@/lib/plugins/drafts';
 import { PageHeader } from '@/components/PageHeader';
 
-export const metadata = {
+const pageMetadata = {
   title: 'Blog',
-  description: 'Thoughts on technology, development, and building products.'
+  description: 'Posts about tiny projects and various other things.'
 };
+
+export const metadata = pageMetadata;
 
 export default function Blog() {
   const allPosts = getAllPosts();
@@ -33,10 +35,7 @@ export default function Blog() {
 
   return (
     <div className="space-y-6 text-xxs">
-      <PageHeader
-        title="Blog"
-        description="Posts about tiny projects and various other things."
-      />
+      <PageHeader metadata={pageMetadata} />
 
       <div className="space-y-5">
         {yearKeys.map((year) => {

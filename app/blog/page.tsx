@@ -46,7 +46,7 @@ export default function Blog() {
               <h2 className="text-xs opacity-50 mb-2">{year}</h2>
               <ul className="list-none p-0 m-0 space-y-1.5">
                 {items.map((post) => (
-                  <li key={post.slug} className="flex items-baseline gap-2 text-xs leading-relaxed">
+                  <li key={post.slug} className="group flex items-baseline gap-2 text-xs leading-relaxed">
                     <span className="opacity-30">·</span>
                     <Link
                       href={`/blog/${post.slug}`}
@@ -58,8 +58,16 @@ export default function Blog() {
                       {formatDate(post.date)}
                     </time>
                     {post.tags && post.tags.length > 0 && (
-                      <span className="opacity-40 text-[10px] ml-auto">
-                        {post.tags.slice(0, 3).join(', ')}
+                      <span className="opacity-0 group-hover:opacity-70 text-[10px] ml-auto transition-all duration-200 flex gap-1">
+                        {post.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-1.5 py-0.5 rounded border"
+                            style={{ borderColor: 'var(--color-border)' }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </span>
                     )}
                   </li>

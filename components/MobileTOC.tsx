@@ -42,26 +42,29 @@ export function MobileTOC({ headings }: MobileTOCProps) {
   };
 
   return (
-    <details 
-      className="lg:hidden mb-8 rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden text-[10px] bg-gray-50 dark:bg-gray-900/50 [&_*]:list-none"
-      open={isOpen}
-      onToggle={(e) => setIsOpen((e.target as HTMLDetailsElement).open)}
-    >
-      <summary 
-        className="cursor-pointer select-none flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors"
+    <nav aria-label="Table of contents">
+      <details
+        className="lg:hidden mb-8 rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden text-[10px] bg-gray-50 dark:bg-gray-900/50 [&_*]:list-none"
+        open={isOpen}
+        onToggle={(e) => setIsOpen((e.target as HTMLDetailsElement).open)}
       >
-        <span className="text-[10px] font-medium opacity-40 uppercase tracking-wider">
-          Contents ({filteredHeadings.length})
-        </span>
-        <svg
-          className={cn('w-3.5 h-3.5 opacity-40 transition-transform duration-200', isOpen && 'rotate-180')}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+        <summary
+          className="cursor-pointer select-none flex items-center justify-between px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors"
+          aria-label={`Table of contents with ${filteredHeadings.length} section${filteredHeadings.length === 1 ? '' : 's'}`}
         >
-          <polyline points="6 9 12 15 18 9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </summary>
+          <span className="text-[10px] font-medium opacity-40 uppercase tracking-wider">
+            Contents ({filteredHeadings.length})
+          </span>
+          <svg
+            className={cn('w-3.5 h-3.5 opacity-40 transition-transform duration-200', isOpen && 'rotate-180')}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </summary>
       
       <div className="px-4 pb-4 pt-2 bg-white dark:bg-gray-900">
         <div className="space-y-0 border-l border-gray-200 dark:border-gray-800">
@@ -87,5 +90,6 @@ export function MobileTOC({ headings }: MobileTOCProps) {
         </div>
       </div>
     </details>
+    </nav>
   );
 }

@@ -9,20 +9,35 @@ plugins:
     fuzzyThreshold: 0.3      # Fuse.js search sensitivity (0-1)
     showPages: true          # Include static pages
     showPosts: true          # Include blog posts
-    
+
   # Scroll Progress Bar - Visual reading progress
   scroll-progress:
     enabled: true
     position: "top"          # Options: "top", "bottom"
     height: 3                # Height in pixels
-    
+  # Giscus Comments - Blog comments integration
+  giscus:
+    enabled: true
+    repo: "zhravan/zen-mdx-blog"
+    # IMPORTANT: Replace the below with your real IDs from giscus.app
+    repoId: "zen-mdx-blog"
+    category: "blogs-comments"
+    categoryId: "blogs-comments"
+    # Optional settings
+    mapping: "pathname"           # pathname | url | title | og:title
+    reactionsEnabled: true         # true | false
+    emitMetadata: true            # true | false
+    inputPosition: "bottom"        # top | bottom
+    theme: "dark" # light | dark | preferred_color_scheme | <custom-theme-url>
+    lang: "en"                     # e.g., en, es, fr
+    strict: false                  # If true, strict matching for mapping
   # Scroll to Top Button - Quick navigation to top
   scroll-to-top:
     enabled: true
     showAfter: 400           # Show after pixels scrolled
     position: "bottom-right" # Options: "bottom-right", "bottom-left"
     smooth: true             # Smooth scroll animation
-    
+
   # Table of Contents - Auto-generated navigation from headings
   toc:
     enabled: true
@@ -31,14 +46,14 @@ plugins:
     maxDepth: 3              # Maximum heading depth (h1=1, h2=2, h3=3)
     showScrollProgress: true
     sticky: true
-    
+
   # Reading Time Estimator - Shows estimated reading duration
   reading-time:
     enabled: true
     wordsPerMinute: 200      # Average reading speed
     showWordCount: true
     showIcon: true
-    
+
   # Related Posts - Suggest similar content
   related-posts:
     enabled: true
@@ -46,7 +61,7 @@ plugins:
     algorithm: "tags"        # Options: "tags", "similarity", "recent"
     showDate: true
     showDescription: false
-    
+
   # Code Block Enhancements
   code-enhancements:
     enabled: true
@@ -54,26 +69,26 @@ plugins:
     showLineNumbers: true
     enableCopy: true
     highlightLines: true     # Support {1-3,7} syntax
-    
+
   # View Counter - Track post popularity (privacy-friendly)
   view-counter:
     enabled: false
     provider: "local"        # Options: "local", "api"
     showCount: true
-    
+
   # Series Navigator - Multi-part post navigation
   series:
     enabled: true
     showProgress: true       # Show "Part X of Y"
     autoGenerateIndex: true
-    
+
   # External Link Badges - Mark external links with icon
   external-links:
     enabled: true
     icon: "↗"
     openInNewTab: true
     nofollow: false
-    
+
   # Search Integration
   search:
     enabled: true
@@ -84,13 +99,13 @@ plugins:
       - description
       - tags
       - headings
-    
+
   # Analytics (privacy-friendly)
   analytics:
     enabled: false
     provider: "plausible"    # Options: "plausible", "umami", "simple-analytics"
     domain: ""
-    
+
   # Draft Preview Mode
   drafts:
     enabled: true

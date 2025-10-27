@@ -1,6 +1,6 @@
-import { getAllPosts, type BlogPost } from '@/lib/blog';
-import { filterDrafts } from '@/lib/plugins/drafts';
 import Link from 'next/link';
+import { getAllPosts } from '@/lib/blog';
+import { filterDrafts } from '@/lib/plugins/drafts';
 
 export const metadata = {
   title: 'Blog',
@@ -11,45 +11,64 @@ export default function Blog() {
   const allPosts = getAllPosts();
   const posts = filterDrafts(allPosts);
 
-  const formatDate = (date: string) => {
-    const d = new Date(date);
-    return d.toLocaleString('en-US', {
-      month: 'short',
-      day: '2-digit',
-      year: 'numeric'
-    });
+  const formatDate = (iso: string) => {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    const month = d.toLocaleString('en-US', { month: 'short' });
+    const day = d.getDate();
+    return `${month} ${day}`;
   };
 
+  // Group posts by year (descending)
+  const byYear = posts.reduce<Record<string, typeof posts>>((acc, p) => {
+    const y = (new Date(p.date)).getFullYear();
+    const key = isNaN(y) ? 'Unknown' : String(y);
+    (acc[key] ||= []).push(p);
+    return acc;
+  }, {});
+  const yearKeys = Object.keys(byYear)
+    .sort((a, b) => (b === 'Unknown' ? -1 : a === 'Unknown' ? 1 : Number(b) - Number(a)));
+
   return (
-    <div className="max-w-2xl mx-auto py-8">
-      <h1 className="text-2xl font-semibold mb-8">Blog</h1>
-      
-      <div className="font-mono space-y-2">
-        {posts
-          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-          .map((post) => (
-            <div key={post.slug} className="group flex items-baseline gap-2">
-              <span className="text-xs text-muted-foreground select-none">•</span>
-              <time
-                dateTime={post.date}
-                className="text-sm text-muted-foreground whitespace-nowrap"
-              >
-                {formatDate(post.date)}
-              </time>
-              <span className="text-muted-foreground">:</span>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="text-sm relative hover:text-foreground/80 transition-colors"
-              >
-                <span>{post.title}</span>
-                {post.description && (
-                  <span className="absolute left-0 -bottom-8 hidden group-hover:block bg-background border border-border px-3 py-1 rounded text-xs text-muted-foreground whitespace-normal max-w-[24rem] z-10">
-                    {post.description}
-                  </span>
-                )}
-              </Link>
-            </div>
-          ))}
+    <div className="space-y-4 text-xs">
+      <section>
+        <h1 className="text-sm mb-2">Blog</h1>
+        <p className="text-xs opacity-60">
+          Posts about tiny projects and various other things.
+        </p>
+      </section>
+
+      <div className="space-y-5">
+        {yearKeys.map((year) => {
+          const items = byYear[year];
+          return (
+            <section key={year} className="space-y-1.5">
+              <h2 className="text-xs opacity-50 mb-2">{year}</h2>
+              <ul className="list-none p-0 m-0 space-y-1.5">
+                {items.map((post) => (
+                  <li key={post.slug} className="flex items-baseline gap-2 text-xs leading-relaxed">
+                    <span className="opacity-30">·</span>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="hover:opacity-70 transition-opacity"
+                    >
+                      {post.title}
+                    </Link>
+                    <time className="opacity-50 text-[11px]" dateTime={post.date}>
+                      {formatDate(post.date)}
+                    </time>
+                    {post.tags && post.tags.length > 0 && (
+                      <span className="opacity-40 text-[10px] ml-auto">
+                        {post.tags.slice(0, 3).join(', ')}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
       </div>
     </div>
   );

@@ -1,5 +1,12 @@
 import type { ThemeName } from "./themes";
 import { loadYaml } from './yaml-loader';
+export interface SiteConfig {  
+  name: string;  
+  url: string;  
+  description: string;  
+  email: string;  
+  favicon: string;  
+}  
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 export const SITE_TITLE = "Your Name";

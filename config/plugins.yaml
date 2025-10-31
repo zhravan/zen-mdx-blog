@@ -20,10 +20,10 @@ plugins:
   giscus:
     enabled: true
     repo: "zhravan/zen-mdx-blog"
-    # IMPORTANT: Replace the below with your real IDs from giscus.app
-    repoId: "zen-mdx-blog"
+    # Real GitHub GraphQL IDs from giscus.app
+    repoId: "R_kgDOQCqgjw"
     category: "blogs-comments"
-    categoryId: "blogs-comments"
+    categoryId: "DIC_kwDOQCqgj84CxEo5"
     # Optional settings
     mapping: "pathname"           # pathname | url | title | og:title
     reactionsEnabled: true         # true | false

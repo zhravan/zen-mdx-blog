@@ -16,3 +16,4 @@ export * from './view-counter';
 export * from './analytics';
 export * from './drafts';
 export * from './search';
+export * from './giscus';

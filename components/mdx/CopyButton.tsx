@@ -10,7 +10,9 @@ export function CopyButton({ text }: { text: string }) {
       await navigator.clipboard.writeText(text || '');
       setCopied(true);
       setTimeout(() => setCopied(false), 1200);
-    } catch {}
+    } catch {
+      console.log(`Failed to copy!`)
+    }
   }
 
   return (

@@ -124,8 +124,14 @@ export const CommandPalette = forwardRef<CommandPaletteHandle, CommandPalettePro
           setQuery('');
           setSelectedIndex(0);
         }}
+        aria-hidden="true"
       />
-      <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]">
+      <div
+        className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="command-palette-title"
+      >
         <div
           className="w-full max-w-lg mx-4"
           style={{
@@ -135,6 +141,10 @@ export const CommandPalette = forwardRef<CommandPaletteHandle, CommandPalettePro
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3)'
           }}
         >
+          <h2 id="command-palette-title" className="sr-only">
+            Search pages and posts
+          </h2>
+
           <div className="p-4 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <input
               type="text"
@@ -144,17 +154,33 @@ export const CommandPalette = forwardRef<CommandPaletteHandle, CommandPalettePro
               className="w-full bg-transparent outline-none text-sm"
               style={{ color: 'var(--color-foreground)' }}
               autoFocus
+              role="combobox"
+              aria-label="Search pages and posts"
+              aria-expanded="true"
+              aria-controls="search-results"
+              aria-activedescendant={results[selectedIndex] ? `search-result-${selectedIndex}` : undefined}
             />
           </div>
-          <div className="max-h-96 overflow-y-auto">
+
+          <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+            {query && `${results.length} result${results.length === 1 ? '' : 's'} found`}
+          </div>
+
+          <div
+            id="search-results"
+            className="max-h-96 overflow-y-auto"
+            role="listbox"
+            aria-label="Search results"
+          >
             {results.length === 0 ? (
-              <div className="p-4 text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+              <div className="p-4 text-xs" style={{ color: 'var(--color-muted-foreground)' }} role="status">
                 No results found
               </div>
             ) : (
               results.map((item, index) => (
                 <button
                   key={item.path}
+                  id={`search-result-${index}`}
                   onClick={() => {
                     router.push(item.path);
                     setIsOpen(false);
@@ -168,12 +194,16 @@ export const CommandPalette = forwardRef<CommandPaletteHandle, CommandPalettePro
                     borderBottom: index < results.length - 1 ? '1px solid var(--color-border)' : 'none'
                   }}
                   onMouseEnter={() => setSelectedIndex(index)}
+                  role="option"
+                  aria-selected={index === selectedIndex}
+                  aria-label={`${item.title}, ${item.type === 'page' ? 'Page' : 'Post'}`}
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span>{item.title}</span>
                     <span
                       className="text-xs opacity-70"
                       style={{ color: 'var(--color-muted-foreground)' }}
+                      aria-hidden="true"
                     >
                       {item.type === 'page' ? 'Page' : 'Post'}
                     </span>
@@ -189,11 +219,13 @@ export const CommandPalette = forwardRef<CommandPaletteHandle, CommandPalettePro
               color: 'var(--color-muted-foreground)',
               borderColor: 'var(--color-border)'
             }}
+            role="status"
+            aria-label="Keyboard shortcuts"
           >
             <div className="flex items-center gap-4">
-              <span>↑↓ Navigate</span>
-              <span>↵ Select</span>
-              <span>Esc Close</span>
+              <span><span aria-hidden="true">↑↓</span> Navigate</span>
+              <span><span aria-hidden="true">↵</span> Select</span>
+              <span><span aria-hidden="true">Esc</span> Close</span>
             </div>
           </div>
         </div>

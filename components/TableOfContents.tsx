@@ -101,6 +101,7 @@ export function TableOfContents({
                 : 'border-transparent opacity-40 hover:opacity-70'
             )}
             title={text}
+            aria-current={activeId === id ? 'location' : undefined}
           >
             <span className="block truncate">{text}</span>
           </a>

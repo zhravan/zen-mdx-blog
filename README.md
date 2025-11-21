@@ -65,25 +65,6 @@ Open <http://localhost:3000>
 
 See [docs/index.md](docs/index.md) for plugin documentation.
 
-## ✨ NEW: Dynamic Content Types
-
-Easily add new content sections (Tech Talks, Tutorials, Bug Bash, etc.) without code!
-
-```bash
-pnpm new:content-type
-```
-
-**What you get:**
-- ✅ Automatic navigation menu items
-- ✅ Auto-generated listing & detail pages
-- ✅ All existing features (tags, series, drafts)
-- ✅ Type-safe configuration
-- ✅ CLI tool for quick setup
-
-**Quick example:** Check out the `/talks` section already set up!
-
-See [QUICK-START-CONTENT-TYPES.md](QUICK-START-CONTENT-TYPES.md) or [docs/dynamic-content-types.md](docs/dynamic-content-types.md) for details.
-
 ## Project structure
 
 ```text

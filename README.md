@@ -59,6 +59,7 @@ Open <http://localhost:3000>
 | Social Share Buttons | Yes |
 | Keyboard Shortcuts | |
 | Series Navigation | Yes |
+| **Dynamic Content Types** | **Yes** |
 | Content Warnings | |
 | Diagrams (Mermaid) | |
 
@@ -83,6 +84,7 @@ docs/       Documentation
 - `pnpm start` — run the production server
 - `pnpm export` — static export to `out/`
 - `pnpm preview` — serve the exported site from `out/`
+- `pnpm new:content-type` — create a new content type (interactive CLI)
 
 ## Giscus Comments
 

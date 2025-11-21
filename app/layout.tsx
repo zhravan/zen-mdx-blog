@@ -14,17 +14,32 @@ import { getCommandPaletteConfig } from '@/lib/plugins/command-palette';
 import { getScrollProgressConfig } from '@/lib/plugins/scroll-progress';
 import { getScrollToTopConfig } from '@/lib/plugins/scroll-to-top';
 import { getAnalyticsConfig, getAnalyticsScriptSrc, getAnalyticsScriptAttrs } from '@/lib/plugins/analytics';
+import { getNavigationContentTypes } from '@/lib/content-types';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
 export const metadata: Metadata = getDefaultMetadata();
 
-const navItems = [
-  { name: 'Home', path: '/' },
-  { name: 'Blog', path: '/blog' },
-  { name: 'Work', path: '/work' },
-  { name: 'About', path: '/about' }
-];
+// Build navigation items dynamically from content types
+function getNavItems() {
+  const contentTypes = getNavigationContentTypes();
+  const items: Array<{ name: string; path: string; icon?: string | null }> = [
+    { name: 'Home', path: '/' }
+  ];
+  
+  contentTypes.forEach(ct => {
+    items.push({
+      name: ct.label,
+      path: ct.path,
+      icon: ct.icon
+    });
+  });
+  
+  // Add About at the end (static page)
+  items.push({ name: 'About', path: '/about' });
+  
+  return items;
+}
 
 export default function RootLayout({
   children
@@ -32,6 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const posts = getAllPosts();
+  const navItems = getNavItems();
   
   // Load plugin configurations
   const commandPaletteConfig = getCommandPaletteConfig();

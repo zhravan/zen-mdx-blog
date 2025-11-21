@@ -52,7 +52,7 @@ Open <http://localhost:3000>
 | Open Graph Images (Dynamic) | |
 | Search (Fuse.js) | Yes |
 | Code Line Numbers | Yes |
-| Code Language Badges | |
+| Code Language Badges | Yes |
 | Code Diff Highlighting | |
 | View Counter | |
 | Analytics (umami, plausible or simple-analytics) | Yes |

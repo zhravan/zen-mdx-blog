@@ -1,0 +1,77 @@
+export const frontmatter = {
+  title: "Building Modern Web Apps with Next.js",
+  date: "2025-10-15",
+  description: "A deep dive into Next.js App Router, Server Components, and modern React patterns.",
+  tags: ["nextjs", "react", "web-development"],
+  draft: false
+};
+
+# Building Modern Web Apps with Next.js
+
+A comprehensive talk about the latest features in Next.js 15 and how to build performant, modern web applications.
+
+## Talk Overview
+
+In this presentation, I covered:
+
+- **App Router Architecture** - Understanding the new file-based routing
+- **Server Components** - Benefits and use cases
+- **Data Fetching Patterns** - Streaming, suspense, and parallel data loading
+- **Performance Optimization** - Core Web Vitals and best practices
+
+## Key Takeaways
+
+### 1. Server Components Are Powerful
+
+```typescript
+// Server Component - runs on the server
+export default async function BlogPost({ params }) {
+  const post = await getPost(params.slug);
+  return <Article post={post} />;
+}
+```
+
+Server Components allow you to:
+- Fetch data directly without APIs
+- Keep sensitive code on the server
+- Reduce client bundle size
+
+### 2. Streaming for Better UX
+
+Use `<Suspense>` to stream content as it's ready:
+
+```typescript
+<Suspense fallback={<Skeleton />}>
+  <SlowComponent />
+</Suspense>
+```
+
+### 3. Metadata API
+
+The new Metadata API makes SEO easy:
+
+```typescript
+export const metadata = {
+  title: 'My Page',
+  description: 'Page description',
+  openGraph: { ... }
+};
+```
+
+## Resources
+
+- [Next.js Documentation](https://nextjs.org)
+- [React Server Components](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023)
+- [Vercel Platform](https://vercel.com)
+
+## Event Details
+
+**Conference:** React Summit 2025  
+**Location:** Amsterdam, Netherlands  
+**Date:** October 15, 2025  
+**Duration:** 45 minutes  
+**Audience:** 300+ developers
+
+---
+
+*Slides and code examples available on [GitHub](https://github.com).*

@@ -1,0 +1,40 @@
+# Dynamic Content Types Configuration
+# Add new content types here to automatically generate routes, navigation, and listing pages
+
+contentTypes:
+  - id: blog
+    label: Blog
+    path: /blog
+    contentDir: content/blog
+    icon: null  # Optional: can be a lucide-react icon name like 'BookOpen', 'FileText', etc.
+    enabled: true
+    description: Thoughts on technology, development, and building products.
+    showInNav: true
+    
+  - id: work
+    label: Work
+    path: /work
+    contentDir: null  # Work uses projects.yaml instead of MDX files
+    icon: null
+    enabled: true
+    description: A selection of projects I have built and contributed to.
+    showInNav: true
+    
+  - id: talks
+    label: Tech Talks
+    path: /talks
+    contentDir: content/talks
+    icon: Mic
+    enabled: true
+    description: Presentations and speaking engagements.
+    showInNav: true
+    
+  # Example: Add more content types below
+  # - id: bugbash
+  #   label: Bug Bash
+  #   path: /bugbash
+  #   contentDir: content/bugbash
+  #   icon: Bug
+  #   enabled: true
+  #   description: Bug hunting sessions and security findings.
+  #   showInNav: true

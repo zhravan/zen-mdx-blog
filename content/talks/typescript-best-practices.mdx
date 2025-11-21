@@ -1,0 +1,121 @@
+export const frontmatter = {
+  title: "TypeScript Best Practices",
+  date: "2025-08-22",
+  description: "Essential TypeScript patterns for building robust applications.",
+  tags: ["typescript", "javascript", "best-practices"],
+  draft: false
+};
+
+# TypeScript Best Practices
+
+A practical guide to writing better TypeScript code, covering type safety, patterns, and tooling.
+
+## Why TypeScript?
+
+TypeScript has become the de facto standard for JavaScript development because it:
+
+- Catches errors at compile time
+- Improves code documentation
+- Enables better IDE support
+- Makes refactoring safer
+
+## Essential Patterns
+
+### 1. Use Strict Mode
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  }
+}
+```
+
+### 2. Prefer Interfaces for Objects
+
+```typescript
+// Good
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+// Also good for unions
+type Status = 'pending' | 'active' | 'inactive';
+```
+
+### 3. Use Unknown Instead of Any
+
+```typescript
+// Bad
+function process(data: any) { ... }
+
+// Good
+function process(data: unknown) {
+  if (typeof data === 'string') {
+    // TypeScript knows data is a string here
+  }
+}
+```
+
+### 4. Leverage Type Guards
+
+```typescript
+function isUser(obj: unknown): obj is User {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    'id' in obj &&
+    'name' in obj
+  );
+}
+```
+
+## Advanced Techniques
+
+### Conditional Types
+
+```typescript
+type NonNullable<T> = T extends null | undefined ? never : T;
+type IsArray<T> = T extends any[] ? true : false;
+```
+
+### Mapped Types
+
+```typescript
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+```
+
+## Tooling Recommendations
+
+- **ESLint** with TypeScript plugin
+- **Prettier** for formatting
+- **ts-node** for development
+- **Type Coverage** to track type safety
+
+## Common Pitfalls
+
+1. Over-using `any`
+2. Ignoring compiler warnings
+3. Not using strict mode
+4. Forgetting null/undefined checks
+
+## Conclusion
+
+TypeScript is a powerful tool that makes JavaScript development more reliable and enjoyable. Start with strict mode, embrace type safety, and let the compiler help you!
+
+---
+
+**Event:** TypeScript Conf 2025  
+**Location:** Seattle, WA  
+**Date:** August 22, 2025  
+**Slides:** [Download PDF](https://example.com)

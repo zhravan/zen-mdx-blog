@@ -5,7 +5,8 @@
     "build": "next build",
     "export": "next export",
     "preview": "npx serve -s out",
-    "start": "next start"
+    "start": "next start",
+    "new:content-type": "node scripts/new-content-type.js"
   },
   "dependencies": {
     "@next/mdx": "15.3.3",

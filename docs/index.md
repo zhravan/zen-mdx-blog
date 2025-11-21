@@ -91,6 +91,7 @@ Monolog MDX Blog - A minimal, plugin-based MDX blog built with Next.js 15.
 | toc | Table of contents | position, maxDepth |
 | reading-time | Reading duration | wordsPerMinute |
 | related-posts | Similar content | count, algorithm |
+| social-share | Share buttons | platforms, showIcon |
 
 ### Creating Plugins
 

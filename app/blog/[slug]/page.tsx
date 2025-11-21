@@ -8,11 +8,13 @@ import { getReadingTimeForPost } from '@/lib/plugins/reading-time';
 import { getTocForPost } from '@/lib/plugins/toc';
 import { getPostNavigation } from '@/lib/plugins/post-navigation';
 import { isDraft } from '@/lib/plugins/drafts';
+import { getPostShareUrl } from '@/lib/plugins/social-share';
 import { ReadingTimeBadge } from '@/components/ReadingTimeBadge';
 import { TableOfContents } from '@/components/TableOfContents';
 import { MobileTOC } from '@/components/MobileTOC';
 import { PostNavigation } from '@/components/PostNavigation';
 import { TagsList } from '@/components/TagsList';
+import { SocialShare } from '@/components/SocialShare';
 import { DraftBadge } from '@/components/DraftBadge';
 import { DraftPreviewGate } from '@/components/DraftPreviewGate';
 import { Suspense } from 'react';
@@ -74,9 +76,13 @@ export default async function BlogPost({
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
   const readingTimeConfig = getPluginConfig<{ showIcon: boolean; showWordCount: boolean }>('reading-time');
   const draftsConfig = getPluginConfig<{ enabled: boolean; previewToken: string }>('drafts');
+  const socialShareConfig = getPluginConfig<{ enabled: boolean; showIcon: boolean }>('social-share');
   
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
   const showTocInline = tocHeadings && tocConfig && tocConfig.position === 'inline';
+  
+  // Generate share URL
+  const shareUrl = getPostShareUrl(slug);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -105,6 +111,13 @@ export default async function BlogPost({
         )}
         {post.tags && post.tags.length > 0 && (
           <TagsList tags={post.tags} />
+        )}
+        {socialShareConfig && (
+          <SocialShare
+            title={post.title}
+            url={shareUrl}
+            showIcon={socialShareConfig.showIcon}
+          />
         )}
       </div>
 
@@ -150,6 +163,13 @@ export default async function BlogPost({
               )}
               {post.tags && post.tags.length > 0 && (
                 <TagsList tags={post.tags} />
+              )}
+              {socialShareConfig && (
+                <SocialShare
+                  title={post.title}
+                  url={shareUrl}
+                  showIcon={socialShareConfig.showIcon}
+                />
               )}
             </div>
 

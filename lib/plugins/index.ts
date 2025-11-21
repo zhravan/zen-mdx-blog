@@ -18,3 +18,4 @@ export * from './analytics';
 export * from './drafts';
 export * from './search';
 export * from './giscus';
+export * from './social-share';

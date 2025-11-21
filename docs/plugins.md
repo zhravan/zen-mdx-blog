@@ -90,6 +90,24 @@ related-posts:
   showDescription: true
 ```
 
+### Social Share
+
+Share buttons for social platforms.
+
+```yaml
+social-share:
+  enabled: true
+  showIcon: true           # Show share icon label
+  platforms:
+    copyLink: true         # Enable copy link button
+    whatsapp: true         # Enable WhatsApp share
+    x: true                # Enable X (Twitter) share
+    mastodon: true         # Enable Mastodon share
+    linkedin: true         # Enable LinkedIn share
+```
+
+See [social-share.md](social-share.md) for detailed documentation.
+
 ## Creating a Plugin
 
 1. Create `lib/plugins/your-plugin.ts`:

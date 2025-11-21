@@ -56,7 +56,7 @@ Open <http://localhost:3000>
 | Code Diff Highlighting | |
 | View Counter | |
 | Analytics (umami, plausible or simple-analytics) | Yes |
-| Social Share Buttons | |
+| Social Share Buttons | Yes |
 | Keyboard Shortcuts | |
 | Series Navigation | |
 | Content Warnings | |

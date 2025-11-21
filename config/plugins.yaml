@@ -119,3 +119,14 @@ plugins:
     enabled: true
     showInList: false        # Show drafts in blog list (dev mode only)
     previewToken: "secret"   # Optional: secret token for preview URLs
+
+  # Social Share Buttons - Share posts on social platforms
+  social-share:
+    enabled: true
+    showIcon: true           # Show share icon label
+    platforms:
+      copyLink: true         # Enable copy link button
+      whatsapp: true         # Enable WhatsApp share
+      x: true                # Enable X (Twitter) share
+      mastodon: true         # Enable Mastodon share
+      linkedin: true         # Enable LinkedIn share

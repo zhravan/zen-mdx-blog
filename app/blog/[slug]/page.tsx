@@ -9,6 +9,7 @@ import { getTocForPost } from '@/lib/plugins/toc';
 import { getPostNavigation } from '@/lib/plugins/post-navigation';
 import { isDraft } from '@/lib/plugins/drafts';
 import { getPostShareUrl } from '@/lib/plugins/social-share';
+import { getSeriesForPost } from '@/lib/plugins/series';
 import { ReadingTimeBadge } from '@/components/ReadingTimeBadge';
 import { TableOfContents } from '@/components/TableOfContents';
 import { MobileTOC } from '@/components/MobileTOC';
@@ -17,6 +18,7 @@ import { TagsList } from '@/components/TagsList';
 import { SocialShare } from '@/components/SocialShare';
 import { DraftBadge } from '@/components/DraftBadge';
 import { DraftPreviewGate } from '@/components/DraftPreviewGate';
+import { SeriesNavigator } from '@/components/SeriesNavigator';
 import { Suspense } from 'react';
 
 export async function generateStaticParams() {
@@ -71,12 +73,14 @@ export default async function BlogPost({
   const readingTime = await getReadingTimeForPost(slug);
   const tocHeadings = await getTocForPost(slug);
   const postNav = getPostNavigation(slug);
+  const seriesInfo = getSeriesForPost(slug);
 
   // Get plugin configs
   const tocConfig = getPluginConfig<{ position: 'left' | 'right' | 'inline'; sticky: boolean }>('toc');
   const readingTimeConfig = getPluginConfig<{ showIcon: boolean; showWordCount: boolean }>('reading-time');
   const draftsConfig = getPluginConfig<{ enabled: boolean; previewToken: string }>('drafts');
   const socialShareConfig = getPluginConfig<{ enabled: boolean; showIcon: boolean }>('social-share');
+  const seriesConfig = getPluginConfig<{ enabled: boolean }>('series');
   
   const showTocSidebar = tocHeadings && tocConfig && tocConfig.position !== 'inline';
   const showTocInline = tocHeadings && tocConfig && tocConfig.position === 'inline';
@@ -134,6 +138,10 @@ export default async function BlogPost({
               position="inline"
               sticky={false}
             />
+          )}
+
+          {seriesConfig && seriesInfo && (
+            <SeriesNavigator series={seriesInfo} />
           )}
 
           <Content />

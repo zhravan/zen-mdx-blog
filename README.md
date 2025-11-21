@@ -58,7 +58,7 @@ Open <http://localhost:3000>
 | Analytics (umami, plausible or simple-analytics) | Yes |
 | Social Share Buttons | Yes |
 | Keyboard Shortcuts | |
-| Series Navigation | |
+| Series Navigation | Yes |
 | Content Warnings | |
 | Diagrams (Mermaid) | |
 

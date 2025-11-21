@@ -6,11 +6,11 @@ The zen-mdx-blog supports a flexible, configuration-driven system for adding new
 
 With dynamic content types, you can:
 
-- ✅ Add new content sections with a single command
-- ✅ Automatically generate routes and navigation items
-- ✅ Reuse all existing features (tags, series, drafts, etc.)
-- ✅ Maintain type safety with TypeScript
-- ✅ Keep your content organized in separate directories
+- Add new content sections with a single command
+- Automatically generate routes and navigation items
+- Reuse all existing features (tags, series, drafts, etc.)
+- Maintain type safety with TypeScript
+- Keep your content organized in separate directories
 
 ## Quick Start
 
@@ -40,7 +40,7 @@ URL path (default: /tech-talks): /talks
 Description (optional): Presentations and speaking engagements
 Icon name from lucide-react (optional, e.g., "Mic", "Bug"): Mic
 
-📋 Summary:
+Summary:
   ID: tech-talks
   Label: Tech Talks
   Path: /talks
@@ -50,13 +50,13 @@ Icon name from lucide-react (optional, e.g., "Mic", "Bug"): Mic
 
 Create this content type? (y/n): y
 
-✅ Updated config/content-types.yaml
-✅ Created content/tech-talks/
-✅ Created content/tech-talks/sample.mdx
-✅ Created app/talks/page.tsx
-✅ Created app/talks/[slug]/page.tsx
+Updated config/content-types.yaml
+Created content/tech-talks/
+Created content/tech-talks/sample.mdx
+Created app/talks/page.tsx
+Created app/talks/[slug]/page.tsx
 
-🎉 Content type created successfully!
+Content type created successfully!
 ```
 
 ## What Gets Created
@@ -89,14 +89,14 @@ contentTypes:
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `id` | string | ✅ | Unique identifier for the content type |
-| `label` | string | ✅ | Display name shown in navigation |
-| `path` | string | ✅ | URL path (e.g., `/talks`) |
-| `contentDir` | string | null | ✅ | Directory containing MDX files (use `null` for non-MDX types like Work) |
-| `enabled` | boolean | ✅ | Whether the content type is active |
-| `icon` | string | null | ❌ | Lucide React icon name (optional) |
-| `description` | string | ❌ | Description for the listing page |
-| `showInNav` | boolean | ❌ | Show in navigation menu (default: true) |
+| `id` | string | | Unique identifier for the content type |
+| `label` | string | | Display name shown in navigation |
+| `path` | string | | URL path (e.g., `/talks`) |
+| `contentDir` | string | null | | Directory containing MDX files (use `null` for non-MDX types like Work) |
+| `enabled` | boolean | | Whether the content type is active |
+| `icon` | string | null | | Lucide React icon name (optional) |
+| `description` | string | | Description for the listing page |
+| `showInNav` | boolean | | Show in navigation menu (default: true) |
 
 ## Creating Content
 
@@ -138,7 +138,7 @@ All content types support the same frontmatter fields:
 
 All existing features work with new content types:
 
-### ✅ Automatic Features
+### Automatic Features
 - Listing pages with year grouping
 - Individual post pages with full MDX support
 - Navigation menu integration
@@ -147,7 +147,7 @@ All existing features work with new content types:
 - Tags display
 - Series support
 
-### ✅ Plugin Support
+### Plugin Support
 All plugins work automatically:
 - Code syntax highlighting
 - Table of contents

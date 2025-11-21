@@ -27,12 +27,12 @@ function slugify(text) {
 }
 
 async function main() {
-  console.log('\n✨ Create a new content type\n');
+  console.log('\nCreate a new content type\n');
 
   // Get content type details
   const label = await question('Content type label (e.g., "Tech Talks"): ');
   if (!label.trim()) {
-    console.error('❌ Label is required');
+    console.error('Error: Label is required');
     process.exit(1);
   }
 
@@ -46,7 +46,7 @@ async function main() {
   const icon = iconInput.trim() || null;
 
   // Confirm
-  console.log('\n📋 Summary:');
+  console.log('\nSummary:');
   console.log(`  ID: ${id}`);
   console.log(`  Label: ${label}`);
   console.log(`  Path: ${contentPath}`);
@@ -56,7 +56,7 @@ async function main() {
   
   const confirm = await question('\nCreate this content type? (y/n): ');
   if (confirm.toLowerCase() !== 'y' && confirm.toLowerCase() !== 'yes') {
-    console.log('❌ Cancelled');
+    console.log('Cancelled');
     rl.close();
     return;
   }
@@ -85,13 +85,13 @@ async function main() {
     }
     
     fs.writeFileSync(configPath, configContent);
-    console.log(`✅ Updated ${configPath}`);
+    console.log(`[+] Updated ${configPath}`);
 
     // 2. Create content directory
     const contentDir = path.join(process.cwd(), 'content', id);
     if (!fs.existsSync(contentDir)) {
       fs.mkdirSync(contentDir, { recursive: true });
-      console.log(`✅ Created ${contentDir}/`);
+      console.log(`[+] Created ${contentDir}/`);
     }
 
     // 3. Create a sample MDX file
@@ -133,7 +133,7 @@ console.log("Hello from ${label}!");
 
     const samplePath = path.join(contentDir, 'sample.mdx');
     fs.writeFileSync(samplePath, sampleMdx);
-    console.log(`✅ Created ${samplePath}`);
+    console.log(`[+] Created ${samplePath}`);
 
     // 4. Create the dynamic route page
     const routeDir = path.join(process.cwd(), 'app', id);
@@ -170,7 +170,7 @@ export default function ${id.split('-').map(word => word.charAt(0).toUpperCase()
 
     const pagePath = path.join(routeDir, 'page.tsx');
     fs.writeFileSync(pagePath, pageContent);
-    console.log(`✅ Created ${pagePath}`);
+    console.log(`[+] Created ${pagePath}`);
 
     // 5. Create the [slug] route
     const slugDir = path.join(routeDir, '[slug]');
@@ -260,9 +260,9 @@ export default async function ${id.split('-').map(word => word.charAt(0).toUpper
 
     const slugPagePath = path.join(slugDir, 'page.tsx');
     fs.writeFileSync(slugPagePath, slugPageContent);
-    console.log(`✅ Created ${slugPagePath}`);
+    console.log(`[+] Created ${slugPagePath}`);
 
-    console.log('\n🎉 Content type created successfully!\n');
+    console.log('\nContent type created successfully!\n');
     console.log('Next steps:');
     console.log(`  1. Visit http://localhost:3000${contentPath} to see your new content type`);
     console.log(`  2. Add more MDX files to content/${id}/`);
@@ -270,7 +270,7 @@ export default async function ${id.split('-').map(word => word.charAt(0).toUpper
     console.log('');
 
   } catch (error) {
-    console.error('❌ Error:', error.message);
+    console.error('Error:', error.message);
     process.exit(1);
   }
 

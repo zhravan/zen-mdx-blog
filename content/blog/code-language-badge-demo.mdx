@@ -1,0 +1,221 @@
+export const frontmatter = {
+  title: "Code Language Badges Demo",
+  date: "November 21, 2024",
+  description: "Demonstrating the new Code Language Badges plugin with various programming languages.",
+  tags: ["demo", "plugin", "code", "languages"]
+};
+
+# Code Language Badges Demo
+
+This post showcases the **Code Language Badge** plugin - a new feature that displays language identifiers on code blocks!
+
+## Web Technologies
+
+### JavaScript
+```javascript
+const greet = (name) => {
+  return `Hello, ${name}!`;
+};
+
+console.log(greet("World"));
+```
+
+### TypeScript
+```typescript
+interface User {
+  name: string;
+  age: number;
+}
+
+const user: User = {
+  name: "Alice",
+  age: 30
+};
+```
+
+### React (JSX)
+```jsx
+function Welcome({ name }) {
+  return <h1>Hello, {name}!</h1>;
+}
+
+export default Welcome;
+```
+
+### React (TSX)
+```tsx
+interface Props {
+  name: string;
+}
+
+const Welcome: React.FC<Props> = ({ name }) => {
+  return <h1>Hello, {name}!</h1>;
+};
+```
+
+## Backend Languages
+
+### Python
+```python
+def fibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))
+```
+
+### Go
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, Go!")
+}
+```
+
+### Rust
+```rust
+fn main() {
+    let greeting = "Hello, Rust!";
+    println!("{}", greeting);
+}
+```
+
+### Java
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}
+```
+
+## Shell Scripts
+
+### Bash
+```bash
+#!/bin/bash
+
+echo "Hello from Bash!"
+for i in {1..5}; do
+  echo "Count: $i"
+done
+```
+
+### Zsh
+```zsh
+#!/bin/zsh
+
+autoload -Uz colors && colors
+echo "$fg[green]Hello from Zsh!$reset_color"
+```
+
+## Data Formats
+
+### JSON
+```json
+{
+  "name": "zen-mdx-blog",
+  "version": "1.0.0",
+  "description": "A modern MDX blog with plugin system"
+}
+```
+
+### YAML
+```yaml
+plugins:
+  code-language-badge:
+    enabled: true
+    position: "top-right"
+    showIcon: true
+    style: "default"
+```
+
+### SQL
+```sql
+SELECT users.name, posts.title
+FROM users
+INNER JOIN posts ON users.id = posts.user_id
+WHERE posts.published = true
+ORDER BY posts.created_at DESC
+LIMIT 10;
+```
+
+## Config & Markup
+
+### Dockerfile
+```docker
+FROM node:18-alpine
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+### Markdown
+```markdown
+# Hello, Markdown!
+
+This is a **bold** statement and this is *italic*.
+
+- List item 1
+- List item 2
+```
+
+## Advanced Examples
+
+### GraphQL
+```graphql
+query GetUser($id: ID!) {
+  user(id: $id) {
+    name
+    email
+    posts {
+      title
+      publishedAt
+    }
+  }
+}
+```
+
+### Nginx Config
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+    }
+}
+```
+
+## Features
+
+✨ **Automatic Detection**: Language is automatically detected from code block syntax
+🎨 **Multiple Styles**: Choose from default, minimal, or pill styles
+📍 **Flexible Positioning**: Position badges on top-left or top-right
+🎯 **60+ Languages**: Pre-configured support for most popular languages
+⚡ **Zero Config**: Works out of the box with sensible defaults
+
+## Configuration
+
+You can customize the appearance in `config/plugins.yaml`:
+
+```yaml
+code-language-badge:
+  enabled: true
+  position: "top-right"    # or "top-left"
+  showIcon: true           # Show emoji icons
+  style: "default"         # "default", "minimal", or "pill"
+```
+
+Try hovering over the code blocks to see the copy button too!

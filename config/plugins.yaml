@@ -72,6 +72,12 @@ plugins:
     enableCopy: true
     highlightLines: true     # Support {1-3,7} syntax
 
+  # Code Language Badges - Display language name on code blocks
+  code-language-badge:
+    enabled: true
+    showIcon: true           # Show lucide-react icons with language names
+    style: "default"         # Options: "default", "minimal", "pill"
+
   # View Counter - Track post popularity (privacy-friendly)
   view-counter:
     enabled: false

@@ -1,9 +1,16 @@
 import React from 'react';
 import { CopyButton } from './CopyButton';
+import { LanguageBadge } from './LanguageBadge';
 import { getTheme } from '@/lib/themes';
 import { ACTIVE_THEME } from '@/lib/site';
 import { codeToHtml } from 'shiki';
 import { parseCodeMeta, shouldShowCopyButton } from '@/lib/plugins/code-enhancements';
+import {
+  shouldShowLanguageBadge,
+  getLanguageInfo,
+  getLanguageBadgeConfig,
+  getBadgeStyles,
+} from '@/lib/plugins/code-language-badge';
 
 export function InlineCode({ children }: { children: React.ReactNode }) {
   return (
@@ -40,6 +47,12 @@ export async function Pre({ children, ...props }: { children: React.ReactNode;[k
   const syntaxTheme = theme.syntaxTheme;
   const showCopy = shouldShowCopyButton();
   const { fileName, highlightLines, showLineNumbers } = parseCodeMeta(meta);
+  
+  // Language badge configuration
+  const showLanguageBadge = shouldShowLanguageBadge();
+  const languageBadgeConfig = getLanguageBadgeConfig();
+  const languageInfo = getLanguageInfo(lang);
+  const badgeStyles = languageBadgeConfig ? getBadgeStyles(languageBadgeConfig) : null;
 
   let highlightedHtml: string | null = null;
   if (codeText && lang) {
@@ -96,6 +109,16 @@ export async function Pre({ children, ...props }: { children: React.ReactNode;[k
           }}
         >
           {fileName}
+        </div>
+      )}
+      {showLanguageBadge && badgeStyles && (
+        <div style={badgeStyles.container}>
+          <LanguageBadge
+            languageName={languageInfo.name}
+            iconName={languageInfo.icon}
+            showIcon={languageBadgeConfig?.showIcon ?? false}
+            badgeStyle={badgeStyles.badge}
+          />
         </div>
       )}
       {showCopy && (

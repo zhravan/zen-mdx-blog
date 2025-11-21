@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import { getContentTypeById } from '@/lib/content-types';
 import { getContentForType, getContentBySlug } from '@/lib/content';
 import { filterDrafts } from '@/lib/plugins/drafts';
@@ -60,43 +61,52 @@ export default async function TalksPost({ params }: PageProps) {
   const draftsConfig = getPluginConfig<{ enabled: boolean; previewToken: string }>('drafts');
 
   return (
-    <DraftPreviewGate 
-      isDraft={item.draft || false}
-      previewToken={draftsConfig?.previewToken || ''}
-    >
-      <article>
-        <header className="mb-8 space-y-2">
-          <h1 className="text-2xl font-bold">{item.title}</h1>
-          {item.description && (
-            <p className="text-sm opacity-70">{item.description}</p>
-          )}
-          <div className="flex items-center gap-4 text-xs opacity-50">
-            <time dateTime={item.date}>
-              {new Date(item.date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </time>
-            {item.tags && item.tags.length > 0 && (
-              <div className="flex gap-2">
-                {item.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-0.5 rounded border"
-                    style={{ borderColor: 'var(--color-border)' }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-        </header>
-        <div className="prose prose-sm max-w-none">
-          <MdxContent />
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-gray-100 mx-auto"></div>
+          <p className="text-sm text-gray-500">Loading...</p>
         </div>
-      </article>
-    </DraftPreviewGate>
+      </div>
+    }>
+      <DraftPreviewGate 
+        isDraft={item.draft || false}
+        previewToken={draftsConfig?.previewToken || ''}
+      >
+        <article>
+          <header className="mb-8 space-y-2">
+            <h1 className="text-2xl font-bold">{item.title}</h1>
+            {item.description && (
+              <p className="text-sm opacity-70">{item.description}</p>
+            )}
+            <div className="flex items-center gap-4 text-xs opacity-50">
+              <time dateTime={item.date}>
+                {new Date(item.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </time>
+              {item.tags && item.tags.length > 0 && (
+                <div className="flex gap-2">
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-0.5 rounded border"
+                      style={{ borderColor: 'var(--color-border)' }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </header>
+          <div className="prose prose-sm max-w-none">
+            <MdxContent />
+          </div>
+        </article>
+      </DraftPreviewGate>
+    </Suspense>
   );
 }

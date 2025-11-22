@@ -1,21 +1,56 @@
-# Documentation
+# Zen MDX Blog
 
-## Getting Started
+Minimal, plugin-based MDX blog built with Next.js 15.
 
-Start here: **[index.md](index.md)** - Overview and quick start guide
+## Documentation
 
-## Guides
+- **[Getting Started](getting-started.md)** - Installation and quick start
+- **[Setup](setup.md)** - Configuration and plugins
+- **[Content](content.md)** - Writing posts and MDX
+- **[Features](features.md)** - Advanced features
 
-- **[configuration.md](configuration.md)** - Quick configuration reference
-- **[plugins.md](plugins.md)** - Understand plugin system documentation
-- **[draft-access.md](draft-access.md)** - Draft post preview system
-- - **[analytics.md](analytics.md)** - Analytics setup for blog
+## Quick Start
 
-## Quick Setup
+```bash
+git clone <repository-url>
+cd zen-mdx-blog
+pnpm install
+pnpm dev
+```
 
-1. Install: `pnpm install`
-2. Configure plugins in `config/plugins.yaml`
-3. Create posts in `content/blog/`
-4. Run: `pnpm dev`
+Visit `http://localhost:3000`
 
-See [index.md](index.md) for full documentation.
+## Core Features
+
+- **16 plugins** - Enable/disable via YAML config
+- **MDX blog posts** - Write with React components
+- **Dynamic content types** - Add custom sections
+- **Command palette** - Quick search (⌘K)
+- **Draft preview** - Token-based access
+- **55+ themes** - VS Code-inspired colors
+- **Multiple feeds** - RSS/Atom/JSON
+- **Privacy-friendly analytics** - Plausible/Umami
+- **Code enhancements** - Line numbers, copy, highlighting
+- **Document viewers** - Embed PDF/PowerPoint
+- **Search** - Local fuzzy search
+- **Comments** - GitHub Discussions via Giscus
+
+## Structure
+
+```txt
+zen-mdx-blog/
+├── app/              # Next.js routes
+├── components/       # React components
+├── config/           # YAML configuration
+├── content/blog/     # MDX posts
+└── lib/              # Utilities
+```
+
+## Commands
+
+```bash
+pnpm dev               # Development server
+pnpm build             # Production build
+pnpm new:post          # Create post
+pnpm new:content-type  # Add content type
+```

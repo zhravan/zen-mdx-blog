@@ -4,6 +4,7 @@ import { Paragraph, Strong, Em, Blockquote } from '@/components/mdx/Text';
 import { UnorderedList, OrderedList, ListItem } from '@/components/mdx/List';
 import { InlineCode, Pre } from '@/components/mdx/Code';
 import { ExternalLink } from '@/components/mdx/ExternalLink';
+import { DocumentViewer, PDF, PPT } from '@/components/mdx/DocumentViewer';
 
 // Allow both sync and async server components
 type MDXComponent = React.ComponentType<any> | ((props: any) => Promise<React.JSX.Element>);
@@ -27,5 +28,9 @@ export function useMDXComponents(): MDXComponents {
     code: InlineCode,
     pre: Pre,
     a: ExternalLink,
+    // Document viewers
+    DocumentViewer,
+    PDF,
+    PPT,
   };
 }

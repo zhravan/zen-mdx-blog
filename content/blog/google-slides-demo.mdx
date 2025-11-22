@@ -1,0 +1,115 @@
+export const frontmatter = {
+  title: "Embedding Google Slides - Demo",
+  date: "2024-11-22",
+  description: "Demo of embedding Google Slides presentations in blog posts.",
+  tags: ["demo", "google-slides", "presentation"],
+  draft: false,
+  readingTime: 2
+};
+
+# Embedding Google Slides - Demo
+
+This post shows how to embed Google Slides presentations directly in your blog posts.
+
+## Embedded Google Slides
+
+<div className="aspect-video my-8">
+  <iframe 
+    src="https://docs.google.com/presentation/d/1GWmTT9fpDs87Hhh95qeOqzkbRxL9qQ56eOK7lCYfr2Q/embed?start=false&loop=false&delayms=3000" 
+    frameBorder="0" 
+    allowFullScreen 
+    className="w-full h-full rounded-lg border border-gray-200 dark:border-gray-800"
+  />
+</div>
+
+## How to Embed Your Google Slides
+
+### Step 1: Get the Presentation ID
+
+From your Google Slides URL:
+```
+https://docs.google.com/presentation/d/PRESENTATION_ID/edit
+```
+
+The ID is the long string between `/d/` and `/edit`.
+
+### Step 2: Create the Embed URL
+
+Replace `PRESENTATION_ID` with your actual ID:
+```
+https://docs.google.com/presentation/d/PRESENTATION_ID/embed?start=false&loop=false&delayms=3000
+```
+
+### Step 3: Embed in MDX
+
+```mdx
+<div className="aspect-video my-8">
+  <iframe 
+    src="https://docs.google.com/presentation/d/YOUR_ID/embed?start=false&loop=false&delayms=3000" 
+    frameBorder="0" 
+    allowFullScreen 
+    className="w-full h-full rounded-lg border border-gray-200 dark:border-gray-800"
+  />
+</div>
+```
+
+## URL Parameters
+
+You can customize the embed behavior:
+
+- `start=false` - Don't auto-start the slideshow
+- `loop=false` - Don't loop the presentation
+- `delayms=3000` - Delay between slides (in milliseconds)
+
+Example with auto-start:
+```
+/embed?start=true&loop=true&delayms=5000
+```
+
+## Publishing Settings
+
+**Important**: Your Google Slides must be either:
+
+1. **Public** - Anyone with the link can view
+2. **Published to web** - File → Share → Publish to web
+
+To make public:
+1. Click "Share" in top-right
+2. Change to "Anyone with the link"
+3. Set permission to "Viewer"
+
+## Alternative: Use Publish to Web
+
+For better embedding:
+
+1. Open your Google Slides
+2. **File** → **Share** → **Publish to web**
+3. Click **Embed** tab
+4. Copy the entire `<iframe>` code
+5. Paste it in your MDX (wrap in a div if needed)
+
+## Comparison: Google Slides vs PDF
+
+| Feature | Google Slides | PDF |
+|---------|--------------|-----|
+| Interactivity | Can click through slides | Static viewer |
+| File size | Streamed from Google | Need to host file |
+| Updates | Auto-updates when you edit | Need to re-upload |
+| Offline | Requires internet | Works offline |
+| Privacy | Hosted by Google | Self-hosted |
+
+## When to Use Each
+
+**Use Google Slides when:**
+- Presentation is frequently updated
+- You want interactive slide navigation
+- File is already on Google Drive
+
+**Use PDF when:**
+- You want complete control over hosting
+- Presentation is final/archived
+- You want offline access
+
+---
+
+**Tip**: For conference talks, consider providing both - Google Slides for viewing and a PDF for download!

@@ -60,6 +60,8 @@ Open <http://localhost:3000>
 | Keyboard Shortcuts | |
 | Series Navigation | Yes |
 | **Dynamic Content Types** | **Yes** |
+| **PDF/PPT Viewer** | **Yes** |
+| **Content Templates** | **Yes** |
 | Content Warnings | |
 | Diagrams (Mermaid) | |
 
@@ -85,6 +87,7 @@ docs/       Documentation
 - `pnpm export` — static export to `out/`
 - `pnpm preview` — serve the exported site from `out/`
 - `pnpm new:content-type` — create a new content type (interactive CLI)
+- `pnpm new:post` — create a new post from a template (interactive CLI)
 
 ## Giscus Comments
 

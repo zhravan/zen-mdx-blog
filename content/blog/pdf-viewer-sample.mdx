@@ -1,0 +1,81 @@
+export const frontmatter = {
+  title: "PDF Viewer Demo - Sample Document",
+  date: "2024-11-22",
+  description: "A quick demo of the PDF viewer component with a sample document.",
+  tags: ["demo", "pdf", "features"],
+  draft: false,
+  readingTime: 2
+};
+
+# PDF Viewer Demo - Sample Document
+
+This post demonstrates the PDF viewer component with an embedded sample document.
+
+## Embedded PDF Viewer
+
+Below is a sample PDF rendered directly in the page with our custom viewer component:
+
+<PDF src="/docs/sample-pdf.pdf" title="Sample PDF Document" height="600px" />
+
+## Features Demonstrated
+
+The PDF viewer includes several useful features:
+
+- **Fullscreen Mode** - Click the fullscreen icon in the top-right toolbar to expand
+- **Download Option** - Download the PDF using the download button
+- **Open in New Tab** - View the PDF in a separate browser tab
+- **Responsive Design** - Works on desktop and mobile devices
+- **Dark Mode Compatible** - Automatically adapts to your theme
+
+## Usage
+
+To embed a PDF in your own posts, simply use:
+
+```mdx
+<PDF src="/docs/your-file.pdf" title="Your Document" />
+```
+
+### With Custom Height
+
+```mdx
+<PDF src="/docs/your-file.pdf" title="Your Document" height="700px" />
+```
+
+### Advanced Options
+
+For more control, use the `DocumentViewer` component:
+
+```mdx
+<DocumentViewer 
+  src="/docs/your-file.pdf"
+  title="Technical Documentation"
+  type="pdf"
+  height="800px"
+  allowDownload={true}
+  allowFullscreen={true}
+/>
+```
+
+## Where to Store PDFs
+
+Place your PDF files in the `/public` directory:
+
+- `/public/slides/` - For presentation slides
+- `/public/docs/` - For documentation and technical papers
+- `/public/` - Or any subdirectory structure you prefer
+
+Files in `/public` are accessible at the root URL (e.g., `/docs/sample-pdf.pdf`).
+
+## Try It Out
+
+Use the toolbar buttons above the embedded PDF to:
+
+1. **Download** the sample PDF
+2. **Open in new tab** to view in full browser
+3. **Enter fullscreen** for distraction-free reading
+
+The viewer works with any PDF file you add to your `/public` directory!
+
+---
+
+**Related**: Check out the [full documentation](/docs/templates-and-viewers.md) for more examples including PowerPoint presentations.

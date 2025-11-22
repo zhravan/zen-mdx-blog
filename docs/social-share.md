@@ -124,7 +124,7 @@ When enabled, readers will see share buttons below the tags:
 
 ```text
 [Date]
-[📚 3 min read • 600 words]
+[3 min read • 600 words]
 [tags] [here]
 [Share ↗] Copy | WhatsApp | X | Mastodon | LinkedIn
 ```

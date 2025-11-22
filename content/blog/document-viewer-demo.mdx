@@ -1,0 +1,257 @@
+export const frontmatter = {
+  title: "Document Embedding Demo: PDF and PPT Viewer",
+  date: "2024-11-22",
+  description: "Demonstration of the new PDF and PowerPoint viewer components for embedding documents directly in blog posts.",
+  tags: ["demo", "features"],
+  draft: false,
+  readingTime: 5
+};
+
+# Document Embedding Demo: PDF and PPT Viewer
+
+You can now embed PDF documents and PowerPoint presentations directly in your blog posts! This is perfect for:
+
+- **Conference talks** - Share your slides alongside your talk notes
+- **Technical documentation** - Embed whitepapers and specs
+- **Tutorials** - Include reference materials
+- **Research** - Share academic papers and data
+
+## PDF Example
+
+Here's how a PDF looks embedded in a post:
+
+<PDF 
+  src="/docs/sample-pdf.pdf" 
+  title="Sample PDF Document"
+  height="500px"
+/>
+
+### Usage
+
+```mdx
+<PDF 
+  src="/slides/my-presentation.pdf" 
+  title="My Presentation"
+  height="500px"
+/>
+```
+
+## PowerPoint Example
+
+PowerPoint presentations are embedded via Microsoft Office Online Viewer:
+
+<PPT 
+  src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/skalavala/smarthome/master/documents/BRUH%20Automation%20-%20Getting%20Started.pptx"
+  title="Sample PowerPoint Presentation"
+  height="500px"
+/>
+
+### Usage
+
+```mdx
+<PPT 
+  src="https://example.com/presentation.pptx" 
+  title="Conference Talk 2024"
+/>
+```
+
+## Features
+
+### 1. Fullscreen Mode
+
+Click the fullscreen icon in the viewer toolbar to expand documents to full screen.
+
+### 2. Download Option
+
+Readers can download documents with the download button in the toolbar.
+
+### 3. Open in New Tab
+
+The external link icon opens the document in a new browser tab.
+
+### 4. Responsive Design
+
+The viewer adapts to different screen sizes and works on mobile devices.
+
+### 5. Dark Mode Compatible
+
+The viewer UI respects your site's theme (try toggling dark mode!).
+
+## Best Practices
+
+### File Size
+
+- Keep PDFs under 10MB for fast loading
+- Optimize PDFs before uploading (remove unused resources)
+- Consider offering both embedded and download options for large files
+
+### Hosting
+
+- **Local hosting**: Place files in `/public/slides/` or `/public/docs/`
+- **External hosting**: Ensure PowerPoint files are publicly accessible
+- **CDN**: Consider using a CDN for frequently accessed documents
+
+### Accessibility
+
+```mdx
+<PDF 
+  src="/slides/presentation.pdf" 
+  title="Descriptive title for screen readers"
+/>
+```
+
+Always include a descriptive `title` prop for accessibility.
+
+### Mobile Experience
+
+While viewers work on mobile, consider adding download links:
+
+```mdx
+<PDF src="/slides/deck.pdf" title="My Talk" />
+
+*[Download PDF](/slides/deck.pdf) (2.5 MB) - better for mobile*
+```
+
+## Advanced Options
+
+### Custom Height
+
+```mdx
+<DocumentViewer 
+  src="/docs/whitepaper.pdf"
+  height="700px"
+/>
+```
+
+### Disable Features
+
+```mdx
+<DocumentViewer 
+  src="/presentation.pdf"
+  allowDownload={false}
+  allowFullscreen={false}
+/>
+```
+
+### Auto-detect Type
+
+The component automatically detects file type from extension:
+
+```mdx
+<DocumentViewer src="/file.pdf" type="auto" />
+```
+
+## Use Cases
+
+### Conference Talks
+
+Perfect for sharing talk slides with blog posts:
+
+```mdx
+# My React Conf Talk
+
+Here are the slides from my talk:
+
+<PDF src="/slides/react-conf-2024.pdf" title="React Performance Tips" />
+
+## Talk Summary
+...
+```
+
+### Technical Documentation
+
+Embed specification documents:
+
+```mdx
+# API Documentation
+
+Full API specification:
+
+<PDF src="/docs/api-spec.pdf" title="REST API Specification v2.0" />
+```
+
+### Research Papers
+
+Share academic papers:
+
+```mdx
+# Paper Review: Modern Web Performance
+
+<PDF src="/papers/web-performance-2024.pdf" title="Research Paper" height="800px" />
+
+## Key Findings
+...
+```
+
+## Styling
+
+The viewer inherits your site's design system:
+
+- Border colors match your theme
+- Icons use your color scheme  
+- Buttons follow your hover states
+- Responsive breakpoints align with your layout
+
+## Getting Started
+
+1. **Add your documents** to `/public/slides/` or `/public/docs/`
+2. **Use the component** in any MDX file
+3. **Customize** with props as needed
+
+```mdx
+<PDF src="/slides/my-presentation.pdf" title="My Talk" />
+```
+
+That's it! No configuration needed - the component is ready to use.
+
+## Tips & Tricks
+
+### Combine with Other Features
+
+The viewer works great with other blog features:
+
+```mdx
+# My Conference Talk
+
+<PDF src="/slides/talk.pdf" title="Slides" />
+
+## Key Takeaways
+
+<Callout type="info">
+Remember to check out the video recording!
+</Callout>
+```
+
+### Series of Documents
+
+Embed multiple documents in a single post:
+
+```mdx
+## Part 1: Introduction
+<PDF src="/docs/part-1.pdf" height="400px" />
+
+## Part 2: Advanced Topics
+<PDF src="/docs/part-2.pdf" height="400px" />
+```
+
+### Inline References
+
+Reference specific pages or sections:
+
+```mdx
+See page 15 in the documentation below for details:
+
+<PDF src="/docs/manual.pdf" title="User Manual" />
+```
+
+## Conclusion
+
+The PDF/PPT viewer brings your documents to life right in your blog posts. No more boring "download to view" links - readers can explore your content without leaving the page!
+
+Try it in your next post and let me know what you think in the comments below.
+
+---
+
+**Related Features**:
+- [Code enhancements](/blog/code-enhancements-demo)
+- [All features showcase](/blog/all-features-showcase)

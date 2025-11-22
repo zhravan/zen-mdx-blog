@@ -33,7 +33,7 @@ The tool will prompt you for:
 ```bash
 $ pnpm new:content-type
 
-✨ Create a new content type
+Create a new content type
 
 Content type label (e.g., "Tech Talks"): Tech Talks
 URL path (default: /tech-talks): /talks

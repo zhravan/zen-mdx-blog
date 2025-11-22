@@ -71,7 +71,7 @@ const CONTENT_TYPES = {
 };
 
 async function main() {
-  console.log('\n📝 Create New Content from Template\n');
+  console.log('\nCreate New Content from Template\n');
 
   // 1. Choose content type
   console.log('Available content types:');
@@ -176,7 +176,7 @@ ${description ? description + '\n\n' : ''}Start writing your content here...
   }
 
   fs.writeFileSync(outputPath, content);
-  console.log(`\n✅ Created: ${outputPath}`);
+  console.log(`\nCreated: ${outputPath}`);
   
   console.log('\nNext steps:');
   console.log(`  1. Edit the file: ${outputPath}`);

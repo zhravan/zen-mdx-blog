@@ -59,13 +59,68 @@ Open <http://localhost:3000>
 | Social Share Buttons | Yes |
 | Keyboard Shortcuts | |
 | Series Navigation | Yes |
-| **Dynamic Content Types** | **Yes** |
-| **PDF/PPT Viewer** | **Yes** |
-| **Content Templates** | **Yes** |
+| Dynamic Content Types | Yes |
+| PDF/PPT Viewer | Yes |
+| Content Templates | Yes |
 | Content Warnings | |
 | Diagrams (Mermaid) | |
 
-See [docs/index.md](docs/index.md) for plugin documentation.
+See [docs/README.md](docs/README.md) for complete documentation.
+
+<details>
+  <summary><strong>Using as a Template</strong></summary>
+
+When using this as your blog template, update/delete the following:
+
+### Items to Update
+
+**Site Configuration:**
+
+- `config/seo.yaml` — Your site name, description, URL, social handles
+- `config/plugins.yaml` — Analytics domain, Giscus repo (if using comments)
+- `config/projects.yaml` — Your projects (or delete if not needed)
+- `.env.local` — Add `NEXT_PUBLIC_SITE_URL` and `DRAFT_ACCESS_TOKEN`
+
+**Personal Content:**
+
+- `app/about/page.tsx` — Your bio and information
+- `app/page.tsx` — Homepage introduction text
+- `app/favicon.ico` — Your favicon
+- `public/` — Replace any images/assets with yours
+
+**Branding:**
+
+- `README.md` — Update project name and description
+- `package.json` — Update name, description, author
+
+### Items to Delete
+
+**Example Content:**
+
+- `content/blog/*.mdx` — Delete all example blog posts
+- `content/talks/*.mdx` — Delete example talks (or the entire folder if not needed)
+- `config/projects.yaml` — Clear example projects
+
+**Optional Cleanup:**
+
+- Remove any unused content types from `config/content-types.yaml`
+- Remove unused plugins from `config/plugins.yaml`
+- Delete `docs/` folder if you don't need documentation
+
+### Quick Setup Checklist
+
+1. Clone/fork the repository
+2. Run `pnpm install`
+3. Update `config/seo.yaml` with your info
+4. Create `.env.local` with your site URL
+5. Delete example posts in `content/blog/`
+6. Update `app/about/page.tsx`
+7. Replace `app/favicon.ico`
+8. Create your first post: `pnpm new:post`
+9. Test locally: `pnpm dev`
+10. Deploy!
+
+</details>
 
 ## Project structure
 

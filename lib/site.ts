@@ -1,8 +1,11 @@
 import type { ThemeName } from "./themes";
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
-export const SITE_TITLE = "Your Name";
-export const SITE_DESCRIPTION = "Engineer, writer, and creator.";
+// TODO: Update SITE_URL with your actual domain (e.g., "https://johndoe.dev")
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://your-domain.com";
+// TODO: Update SITE_TITLE with your name (e.g., "John Doe")
+export const SITE_TITLE = "[Your Name]";
+// TODO: Update SITE_DESCRIPTION with your tagline (e.g., "Full-stack developer and open source enthusiast")
+export const SITE_DESCRIPTION = "[Your tagline or short bio]";
 
 /**
  * Theme Configuration

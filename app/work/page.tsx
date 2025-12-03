@@ -4,7 +4,8 @@ import { PageHeader } from '@/components/PageHeader';
 
 const pageMetadata = {
   title: 'Work',
-  description: 'A selection of projects I have built and contributed to.'
+  // TODO: Update this description to reflect your work
+  description: '[Brief description of your work/projects for SEO]'
 };
 
 export const metadata = pageMetadata;
@@ -67,8 +68,9 @@ export default function Work() {
 
       <section>
         <p className="" style={{ color: 'var(--color-muted-foreground)' }}>
+          {/* TODO: Update with your actual GitHub profile URL */}
           You can find more of my work on{' '}
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
           .

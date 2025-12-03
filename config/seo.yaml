@@ -1,27 +1,31 @@
 # Site-wide SEO configuration
 # Update these values to change global metadata without touching code.
 
-siteUrl: "https://example.com"
+# TODO: Replace with your actual domain (e.g., "https://johndoe.dev")
+siteUrl: "https://your-domain.com"
 
 # Default <title> and template for pages
 # If titleTemplate is omitted, it falls back to "%s | <title>"
 
-title: "Your Name"
+# TODO: Replace with your name (e.g., "John Doe")
+title: "[Your Name]"
 
-titleTemplate: "%s | Your Name"
+# TODO: Replace with your name in the template (e.g., "%s | John Doe")
+titleTemplate: "%s | [Your Name]"
 
 # Default description used across the site
 
-description: "Engineer, writer, and creator."
+# TODO: Replace with your tagline (e.g., "Full-stack developer and open source enthusiast")
+description: "[Your tagline or short bio]"
 
 openGraph:
   type: "website"
-  # Optional: path to a default OG image. Provide an absolute URL or a path under public/
+  # TODO: Add your OG image path (e.g., "/images/og/default.png")
   # image: "/og.png"
   locale: "en_US"
 
 twitter:
   card: "summary_large_image"
-  # Optional: your @handle
+  # TODO: Add your Twitter handle (e.g., "@johndoe")
   # site: "@yourhandle"
   # creator: "@yourhandle"

@@ -2,7 +2,8 @@ import { PageHeader } from '@/components/PageHeader';
 
 const pageMetadata = {
   title: 'About',
-  description: 'Learn more about me and what I do.'
+  // TODO: Update this description to reflect your about page
+  description: '[Brief description about you for SEO]'
 };
 
 export const metadata = pageMetadata;
@@ -17,61 +18,64 @@ export default function About() {
         style={{ animationDelay: '100ms' }}
       >
         <h2 className="text-sm">Background</h2>
+        {/* TODO: Replace with your background story */}
         <p className="" style={{ color: 'var(--color-muted-foreground)' }}>
-          I am a developer focused on creating tools and experiences that make
-          technology more accessible. My background spans full-stack
-          development, developer relations, and technical writing.
+          [Write about your background. Where did you start? What's your
+          journey been like? What experiences shaped who you are today?]
         </p>
 
         <h2 className="text-sm">What I Do</h2>
+        {/* TODO: Replace with what you currently do */}
         <p className="" style={{ color: 'var(--color-muted-foreground)' }}>
-          Currently, I spend my time building developer tools, writing about
-          software development, and helping companies improve their developer
-          experience. I believe that great documentation and intuitive APIs are
-          just as important as the code itself.
+          [Describe what you currently do. What's your role? What kind of
+          projects do you work on? What's your professional focus?]
         </p>
 
         <h3 className="text-sm">Focus Areas</h3>
+        {/* TODO: Replace with your actual focus areas/skills */}
         <ul className="space-y-1" style={{ color: 'var(--color-muted-foreground)' }}>
-          <li>Developer experience and tooling</li>
-          <li>Technical writing and documentation</li>
-          <li>Web performance and accessibility</li>
-          <li>Open source contribution</li>
+          <li>[Focus area 1 - e.g., Frontend Development]</li>
+          <li>[Focus area 2 - e.g., System Design]</li>
+          <li>[Focus area 3 - e.g., Cloud Architecture]</li>
+          <li>[Focus area 4 - e.g., Open Source]</li>
         </ul>
 
         <h2 className="text-sm">Beyond Code</h2>
+        {/* TODO: Replace with your hobbies and interests */}
         <p className="" style={{ color: 'var(--color-muted-foreground)' }}>
-          When I am not at my keyboard, you will find me exploring new music,
-          reading about design and human-computer interaction, or spending time
-          outdoors. I am a firm believer that diverse interests make for better
-          developers.
+          [Share your interests outside of work. What do you enjoy doing in
+          your free time? What are your hobbies? This helps visitors connect
+          with you on a personal level.]
         </p>
 
         <h2 className="text-sm">Get in Touch</h2>
+        {/* TODO: Customize your contact message */}
         <p className="" style={{ color: 'var(--color-muted-foreground)' }}>
-          I am always interested in connecting with other developers, designers,
-          and creators. Whether you want to discuss a project, collaborate on
-          something new, or just chat about technology, feel free to reach out.
+          [Write a brief message encouraging visitors to connect with you.
+          What kind of conversations are you open to?]
         </p>
 
         <div className="flex flex-wrap gap-4 mt-4">
+          {/* TODO: Replace with your actual GitHub URL */}
           <a
-            href="https://github.com"
+            href="https://github.com/your-username"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors duration-150"
           >
             GitHub
           </a>
+          {/* TODO: Replace with your actual Twitter/X URL */}
           <a
-            href="https://twitter.com"
+            href="https://twitter.com/your-handle"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors duration-150"
           >
             Twitter
           </a>
-          <a href="mailto:hello@example.com" className="transition-colors duration-150">
+          {/* TODO: Replace with your actual email address */}
+          <a href="mailto:your-email@example.com" className="transition-colors duration-150">
             Email
           </a>
           <span style={{ color: 'var(--color-muted-foreground)' }}>·</span>
